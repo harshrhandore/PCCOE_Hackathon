@@ -1,0 +1,14 @@
+{
+  "version":"1.0.0",
+  "analyst_choices":true,
+  "minimum_components":3,
+  "minimum_weight_coverage":0.5,
+  "components":[
+    {"id":"population_density","weight":0.2,"group":"exposure","unit":"persons/km²"},
+    {"id":"slum_share","weight":0.2,"group":"sensitivity","unit":"fraction"},
+    {"id":"children_share","weight":0.15,"group":"sensitivity","unit":"fraction"},
+    {"id":"outdoor_work_proxy","weight":0.15,"group":"exposure","unit":"fraction"},
+    {"id":"cooling_distance","weight":0.15,"group":"adaptive_capacity","unit":"m"},
+    {"id":"low_green_cover","weight":0.15,"group":"exposure","unit":"fraction"}
+  ]
+}

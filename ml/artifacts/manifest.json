@@ -1,0 +1,1 @@
+{"status":"not_trained","primary":"deterministic_nwp_physics_rules","reason":"Genuine issued-forecast archives, chronological splits, calibration and held-out baseline comparison have not been prepared.","selection_rule":{"lower_multiclass_brier_required":true,"level_ge_3_recall_tolerance_absolute":0.02},"metrics":null,"clinical_validation":null}

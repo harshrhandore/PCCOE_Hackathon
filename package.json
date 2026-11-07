@@ -1,0 +1,27 @@
+{
+  "name": "heatguard-ai",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "typecheck": "npm run typecheck --workspace apps/web",
+    "test": "npm run test --workspace apps/web",
+    "test:e2e": "npm run test:e2e --workspace apps/web",
+    "data:prepare": "uv run python -m pipeline.prepare_wards",
+    "data:refresh": "uv run python -m pipeline.publish --fetch",
+    "data:validate": "uv run python scripts/validate-data.py",
+    "api": "uv run uvicorn services.api.app.main:app --host 127.0.0.1 --port 8000"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "node": "22.22.0",
+    "openapi-typescript": "7.13.0",
+    "prettier": "3.6.2"
+  }
+}

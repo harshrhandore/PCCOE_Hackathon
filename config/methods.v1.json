@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "schema_version": "1.0.0",
+  "timezone": "Asia/Kolkata",
+  "utci": {"upper_endpoints_c": [26,32,38,46], "names": ["Low","Watch","Elevated","Severe","Extreme"], "extreme_comparator": ">46", "invalid": null},
+  "night": {"percentile": 0.9, "window_days": 5, "min_base": 1, "consecutive": 2, "hours": [20,21,22,23,0,1,2,3,4,5], "baseline": [1991,2020], "min_coverage": 0.9, "quantile_method": "linear"},
+  "persistence": {"days": 3, "minimum_base": 2},
+  "formulas": {"hazard": "min(4, base + night_bonus + persistence_bonus)", "risk": "min(4, hazard + (top_quintile and hazard>=2))", "priority": "100*(hazard/4)*(0.5+0.5*V)", "vulnerability": "sum(weight*percentile)/sum(included weights)"},
+  "radiation": {"method_id": "brutsaert-cloud-surface-proxy.v1", "enabled": false, "albedo": 0.2, "surface_temperature": "air_temperature_proxy", "quality": "approximate", "publication_gate": "independent estimator validation pending"},
+  "worker_screening": {"unacclimatized": {"light":28,"moderate":25,"heavy":23}, "acclimatized":{"light":30,"moderate":28,"heavy":26}, "comparator": ">=", "source": "osha-table-2", "schedule": "assessment_required"},
+  "imd": {"plains_gate_c":40,"absolute_heat_c":45,"absolute_severe_c":47,"departure_heat_c":4.5,"departure_severe_gt_c":6.4,"disclaimer":"Indicative — not an official IMD declaration."}
+}

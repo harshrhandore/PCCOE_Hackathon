@@ -1,0 +1,107 @@
+@import "tailwindcss";
+:root {
+  color-scheme: light;
+  --paper-0: #F3F1EA;
+  --paper-1: #FBFAF6;
+  --paper-2: #E9E6DB;
+  --rule: #D3CFC1;
+  --rule-strong: #A9A593;
+  --ink-0: #16201E;
+  --ink-1: #3C4642;
+  --ink-2: #5E6762;
+  --ink-3: #8B918A;
+  --verdigris-100: #D4E6E1;
+  --verdigris-600: #1E6B62;
+  --verdigris-700: #165249;
+  --risk-0: #CFE0CC;
+  --risk-1: #EBC65B;
+  --risk-2: #E08A2E;
+  --risk-3: #BF3A24;
+  --risk-4: #5E1646;
+  --risk-text-0: var(--ink-0);
+  --risk-text-1: var(--ink-0);
+  --risk-text-2: var(--ink-0);
+  --risk-text-3: #FFFFFF;
+  --risk-text-4: #FFFFFF;
+  --vulnerability-0: #E9EBEE;
+  --vulnerability-1: #C5CCD6;
+  --vulnerability-2: #94A3B6;
+  --vulnerability-3: #5E7390;
+  --vulnerability-4: #2E4262;
+  --map-water: #CFDCDA;
+  --map-land: #EDEBE2;
+  --control-border: var(--ink-2);
+  --link: var(--verdigris-600);
+  --selected-bg: var(--verdigris-100);
+  --error-text: var(--ink-0);
+  --disabled-text: var(--ink-3);
+  --font-headline: "Newsreader", "Noto Serif Devanagari", serif;
+  --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Noto Sans Devanagari", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --text-xs: 12px; --leading-xs: 16px;
+  --text-sm: 14px; --leading-sm: 20px;
+  --text-base: 16px; --leading-base: 24px;
+  --text-lg: 18px; --leading-lg: 26px;
+  --text-h4: 22px; --leading-h4: 28px;
+  --text-h3: 32px; --leading-h3: 36px;
+  --text-h2: 48px; --leading-h2: 50px;
+  --text-risk: 88px; --leading-risk: 84px;
+  --label-tracking: .06em;
+  --weight-regular: 400;
+  --weight-strong: 600;
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-surface: 2px;
+  --radius-control: 2px;
+  --radius-button: 3px;
+  --border-thin: 1px;
+  --border-focus: 2px;
+  --focus-offset: 2px;
+  --focus-colour: var(--verdigris-600);
+  --focus-offset-colour: var(--paper-0);
+  --shadow-overlay: 0 8px 24px rgba(22,32,30,.12);
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-map: 600ms;
+  --ease-out: cubic-bezier(.2,.8,.2,1);
+  --target-min: 44px;
+  --row-comfortable: 56px;
+  --row-compact: 44px;
+  --header-height: 72px;
+  --bulletin-min-height: 40px;
+  --list-width: 320px;
+  --detail-width: 400px;
+  --frame-max: 1840px;
+  --layer-base: 0;
+  --layer-sticky: 10;
+  --layer-sheet: 20;
+  --layer-popover: 30;
+  --layer-modal: 40;
+  --layer-toast: 50;
+  --map-fill-opacity: .8;
+  --map-other-opacity: .55;
+  --map-stroke: 1px;
+  --map-stroke-hover: 1.5px;
+  --map-stroke-selected: 2.5px;
+}
+[lang="hi"], [lang="mr"] {
+  --font-headline: "Noto Serif Devanagari", serif;
+  --font-body: "Noto Sans Devanagari", sans-serif;
+}
+:focus-visible {
+  outline: var(--border-focus) solid var(--focus-colour);
+  outline-offset: var(--focus-offset);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0ms; --duration-normal: 0ms; --duration-map: 0ms; }
+}
+@theme inline { --color-paper: var(--paper-0); --color-ink: var(--ink-0); --color-accent: var(--verdigris-600); --font-sans: var(--font-body); }

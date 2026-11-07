@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "actions": [
+    {
+      "id": "citizen_water",
+      "version": "1.0.0",
+      "levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "citizen",
+      "context": {},
+      "text_en": "Keep drinking water available. Follow any fluid advice given by your clinician.",
+      "text_hi": "पीने का पानी उपलब्ध रखें। अपने चिकित्सक की तरल संबंधी सलाह मानें।",
+      "text_mr": "पिण्याचे पाणी उपलब्ध ठेवा. डॉक्टरांनी दिलेला द्रवपदार्थांविषयीचा सल्ला पाळा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": true
+    },
+    {
+      "id": "citizen_exposure",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "citizen",
+      "context": {},
+      "text_en": "Reduce exposure to direct sunlight during hotter hours.",
+      "text_hi": "{window} के दौरान सीधे सूर्य के संपर्क को कम करें।",
+      "text_mr": "{window} दरम्यान थेट उन्हातील संपर्क कमी करा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": true
+    },
+    {
+      "id": "worker_shift",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "outdoor_worker",
+      "context": {},
+      "text_en": "Plan strenuous tasks for cooler hours and arrange shaded breaks.",
+      "text_hi": "कठिन काम ठंडे समय में रखें और छाया में विश्राम की व्यवस्था करें।",
+      "text_mr": "श्रमाची कामे थंड वेळेत ठेवा आणि सावलीत विश्रांतीची व्यवस्था करा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": true
+    },
+    {
+      "id": "authority_water",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "authority",
+      "context": {},
+      "text_en": "Check access to cool drinking water near workplaces.",
+      "text_hi": "{start} से पहले {wards} में पीने के पानी की उपलब्धता जाँचें।",
+      "text_mr": "{start} पूर्वी {wards} येथे पिण्याच्या पाण्याची उपलब्धता तपासा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": true,
+      "active": true
+    },
+    {
+      "id": "authority_refuge",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "authority",
+      "context": {},
+      "text_en": "Confirm staffed cooling spaces in {wards} for {window}.",
+      "text_hi": "{window} के लिए {wards} में कर्मचारियों सहित ठंडक वाले स्थानों की पुष्टि करें।",
+      "text_mr": "{window} साठी {wards} येथे कर्मचारी असलेल्या गारव्याच्या जागांची खात्री करा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": true,
+      "active": false
+    },
+    {
+      "id": "authority_health",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "authority",
+      "context": {},
+      "text_en": "Review heat-response readiness with local health services.",
+      "text_hi": "स्थानीय स्वास्थ्य सेवाओं के साथ गर्मी से निपटने की तैयारी की समीक्षा करें।",
+      "text_mr": "स्थानिक आरोग्य सेवांसोबत उष्णता प्रतिसादाच्या तयारीचा आढावा घ्या.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": false
+    },
+    {
+      "id": "school_timing",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "school_anganwadi",
+      "context": {},
+      "text_en": "Review outdoor activity timings and drinking-water access.",
+      "text_hi": "बाहरी गतिविधियों के समय और पीने के पानी की उपलब्धता की समीक्षा करें।",
+      "text_mr": "मैदानी उपक्रमांच्या वेळा आणि पिण्याच्या पाण्याची उपलब्धता तपासा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": false
+    },
+    {
+      "id": "care_outreach",
+      "version": "1.0.0",
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "audience": "care_home",
+      "context": {},
+      "text_en": "Check residents' cooling access and follow the care plan.",
+      "text_hi": "निवासियों की ठंडक तक पहुँच जाँचें और देखभाल योजना का पालन करें।",
+      "text_mr": "रहिवाशांना गारवा मिळतो का ते तपासा आणि काळजी योजनेचे पालन करा.",
+      "translation_status": "needs_native_review",
+      "source_id": "imd",
+      "source_section": "FAQ Heat Wave, PDF pp.8,13?14; measures to minimize heat-wave impact",
+      "requires_confirmation": false,
+      "active": false
+    }
+  ]
+}

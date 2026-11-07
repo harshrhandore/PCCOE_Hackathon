@@ -1,0 +1,15 @@
+# Radiation method and publication gate
+
+Method `brutsaert-cloud-surface-proxy.v1`. Sources retrieved 2026-11-07:
+
+- [Ghausi, Ghosh and Kleidon, Earth System Dynamics 14 (2023), equations 1–5](https://esd.copernicus.org/articles/14/1363/2023/), CC BY 4.0. Clear-sky emissivity `εclear = 1.24 (e_hPa / T_K)^(1/7)`. Downwelling longwave `Ldown = ε σ T_K^4`, with `σ=5.670374419e-8 W m⁻² K⁻⁴`. Clip emissivity to [0,1] as an explicit physical safeguard.
+- Cloud mixing `ε=f+(1-f)εclear` is equation 4. HeatGuard uses the upstream model's cloud fraction in place of the paper's solar-derived fraction; this is an **analyst adaptation**, not a faithful independent implementation of the entire paper's retrieval. At night it retains longwave exchange.
+- [Open-Meteo forecast documentation](https://open-meteo.com/en/docs) identifies instantaneous GHI, direct horizontal, diffuse horizontal and DNI; its reference tilted-surface calculation uses albedo .20. HeatGuard adopts .20 as a **reference-surface proxy**, not a Pune land-cover measurement.
+- [thermofeel 2.3.0 implementation](https://github.com/ecmwf/thermofeel/blob/2.3.0/thermofeel/thermofeel.py), Apache-2.0: `ssrd=GHI`, `ssr=(1-.20)GHI`, `dsrp=DNI`, `fdir=direct_horizontal`, `strd=Ldown`, `strr=Ldown-Lup`; all W/m², net positive down. `Lup=σ*Tair_K^4` assumes a blackbody reference surface at air temperature. It does **not** set MRT equal to air temperature.
+- [NREL solar position implementation in pvlib](https://github.com/pvlib/pvlib-python/blob/main/pvlib/solarposition.py) is used with instantaneous radiation at the same UTC instant. UTC-hour samples stay at xx:30 IST.
+
+Applicability: unobstructed open-reference surface, air temperature above freezing, no canopy/street-canyon geometry, no hot industrial source. Cloud/base/aerosol effects and urban surface temperature differences introduce unquantified uncertainty. No local radiometer validation or empirical uncertainty interval has been performed. This method must never be described as measured MRT or worksite WBGT. Every derived record carries `radiation_method=estimated`, `is_proxy=true`, `indices_quality=approximate`, and surface/longwave flags.
+
+Independent numerical checks use Decimal evaluation of the published emissivity equation, a blackbody limit, solar zenith against NREL's reference case, published ECMWF MRT/UTCI test files and an independent pythermalcomfort UTCI grid. See actual results in `reports/tests/`. Until those checks are executed and pass, `config/methods.v1.json` keeps this method disabled. Activating the estimator does not complete scientific validation or P0 acceptance. The full urban radiation estimator validation remains a limitation even when arithmetic checks pass.
+
+WBGT uses thermofeel's Liljegren natural-wet-bulb/globe energy-balance solver, surface pressure in hPa and beam fraction, with its documented .62 m/s wind floor. It does not use thermofeel's older psychrometric-WBGT approximation. The solver's own radiative assumptions also make outdoor WBGT approximate; it is not a worksite instrument.

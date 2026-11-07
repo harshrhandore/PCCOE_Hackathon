@@ -1,0 +1,15 @@
+[project]
+name = "heatguard-ai"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi", "pydantic>=2,<3", "uvicorn", "numpy", "pandas", "geopandas", "shapely", "pyproj", "rasterio", "httpx", "thermofeel==2.3.0", "pythermalcomfort==4.8.1", "pvlib", "cryptography", "pyjwt[crypto]", "psycopg[binary]", "lxml", "pyyaml", "pytest", "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["pipeline/tests", "services/api/tests"]
+addopts = "-ra"
+
+[tool.uv]
+package = false

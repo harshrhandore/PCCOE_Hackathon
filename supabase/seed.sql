@@ -1,0 +1,2 @@
+-- No fake users or fixed ward-count seed. Use scripts/seed-db.py with validated data.
+-- Provision authority_members only after real Supabase Auth accounts exist.

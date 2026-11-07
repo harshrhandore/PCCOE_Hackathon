@@ -1,0 +1,12 @@
+[
+  {"id":"open-meteo","title":"Open-Meteo","url":"https://open-meteo.com/en/docs","licence":"CC-BY-4.0","access":"Free noncommercial API terms; production eligibility needs review"},
+  {"id":"datameet","title":"DataMeet Pune electoral wards","url":"https://github.com/datameet/Municipal_Spatial_Data/tree/master/Pune","licence":"CC-BY-SA-2.5-IN; 2022 upstream additionally MIT","vintage":"2022"},
+  {"id":"thermofeel","title":"ECMWF thermofeel 2.3.0","url":"https://github.com/ecmwf/thermofeel/tree/2.3.0","licence":"Apache-2.0"},
+  {"id":"nws","title":"NWS Heat Index regression","url":"https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml"},
+  {"id":"imd","title":"IMD Heat Wave FAQ","url":"https://mausam.imd.gov.in/pdfs/heatcolduser/FAQ_heat_wave.pdf"},
+  {"id":"osha-table-2","title":"OSHA Heat Hazard Recognition, Table 2","url":"https://www.osha.gov/heat-exposure/hazards"},
+  {"id":"ccohs","title":"CCOHS hot environments: control measures","url":"https://www.ccohs.ca/oshanswers/phys_agents/heat/heat_control.html"},
+  {"id":"etccdi","title":"ETCCDI climate indices: TN90p precedent","url":"https://etccdi.pacificclimate.org/list_27_indices.shtml"},
+  {"id":"radiation-paper","title":"Ghausi et al. 2023, equations 1–5","url":"https://esd.copernicus.org/articles/14/1363/2023/"},
+  {"id":"cap","title":"OASIS CAP 1.2","url":"https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html"}
+]

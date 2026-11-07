@@ -1,0 +1,420 @@
+[
+  {
+    "id": "forecast",
+    "url": "https://open-meteo.com/en/docs",
+    "resolved_url": "https://open-meteo.com/en/docs",
+    "retrieved_at": "2026-11-07T14:43:08.186447+00:00",
+    "status": "retrieved",
+    "bytes": 621585,
+    "sha256": "6ed5894ac4291dbc511c94cdfe4d9af6f7e5e4e2349f0769c143ebabacf99a9f",
+    "file": "docs\\evidence\\forecast.txt"
+  },
+  {
+    "id": "terms",
+    "url": "https://open-meteo.com/en/terms",
+    "resolved_url": "https://open-meteo.com/en/terms",
+    "retrieved_at": "2026-11-07T14:43:07.604252+00:00",
+    "status": "retrieved",
+    "bytes": 39040,
+    "sha256": "8a57b8cb596e94d40ab97cbece31a04515f83eee7f727bbab53e46034971b0a2",
+    "file": "docs\\evidence\\terms.txt"
+  },
+  {
+    "id": "archive",
+    "url": "https://open-meteo.com/en/docs/historical-weather-api",
+    "resolved_url": "https://open-meteo.com/en/docs/historical-weather-api",
+    "retrieved_at": "2026-11-07T14:43:08.052545+00:00",
+    "status": "retrieved",
+    "bytes": 393152,
+    "sha256": "39eae90b6736115d7395f9f92b3f73564eca9eb4bf3c2b8a0c5e90d3e24ce830",
+    "file": "docs\\evidence\\archive.txt"
+  },
+  {
+    "id": "historical_forecast",
+    "url": "https://open-meteo.com/en/docs/historical-forecast-api",
+    "resolved_url": "https://open-meteo.com/en/docs/historical-forecast-api",
+    "retrieved_at": "2026-11-07T14:43:08.185443+00:00",
+    "status": "retrieved",
+    "bytes": 565020,
+    "sha256": "14b111304d8386157f4e86294d9a1bc34d01e9365fc9224f23b6079d989163eb",
+    "file": "docs\\evidence\\historical_forecast.txt"
+  },
+  {
+    "id": "single_runs",
+    "url": "https://open-meteo.com/en/docs/single-run-api",
+    "status": "unavailable",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "ensemble",
+    "url": "https://open-meteo.com/en/docs/ensemble-api",
+    "resolved_url": "https://open-meteo.com/en/docs/ensemble-api",
+    "retrieved_at": "2026-11-07T14:43:08.068554+00:00",
+    "status": "retrieved",
+    "bytes": 396339,
+    "sha256": "93761fe5e80888bf881caffcc4feadcd2311ce1e7c1b8934f3ed7c5bfe175e9c",
+    "file": "docs\\evidence\\ensemble.txt"
+  },
+  {
+    "id": "thermal",
+    "url": "https://raw.githubusercontent.com/ecmwf/thermofeel/2.3.0/thermofeel/thermofeel.py",
+    "resolved_url": "https://raw.githubusercontent.com/ecmwf/thermofeel/2.3.0/thermofeel/thermofeel.py",
+    "retrieved_at": "2026-11-07T14:43:08.196407+00:00",
+    "status": "retrieved",
+    "bytes": 53523,
+    "sha256": "19aa15512eb465e388ccc4cb6fc9302428267c341ecf573c654f56fa33c941b9",
+    "file": "docs\\evidence\\thermal.txt"
+  },
+  {
+    "id": "thermal_docs",
+    "url": "https://thermofeel.readthedocs.io/en/2.3.0/guide/utci/",
+    "resolved_url": "https://thermofeel.readthedocs.io/en/2.3.0/guide/utci/",
+    "retrieved_at": "2026-11-07T14:43:07.604252+00:00",
+    "status": "retrieved",
+    "bytes": 28715,
+    "sha256": "896838f0b6f552555acf0ddd91561f2531ba4656a2064c0bb27d944ca35328c4",
+    "file": "docs\\evidence\\thermal_docs.txt"
+  },
+  {
+    "id": "pythermalcomfort",
+    "url": "https://pythermalcomfort.readthedocs.io/en/latest/documentation/models.html",
+    "resolved_url": "https://pythermalcomfort.readthedocs.io/en/latest/documentation/models.html",
+    "retrieved_at": "2026-11-07T14:43:08.331333+00:00",
+    "status": "retrieved",
+    "bytes": 466229,
+    "sha256": "353457113a0124f591bdb8b3ccb124fa40343e33016f6750815211b19021c584",
+    "file": "docs\\evidence\\pythermalcomfort.txt"
+  },
+  {
+    "id": "utci",
+    "url": "https://www.utci.org/utci_doku.php",
+    "status": "unavailable",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "nws",
+    "url": "https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml",
+    "resolved_url": "https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml",
+    "retrieved_at": "2026-11-07T14:43:08.923836+00:00",
+    "status": "retrieved",
+    "bytes": 21032,
+    "sha256": "6a2a7971867b6cd6f6d57022097ea319aad9c18533f4532ce63e6c1d591fbd93",
+    "file": "docs\\evidence\\nws.txt"
+  },
+  {
+    "id": "nws_chart",
+    "url": "https://www.weather.gov/ama/heatindex",
+    "resolved_url": "https://www.weather.gov/ama/heatindex",
+    "retrieved_at": "2026-11-07T14:43:08.924942+00:00",
+    "status": "retrieved",
+    "bytes": 49020,
+    "sha256": "9a29dbb134d814de42e0a2586aa1edebc1bb1c12d330e8c6f1194bb1bbfaf28b",
+    "file": "docs\\evidence\\nws_chart.txt"
+  },
+  {
+    "id": "imd",
+    "url": "https://mausam.imd.gov.in/pdfs/heatcolduser/FAQ_heat_wave.pdf",
+    "resolved_url": "https://mausam.imd.gov.in/pdfs/heatcolduser/FAQ_heat_wave.pdf",
+    "retrieved_at": "2026-11-07T14:43:09.813609+00:00",
+    "status": "retrieved",
+    "bytes": 651004,
+    "sha256": "ea09a89c4b647da6f6af8d98d8f61ff9f67415b3a28d9221e8eb780220140569",
+    "file": "docs\\evidence\\imd.pdf"
+  },
+  {
+    "id": "ndma",
+    "url": "https://nidm.gov.in/PDF/pubs/NDMA/27.pdf",
+    "status": "unavailable",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'nidm.gov.in'. (_ssl.c:1010)>"
+  },
+  {
+    "id": "osha",
+    "url": "https://www.osha.gov/heat-exposure/hazards",
+    "status": "unavailable",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "ccohs",
+    "url": "https://www.ccohs.ca/oshanswers/phys_agents/heat/heat_control.html",
+    "resolved_url": "https://www.ccohs.ca/oshanswers/phys_agents/heat/heat_control.html",
+    "retrieved_at": "2026-11-07T14:43:10.521539+00:00",
+    "status": "retrieved",
+    "bytes": 76277,
+    "sha256": "c311d68e7bd2f840e91ca0636552371600a9573e44890206302bf7c0f5e716cc",
+    "file": "docs\\evidence\\ccohs.txt"
+  },
+  {
+    "id": "etccdi",
+    "url": "https://etccdi.pacificclimate.org/list_27_indices.shtml",
+    "resolved_url": "https://etccdi.pacificclimate.org/list_27_indices.shtml",
+    "retrieved_at": "2026-11-07T14:43:10.232862+00:00",
+    "status": "retrieved",
+    "bytes": 13459,
+    "sha256": "ca686d18a870c73cdc6a7e7f38773a806db460800f69bb3a3f5660e206b86092",
+    "file": "docs\\evidence\\etccdi.txt"
+  },
+  {
+    "id": "datameet",
+    "url": "https://api.github.com/repos/datameet/Municipal_Spatial_Data/git/trees/master?recursive=1",
+    "status": "unavailable",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get issuer certificate (_ssl.c:1010)>"
+  },
+  {
+    "id": "datameet_licence",
+    "url": "https://raw.githubusercontent.com/datameet/Municipal_Spatial_Data/master/README.md",
+    "status": "unavailable",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "cap",
+    "url": "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html",
+    "resolved_url": "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html",
+    "retrieved_at": "2026-11-07T14:43:09.738112+00:00",
+    "status": "retrieved",
+    "bytes": 319266,
+    "sha256": "308dad37745dc0df6f9f79ab43d9d26090a8ed54cd11948b87f40c1ea2979189",
+    "file": "docs\\evidence\\cap.txt"
+  },
+  {
+    "id": "cap_xsd",
+    "url": "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.xsd",
+    "status": "unavailable",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "sachet",
+    "url": "https://sachet.ndma.gov.in/",
+    "resolved_url": "https://sachet.ndma.gov.in/",
+    "retrieved_at": "2026-11-07T14:43:09.320867+00:00",
+    "status": "retrieved",
+    "bytes": 66343,
+    "sha256": "209b66938c79152b7677ec1cbb7b8b1a70f8111a979802df5cbaf879e0fe3ed8",
+    "file": "docs\\evidence\\sachet.txt"
+  },
+  {
+    "id": "osm",
+    "url": "https://www.openstreetmap.org/copyright",
+    "resolved_url": "https://www.openstreetmap.org/copyright",
+    "retrieved_at": "2026-11-07T14:43:09.723716+00:00",
+    "status": "retrieved",
+    "bytes": 21314,
+    "sha256": "969456432ae0508c1dc872d4ec5a8f5449a0ba1ac27cd437e05eb0d4cf06c49c",
+    "file": "docs\\evidence\\osm.txt"
+  },
+  {
+    "id": "overpass",
+    "url": "https://wiki.openstreetmap.org/wiki/Overpass_API",
+    "resolved_url": "https://wiki.openstreetmap.org/wiki/Overpass_API",
+    "retrieved_at": "2026-11-07T14:43:10.795781+00:00",
+    "status": "retrieved",
+    "bytes": 229189,
+    "sha256": "274d1ecc271587804684e70dcc1610d7fb7d2330b16b1491856170e4b3f821d1",
+    "file": "docs\\evidence\\overpass.txt"
+  },
+  {
+    "id": "opencity",
+    "url": "https://data.opencity.in/",
+    "resolved_url": "https://data.opencity.in/",
+    "retrieved_at": "2026-11-07T14:43:11.503367+00:00",
+    "status": "retrieved",
+    "bytes": 12186,
+    "sha256": "3966b585114feba1765b30f29b4271a66859442d429d5a8c1753470db1fe0665",
+    "file": "docs\\evidence\\opencity.txt"
+  },
+  {
+    "id": "worldpop",
+    "url": "https://www.worldpop.org/",
+    "resolved_url": "https://www.worldpop.org/",
+    "retrieved_at": "2026-11-07T14:43:11.959353+00:00",
+    "status": "retrieved",
+    "bytes": 274581,
+    "sha256": "9952865e67b52df43755828ebf55431cd96b9f96df0590b4add7cd9331d13274",
+    "file": "docs\\evidence\\worldpop.txt"
+  },
+  {
+    "id": "worldcover",
+    "url": "https://esa-worldcover.org/en/data-access",
+    "status": "unavailable",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>"
+  },
+  {
+    "id": "telegram",
+    "url": "https://core.telegram.org/bots/api",
+    "resolved_url": "https://core.telegram.org/bots/api",
+    "retrieved_at": "2026-11-07T14:43:12.910399+00:00",
+    "status": "retrieved",
+    "bytes": 860230,
+    "sha256": "da5372cfe2f88ec3b1ab70b4336abb764be764232c82998b389341f4131de795",
+    "file": "docs\\evidence\\telegram.txt"
+  },
+  {
+    "id": "telegram_faq",
+    "url": "https://core.telegram.org/bots/faq",
+    "resolved_url": "https://core.telegram.org/bots/faq",
+    "retrieved_at": "2026-11-07T14:43:10.714017+00:00",
+    "status": "retrieved",
+    "bytes": 20272,
+    "sha256": "30029bffa93d2fbb4070ab88842fdb3f18138073dd01d7216e4e126b03aa9c5a",
+    "file": "docs\\evidence\\telegram_faq.txt"
+  },
+  {
+    "id": "push",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Push_API",
+    "resolved_url": "https://developer.mozilla.org/en-US/docs/Web/API/Push_API",
+    "retrieved_at": "2026-11-07T14:43:32.144156+00:00",
+    "status": "retrieved",
+    "bytes": 157479,
+    "sha256": "cc6045ee91aa68c49c0a288d2c59872ddc74eb730e454c811b10f23deb58c152",
+    "file": "docs\\evidence\\push.txt"
+  },
+  {
+    "id": "resend",
+    "url": "https://resend.com/pricing",
+    "resolved_url": "https://resend.com/pricing",
+    "retrieved_at": "2026-11-07T14:43:11.088559+00:00",
+    "status": "retrieved",
+    "bytes": 503179,
+    "sha256": "603cf150b0965df7d32df26e4324fe530b1b3e5b39fd59df04454eb3e6c2c027",
+    "file": "docs\\evidence\\resend.txt"
+  },
+  {
+    "id": "pages",
+    "url": "https://developers.cloudflare.com/pages/platform/limits/",
+    "resolved_url": "https://developers.cloudflare.com/pages/platform/limits/",
+    "retrieved_at": "2026-11-07T14:43:10.894329+00:00",
+    "status": "retrieved",
+    "bytes": 129713,
+    "sha256": "2b5af79ba708cb79b624cd9bc577e74739be32975dfc486c2a3166e581c89c67",
+    "file": "docs\\evidence\\pages.txt"
+  },
+  {
+    "id": "github_schedule",
+    "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule",
+    "resolved_url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule",
+    "retrieved_at": "2026-11-07T14:43:51.940077+00:00",
+    "status": "retrieved",
+    "bytes": 1076040,
+    "sha256": "ed7937442b862cc8cc607b53171981593dac1c94635046055a0b8e52fa108575",
+    "file": "docs\\evidence\\github_schedule.txt"
+  },
+  {
+    "id": "openfreemap",
+    "url": "https://openfreemap.org/",
+    "resolved_url": "https://openfreemap.org/",
+    "retrieved_at": "2026-11-07T14:43:10.987126+00:00",
+    "status": "retrieved",
+    "bytes": 12268,
+    "sha256": "5684b65ec9db17a9d548aae07d255472d35b314834c13dacfc274c496a368bd0",
+    "file": "docs\\evidence\\openfreemap.txt"
+  },
+  {
+    "id": "render",
+    "url": "https://render.com/docs/free",
+    "resolved_url": "https://render.com/docs/free",
+    "retrieved_at": "2026-11-07T14:43:11.533923+00:00",
+    "status": "retrieved",
+    "bytes": 391956,
+    "sha256": "479e418bd852dcf00c481d328714c2c4240ae215a8047353125511ac445ecc2f",
+    "file": "docs\\evidence\\render.txt"
+  },
+  {
+    "id": "supabase_changes",
+    "url": "https://supabase.com/changelog.md",
+    "resolved_url": "https://supabase.com/changelog.md",
+    "retrieved_at": "2026-11-07T14:43:11.335107+00:00",
+    "status": "retrieved",
+    "bytes": 103941,
+    "sha256": "d3b1566a6a60d54095de09aeb61f50128dd0da17357fd62b646ccf560007162d",
+    "file": "docs\\evidence\\supabase_changes.txt"
+  },
+  {
+    "id": "supabase_rls",
+    "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+    "resolved_url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+    "retrieved_at": "2026-11-07T14:43:11.621637+00:00",
+    "status": "retrieved",
+    "bytes": 878503,
+    "sha256": "ee656ddc00ac9849fb299092c6f498ea822079c34201b2e2e18c8aa6512a368d",
+    "file": "docs\\evidence\\supabase_rls.txt"
+  },
+  {
+    "id": "supabase_jwt",
+    "url": "https://supabase.com/docs/guides/auth/jwts",
+    "resolved_url": "https://supabase.com/docs/guides/auth/jwts",
+    "retrieved_at": "2026-11-07T14:43:11.787777+00:00",
+    "status": "retrieved",
+    "bytes": 335779,
+    "sha256": "2c8370a41db05fa4d0c67f47feef9cf7007c44a2369f51da86c66c339d94db37",
+    "file": "docs\\evidence\\supabase_jwt.txt"
+  },
+  {
+    "id": "supabase_postgis",
+    "url": "https://supabase.com/docs/guides/database/extensions/postgis",
+    "resolved_url": "https://supabase.com/docs/guides/database/extensions/postgis",
+    "retrieved_at": "2026-11-07T14:43:11.983727+00:00",
+    "status": "retrieved",
+    "bytes": 526572,
+    "sha256": "c9f8de75eaf7fd7b0066ea9c9723a22cfa997376826a05160b1298c197d3190f",
+    "file": "docs\\evidence\\supabase_postgis.txt"
+  },
+  {
+    "id": "supabase_pricing",
+    "url": "https://supabase.com/pricing",
+    "resolved_url": "https://supabase.com/pricing",
+    "retrieved_at": "2026-11-07T14:43:11.957375+00:00",
+    "status": "retrieved",
+    "bytes": 375500,
+    "sha256": "760733dd1a6f45ffe9c3b42bbcb28f6e92e18966aea66ed940f12e0200f88d5e",
+    "file": "docs\\evidence\\supabase_pricing.txt"
+  },
+  {
+    "id": "vite",
+    "url": "https://vite.dev/guide/",
+    "resolved_url": "https://vite.dev/guide/",
+    "retrieved_at": "2026-11-07T14:43:11.957375+00:00",
+    "status": "retrieved",
+    "bytes": 89884,
+    "sha256": "d4ae33573197f2f744f1729144614cc4b99c77d04f19dcdb78be1a5c3c90596a",
+    "file": "docs\\evidence\\vite.txt"
+  },
+  {
+    "id": "tailwind",
+    "url": "https://tailwindcss.com/docs/installation/using-vite",
+    "resolved_url": "https://tailwindcss.com/docs/installation/using-vite",
+    "retrieved_at": "2026-11-07T14:43:12.189306+00:00",
+    "status": "retrieved",
+    "bytes": 329738,
+    "sha256": "f3e1d6ab781c4edf4d2e375f199f577e4885481cc443ccdb7a40fd30ad117275",
+    "file": "docs\\evidence\\tailwind.txt"
+  },
+  {
+    "id": "radix",
+    "url": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+    "resolved_url": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+    "retrieved_at": "2026-11-07T14:43:12.914449+00:00",
+    "status": "retrieved",
+    "bytes": 130436,
+    "sha256": "5cf83d052dc121b36d3f104addacca73545a3fd33b859331dc43331f5dc5f866",
+    "file": "docs\\evidence\\radix.txt"
+  },
+  {
+    "id": "thermofeel_pypi",
+    "url": "https://pypi.org/pypi/thermofeel/json",
+    "resolved_url": "https://pypi.org/pypi/thermofeel/json",
+    "retrieved_at": "2026-11-07T14:43:12.786611+00:00",
+    "status": "retrieved",
+    "bytes": 31005,
+    "sha256": "0535d54db3b030c644957f24c9b306f5f94d8d0fa80f9a2d66ab12a8d4bbc637",
+    "file": "docs\\evidence\\thermofeel_pypi.json"
+  },
+  {
+    "id": "ptc_pypi",
+    "url": "https://pypi.org/pypi/pythermalcomfort/4.8.1/json",
+    "resolved_url": "https://pypi.org/pypi/pythermalcomfort/4.8.1/json",
+    "retrieved_at": "2026-11-07T14:43:15.572701+00:00",
+    "status": "retrieved",
+    "bytes": 66739,
+    "sha256": "8fb99cd4e2cbb0aa39f63cdbecd2a3db7dfe9814acd865d78dda01fc6b79a817",
+    "file": "docs\\evidence\\ptc_pypi.json"
+  }
+]
