@@ -11,7 +11,11 @@ def generate(alert):
     root=etree.Element('{'+NS+'}alert',nsmap={None:NS})
     def add(parent,name,value):
         element=etree.SubElement(parent,'{'+NS+'}'+name);element.text=str(value);return element
-    content=alert['content'];created=alert['created_at'];onset=content['onset'];expiry=alert['expires_at']
+    content=alert['content']
+    def cap_time(value):
+        # CAP 1.2 XSD requires an explicit signed UTC offset, not the ISO Z form.
+        return datetime.fromisoformat(value.replace('Z','+00:00')).isoformat(timespec='seconds')
+    created=cap_time(alert['created_at']);onset=cap_time(content['onset']);expiry=cap_time(alert['expires_at'])
     for name,value in [('identifier',str(alert['id'])+'-r'+str(alert['revision'])),('sender','heatguard-ai.avcoe.prototype'),('sent',created),('status',alert['cap_status']),('msgType','Alert'),('scope','Restricted'),('restriction','Independent student research prototype. Consented, allowlisted test recipients only.')]:add(root,name,value)
     info=add(root,'info','');info.text=None
     now=datetime.now(timezone.utc);when=datetime.fromisoformat(onset.replace('Z','+00:00'))

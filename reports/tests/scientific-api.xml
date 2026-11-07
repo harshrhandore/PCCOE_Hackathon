@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="12.896" timestamp="2026-11-08T02:04:01.055490+05:30" hostname="LAPTOP-FNN4GGSI"><testcase classname="" name="pipeline.tests.test_thermal" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\Lenovo\Desktop\PCCOE_Hackathon\pipeline\tests\test_thermal.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pipeline\tests\test_thermal.py:7: in &lt;module&gt;
+    from pythermalcomfort.models import utci
+.venv\Lib\site-packages\pythermalcomfort\models\__init__.py:3: in &lt;module&gt;
+    from .ankle_draft import ankle_draft
+.venv\Lib\site-packages\pythermalcomfort\models\ankle_draft.py:9: in &lt;module&gt;
+    from pythermalcomfort.models.pmv_ppd_ashrae import pmv_ppd_ashrae
+.venv\Lib\site-packages\pythermalcomfort\models\pmv_ppd_ashrae.py:13: in &lt;module&gt;
+    from pythermalcomfort.models.cooling_effect import cooling_effect
+.venv\Lib\site-packages\pythermalcomfort\models\cooling_effect.py:9: in &lt;module&gt;
+    from scipy import optimize
+E   ModuleNotFoundError: No module named 'scipy'</error></testcase><testcase classname="" name="services.api.tests.test_api" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\Lenovo\Desktop\PCCOE_Hackathon\services\api\tests\test_api.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services\api\tests\test_api.py:4: in &lt;module&gt;
+    from services.api.app.main import app
+services\api\app\main.py:14: in &lt;module&gt;
+    from pipeline.heatguard_core.thermal import transform,compute
+pipeline\heatguard_core\thermal.py:5: in &lt;module&gt;
+    from pvlib.solarposition import spa_python
+.venv\Lib\site-packages\pvlib\__init__.py:3: in &lt;module&gt;
+    from pvlib import (  # noqa: F401
+.venv\Lib\site-packages\pvlib\spectrum\__init__.py:2: in &lt;module&gt;
+    from pvlib.spectrum.mismatch import (  # noqa: F401
+.venv\Lib\site-packages\pvlib\spectrum\mismatch.py:10: in &lt;module&gt;
+    from scipy.integrate import trapezoid
+E   ModuleNotFoundError: No module named 'scipy'</error></testcase></testsuite></testsuites>

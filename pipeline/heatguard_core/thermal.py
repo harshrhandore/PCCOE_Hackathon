@@ -73,6 +73,8 @@ def compute(raw, latitude, longitude, *, allow_estimated=None):
 def transform(raw, temperature_delta_c, relative_humidity_delta_pp, wind_multiplier):
     import copy
     changed=copy.deepcopy(raw);h=changed['hourly']
+    if temperature_delta_c==0 and relative_humidity_delta_pp==0 and wind_multiplier==1:
+        return changed,{'rh':0}
     t=np.asarray(h['temperature_2m'],float)+temperature_delta_c
     unclamped=np.asarray(h['relative_humidity_2m'],float)+relative_humidity_delta_pp
     rh=np.clip(unclamped,0,100)

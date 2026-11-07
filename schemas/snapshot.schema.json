@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heatguard.invalid/schemas/snapshot.schema.json",
+  "title": "snapshot",
+  "type": "object",
+  "required": [
+    "snapshot_id",
+    "schema_version",
+    "method_version",
+    "meta",
+    "files"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "method_version": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object"
+    },
+    "files": {
+      "type": "object"
+    }
+  }
+}

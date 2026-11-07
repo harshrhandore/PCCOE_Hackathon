@@ -32,7 +32,11 @@ def assemble(records, issued_at, mode='live', dates=None, episode=None, output_r
                 'quality_flags':(['APPROXIMATE_INDICES','SURFACE_AND_LONGWAVE_PROXY'] if hourly['is_proxy'] else ['RADIATION_GATE_UNAVAILABLE'])+(['VULNERABILITY_UNAVAILABLE'] if v['vulnerability'] is None else [])+(['MODIFIER_CONTEXT_UNKNOWN'] if d['modifier_status']=='unknown' else []),
                 'sources':['open-meteo','thermofeel'],'radiation_method':hourly['radiation_method'],'indices_quality':hourly['indices_quality'],
                 'source_grid':{'latitude':raw['latitude'],'longitude':raw['longitude'],'elevation':raw.get('elevation')},'model_run':None})
-    meta={'issued_at':issued_at,'fetched_at':issued_at,'model_run':None,'model_id':'era5' if mode=='replay' else 'best_match','data_vintage':{'weather':mode,'boundaries':'2022','climatology':'1991–2020' if climate['cells'] else 'unavailable','demographics':'unavailable'},
+    fetched_at=issued_at
+    if mode=='live':
+        retrievals=[read_json(p)['retrieved_at'] for p in (ROOT/'data/raw/weather').glob('*.request.json') if read_json(p)['url'].endswith('/forecast')]
+        if retrievals:fetched_at=max(retrievals)
+    meta={'issued_at':issued_at,'fetched_at':fetched_at,'model_run':None,'model_id':'era5' if mode=='replay' else 'best_match','data_vintage':{'weather':mode,'boundaries':'2022','climatology':'1991–2020' if climate['cells'] else 'unavailable','demographics':'unavailable'},
         'git_sha':gitsha(),'data_git_sha':os.environ.get('DATA_GIT_SHA','local-uncommitted-data'),'schema_version':'1.0.0','method_version':'1.0.0','boundary_version':registry['boundary_version'],
         'is_simulation':mode!='live','mode':mode,'timezone':'Asia/Kolkata','quality_flags':['NEAR_REAL_TIME_MODEL_BASED','BOUNDARIES_HISTORICAL_2022','ML_NOT_TRAINED'],
         'dates':dates,'ward_count':len(registry['wards']),'episode':episode,'publication_health':'complete' if all(d['completeness']['hourly'] and d['modifier_status']=='complete' for d in daily) else 'incomplete'}

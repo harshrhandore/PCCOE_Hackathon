@@ -8,7 +8,7 @@ Ward-level heat early warning and action support for the PCCOE International Gra
 
 ## Current build status
 
-Implementation is in progress. The React 18 production build and four frontend state/export tests have passed. Scientific integration tests, acquisition of a complete baseline/replay, real database migration replay, authentication/provider delivery, accessibility/performance measurements and deployment are **not yet accepted**. See [verification gates](docs/verification-register.md), [decisions](DECISIONS.md), and actual evidence under `reports/`. Do not call P0 complete from UI rendering alone.
+Implementation is in progress. The React 18 production build, four frontend state/export tests, and 63 Python scientific/rule/API tests have passed. Actual 2022 geography contains 58 validated wards. Scientific integration tests, acquisition of a complete baseline/replay, real database migration replay, authentication/provider delivery, accessibility/performance measurements and deployment are **not yet accepted**. See [verification gates](docs/verification-register.md), [decisions](DECISIONS.md), and actual evidence under `reports/`. Do not call P0 complete from UI rendering alone.
 
 The app has an editorial Daily Bulletin interface, actual historical ward-geometry preparation, static release/hash loader, public/detail/authority/worker/scenario/subscription/Methods/status routes, shared deterministic scientific rules, a fail-closed FastAPI enhancement, prepared Supabase/PostGIS migrations and explicit unavailable adapters. The local authority walkthrough says “Local demo — no messages sent” and does not replace authenticated workflow acceptance.
 
@@ -33,7 +33,7 @@ uv run python -m pipeline.prepare_wards
 uv run python -m pipeline.prepare_features
 # One-time baseline acquisition; uses conservative upstream quota budgeting.
 uv run python -m pipeline.build_climatology
-# Radiation publication remains gated until independent scientific checks pass.
+# Radiation equations/reference checks have passed; indices remain explicitly approximate and urban surface assumptions are not locally validated.
 uv run python -m pipeline.publish --fetch
 uv run python scripts/validate-data.py
 # Full five-complete-year real ERA5 scan; never substitutes synthetic episodes.
@@ -57,3 +57,6 @@ Web: http://127.0.0.1:5173/ . API: http://127.0.0.1:8000/api/v1/health . Public 
 Vite/React 18 replaces Next.js for a static SPA. MapLibre/OpenFreeMap replaces Mapbox/Leaflet; an independent SVG polygon map survives tile failure. Telegram test delivery and SMS preview replace paid SMS delivery; Push is P1 and email P2. FastAPI is a dynamic enhancement behind static snapshots. thermofeel physics, optional future SHAP/calibration, CAP and GitHub Actions are added. No operational ML model is claimed.
 
 The full requirements, build order and acceptance gates remain in [the expanded build prompt](HeatGuard_AI_Expanded_Build_Prompt.md). Accounts, native-language review and actual deployment cannot be fabricated. More setup, restore/rollback and pre-demo instructions will be finalized with the measured verification report.
+
+
+For this network, the fully hashed offline installation was verified with `uv pip install --no-index --find-links data/raw/wheels --require-hashes -r requirements.lock.txt` after `scripts/download-wheels.py` acquired all 56 dependency wheels. The normal `uv sync --frozen` path remains intended for a network that supports full wheel transfers.

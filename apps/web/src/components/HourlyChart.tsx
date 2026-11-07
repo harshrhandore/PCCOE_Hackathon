@@ -1,2 +1,48 @@
-import{useEffect,useRef}from'react';import*as Plot from'@observablehq/plot';
-export default function HourlyChart({points}:{points:{hour:number;value:number}[]}){const ref=useRef<HTMLDivElement>(null);useEffect(()=>{if(!ref.current)return;const plot=Plot.plot({width:Math.max(280,ref.current.clientWidth),height:240,marginLeft:48,x:{label:'Local-hour bin, IST',domain:[0,23],ticks:[0,6,12,18,23]},y:{label:'Outdoor WBGT (°C)',grid:true},style:{background:'transparent',color:'#16201E',fontFamily:'Atkinson Hyperlegible Next',fontSize:'12px'},marks:[Plot.line(points,{x:'hour',y:'value',stroke:'#1E6B62',strokeWidth:2}),Plot.dot(points,{x:'hour',y:'value',fill:'#1E6B62'})]});ref.current.append(plot);return()=>plot.remove();},[points]);return <div className="hourly-chart" ref={ref} role="img" aria-label="Hourly outdoor WBGT. Exact values are in the data table below."/>;}
+import { useEffect, useRef } from "react";
+import * as Plot from "@observablehq/plot";
+export default function HourlyChart({
+  points,
+}: {
+  points: { hour: number; value: number }[];
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    const plot = Plot.plot({
+      width: Math.max(280, ref.current.clientWidth),
+      height: 240,
+      marginLeft: 48,
+      x: {
+        label: "Local-hour bin, IST",
+        domain: [0, 23],
+        ticks: [0, 6, 12, 18, 23],
+      },
+      y: { label: "Outdoor WBGT (°C)", grid: true },
+      style: {
+        background: "transparent",
+        color: "#16201E",
+        fontFamily: "Atkinson Hyperlegible Next",
+        fontSize: "12px",
+      },
+      marks: [
+        Plot.line(points, {
+          x: "hour",
+          y: "value",
+          stroke: "#1E6B62",
+          strokeWidth: 2,
+        }),
+        Plot.dot(points, { x: "hour", y: "value", fill: "#1E6B62" }),
+      ],
+    });
+    ref.current.append(plot);
+    return () => plot.remove();
+  }, [points]);
+  return (
+    <div
+      className="hourly-chart"
+      ref={ref}
+      role="img"
+      aria-label="Hourly outdoor WBGT. Exact values are in the data table below."
+    />
+  );
+}

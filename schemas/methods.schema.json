@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heatguard.invalid/schemas/methods.schema.json",
+  "title": "methods",
+  "type": "object",
+  "required": [
+    "version",
+    "utci",
+    "night",
+    "formulas",
+    "weights",
+    "source_catalog"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "utci": {
+      "type": "object"
+    },
+    "night": {
+      "type": "object"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "weights": {
+      "type": "object"
+    },
+    "source_catalog": {
+      "type": "array"
+    }
+  }
+}

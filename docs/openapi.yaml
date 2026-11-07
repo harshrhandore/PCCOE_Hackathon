@@ -1,0 +1,989 @@
+openapi: 3.1.0
+info:
+  title: HeatGuard AI prototype
+  description: Static-first model-based research prototype. Test/Exercise alerts only.
+  version: 1.0.0
+paths:
+  /api/v1/health:
+    get:
+      summary: Health
+      operationId: health_api_v1_health_get
+      parameters:
+      - name: readiness
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Readiness
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /health:
+    get:
+      summary: Health
+      operationId: health_health_get
+      parameters:
+      - name: readiness
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Readiness
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/methods:
+    get:
+      summary: Get Methods
+      operationId: get_methods_api_v1_methods_get
+      parameters:
+      - name: version
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/wards:
+    get:
+      summary: Wards
+      operationId: wards_api_v1_wards_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      - name: include_geometry
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Geometry
+      - name: boundary_version
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Boundary Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/wards/{ward_id}:
+    get:
+      summary: Ward Detail
+      operationId: ward_detail_api_v1_wards__ward_id__get
+      parameters:
+      - name: ward_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Ward Id
+      - name: snapshot_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snapshot Id
+      - name: date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date
+      - name: t
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 23
+          minimum: 0
+          default: 14
+          title: T
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/forecast:
+    get:
+      summary: Forecast
+      operationId: forecast_api_v1_forecast_get
+      parameters:
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+          title: Date
+      - name: snapshot_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snapshot Id
+      - name: ward_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ward Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/bulletin/latest:
+    get:
+      summary: Bulletin
+      operationId: bulletin_api_v1_bulletin_latest_get
+      parameters:
+      - name: snapshot_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snapshot Id
+      - name: lang
+        in: query
+        required: false
+        schema:
+          type: string
+          default: en
+          title: Lang
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/replay/{episode_id}:
+    get:
+      summary: Replay
+      operationId: replay_api_v1_replay__episode_id__get
+      parameters:
+      - name: episode_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Episode Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/whatif:
+    post:
+      summary: Whatif
+      operationId: whatif_api_v1_whatif_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WhatIf'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/login:
+    post:
+      summary: Login
+      operationId: login_api_v1_auth_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/session:
+    get:
+      summary: Session
+      operationId: session_api_v1_session_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /api/v1/alerts/draft:
+    post:
+      summary: Draft
+      operationId: draft_api_v1_alerts_draft_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: idempotency-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Draft'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts:
+    get:
+      summary: Alerts
+      operationId: alerts_api_v1_alerts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}:
+    patch:
+      summary: Edit
+      operationId: edit_api_v1_alerts__alert_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchDraft'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}/approve:
+    post:
+      summary: Approve
+      operationId: approve_api_v1_alerts__alert_id__approve_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Approval'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}/cancel:
+    post:
+      summary: Cancel
+      operationId: cancel_api_v1_alerts__alert_id__cancel_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cancel'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}/send:
+    post:
+      summary: Send
+      operationId: send_api_v1_alerts__alert_id__send_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      - name: idempotency-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Send'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}/cap.xml:
+    get:
+      summary: Get Cap
+      operationId: get_cap_api_v1_alerts__alert_id__cap_xml_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Download
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/alerts/{alert_id}/audit:
+    get:
+      summary: Audit Rows
+      operationId: audit_rows_api_v1_alerts__alert_id__audit_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Alert Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/subscriptions:
+    post:
+      summary: Subscribe
+      operationId: subscribe_api_v1_subscriptions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/integrations/telegram/webhook:
+    post:
+      summary: Telegram Webhook
+      operationId: telegram_webhook_api_v1_integrations_telegram_webhook_post
+      parameters:
+      - name: x-telegram-bot-api-secret-token
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Telegram-Bot-Api-Secret-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/subscriptions/{subscription_id}:
+    delete:
+      summary: Delete Subscription
+      operationId: delete_subscription_api_v1_subscriptions__subscription_id__delete
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Subscription Id
+      - name: authorization
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Approval:
+      properties:
+        expected_revision:
+          type: integer
+          minimum: 1.0
+          title: Expected Revision
+        content_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Content Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - expected_revision
+      - content_sha256
+      title: Approval
+    Cancel:
+      properties:
+        expected_revision:
+          type: integer
+          minimum: 1.0
+          title: Expected Revision
+        reason_code:
+          type: string
+          enum:
+          - superseded
+          - incorrect
+          - withdrawn
+          title: Reason Code
+      additionalProperties: false
+      type: object
+      required:
+      - expected_revision
+      - reason_code
+      title: Cancel
+    Draft:
+      properties:
+        snapshot_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Snapshot Id
+        ward_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 200
+          minItems: 1
+          title: Ward Ids
+        risk_level:
+          type: integer
+          maximum: 4.0
+          minimum: 0.0
+          title: Risk Level
+        audience:
+          type: string
+          enum:
+          - authority
+          - citizen
+          - outdoor_worker
+          - school_anganwadi
+          - care_home
+          title: Audience
+        languages:
+          items:
+            type: string
+            enum:
+            - en
+            - hi
+            - mr
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Languages
+        action_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 12
+          minItems: 1
+          title: Action Ids
+        onset:
+          type: string
+          format: date-time
+          title: Onset
+        expires:
+          type: string
+          format: date-time
+          title: Expires
+      additionalProperties: false
+      type: object
+      required:
+      - snapshot_id
+      - ward_ids
+      - risk_level
+      - audience
+      - languages
+      - action_ids
+      - onset
+      - expires
+      title: Draft
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Login:
+      properties:
+        email:
+          type: string
+          maxLength: 254
+          minLength: 3
+          title: Email
+        password:
+          type: string
+          maxLength: 256
+          minLength: 1
+          title: Password
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      - password
+      title: Login
+    PatchDraft:
+      properties:
+        expected_revision:
+          type: integer
+          minimum: 1.0
+          title: Expected Revision
+        ward_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 200
+            minItems: 1
+          - type: 'null'
+          title: Ward Ids
+        languages:
+          anyOf:
+          - items:
+              type: string
+              enum:
+              - en
+              - hi
+              - mr
+            type: array
+          - type: 'null'
+          title: Languages
+        action_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Action Ids
+        onset:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Onset
+        expires:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires
+      additionalProperties: false
+      type: object
+      required:
+      - expected_revision
+      title: PatchDraft
+    Send:
+      properties:
+        expected_revision:
+          type: integer
+          minimum: 1.0
+          title: Expected Revision
+        delivery_mode:
+          type: string
+          const: test
+          title: Delivery Mode
+      additionalProperties: false
+      type: object
+      required:
+      - expected_revision
+      - delivery_mode
+      title: Send
+    Subscription:
+      properties:
+        channel:
+          type: string
+          enum:
+          - telegram
+          - web_push
+          - email
+          title: Channel
+        ward_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Ward Id
+        lang:
+          type: string
+          enum:
+          - en
+          - hi
+          - mr
+          title: Lang
+          default: en
+        audience:
+          type: string
+          enum:
+          - citizen
+          - outdoor_worker
+          - school_anganwadi
+          - care_home
+          title: Audience
+          default: citizen
+        consent:
+          type: boolean
+          const: true
+          title: Consent
+        consent_version:
+          type: string
+          const: 1.0.0
+          title: Consent Version
+      additionalProperties: false
+      type: object
+      required:
+      - channel
+      - ward_id
+      - consent
+      - consent_version
+      title: Subscription
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WhatIf:
+      properties:
+        snapshot_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Snapshot Id
+        ward_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 200
+          minItems: 1
+          title: Ward Ids
+        temperature_delta_c:
+          type: number
+          maximum: 6.0
+          minimum: 0.0
+          title: Temperature Delta C
+        relative_humidity_delta_pp:
+          type: number
+          maximum: 30.0
+          minimum: -30.0
+          title: Relative Humidity Delta Pp
+        wind_multiplier:
+          type: number
+          maximum: 2.0
+          minimum: 0.0
+          title: Wind Multiplier
+        weights_mode:
+          type: string
+          enum:
+          - default
+          - equal
+          title: Weights Mode
+          default: default
+      additionalProperties: false
+      type: object
+      required:
+      - snapshot_id
+      - ward_ids
+      - temperature_delta_c
+      - relative_humidity_delta_pp
+      - wind_multiplier
+      title: WhatIf
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,17 +1,228 @@
-import{useMemo,useState,useRef,useEffect}from'react';import{geoMercator,geoPath}from'd3';import type{Dataset,Daily,Geometry}from'../data/types';import{useGeometry}from'../data/client';import{useTranslation}from'react-i18next';
-const COLORS=['#CFE0CC','#EBC65B','#E08A2E','#BF3A24','#5E1646'];
-export default function WardMap({data,rows,selected,layer,onSelect}:{data:Dataset;rows:Daily[];selected:string|null;layer:string;onSelect:(id:string)=>void}){
- const{t}=useTranslation();const geometry=useGeometry(data);const[basemap,setBasemap]=useState(false);const[mapError,setMapError]=useState(false);const ref=useRef<HTMLDivElement>(null);
- const values=useMemo(()=>new Map(rows.map(r=>[r.ward_id,r])),[rows]);
- const path=useMemo(()=>geometry.data?geoPath(geoMercator().fitExtent([[35,35],[565,575]],geometry.data)):null,[geometry.data]);
- useEffect(()=>{if(!basemap||!ref.current||!geometry.data)return;let cleanup=()=>{};let cancelled=false;
-  void import('maplibre-gl').then(async m=>{await import('maplibre-gl/dist/maplibre-gl.css');if(cancelled||!ref.current)return;
-   const map=new m.Map({container:ref.current,style:'https://tiles.openfreemap.org/styles/positron',bounds:[[data.registry.bounds[0],data.registry.bounds[1]],[data.registry.bounds[2],data.registry.bounds[3]]],fitBoundsOptions:{padding:30},scrollZoom:false,attributionControl:{compact:true}});
-   map.addControl(new m.NavigationControl({showCompass:false}),'top-right');
-   map.on('error',()=>setMapError(true));
-   map.on('load',()=>{if(cancelled)return;map.addSource('wards',{type:'geojson',data:geometry.data as Geometry});map.addLayer({id:'ward-outline',type:'line',source:'wards',paint:{'line-color':'#16201E','line-width':1.5}});});
-   cleanup=()=>map.remove();
-  }).catch(()=>setMapError(true));return()=>{cancelled=true;cleanup();};
- },[basemap,geometry.data,data.registry.bounds]);
- return <section className="map-panel" aria-label="Pune electoral ward map"><div className="map-topbar"><span className="eyebrow">PUNE MUNICIPAL CORPORATION</span><span>2022 BOUNDARIES</span></div><div className="map-stage">{geometry.isPending?<div className="skeleton map"/>:geometry.isError?<p>{t('state.tileFallback')}</p>:<svg viewBox="0 0 600 610" aria-label="Historical Pune electoral ward polygons" role="img"><defs><pattern id="unknown-hatch" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#E9E6DB"/><path d="M-2 2L2 -2M0 7L7 0M5 9L9 5" stroke="#A9A593" strokeWidth=".7"/></pattern>{[2,3,4].map(i=><pattern key={i} id={`map-pattern-${i}`} width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill={COLORS[i]}/>{i===2?<circle cx="4" cy="4" r=".7" fill="#16201E"/>:<path d={i===3?'M0 8L8 0':'M0 8L8 0M0 0L8 8'} stroke="white" strokeOpacity=".5" strokeWidth=".6"/>}</pattern>)}</defs><text x="554" y="36" className="map-north">N</text><path d="M561 45V68M556 52L561 45L566 52" stroke="currentColor" fill="none"/>{geometry.data?.features.map(f=>{const v=values.get(f.properties.id);const level=layer==='hazard'?v?.hazard_level:v?.risk_level;const unknown=layer==='vulnerability'||layer==='refuges'||level==null;const active=selected===f.properties.id;return <g key={f.properties.id} className={active?'map-ward selected':'map-ward'} onClick={()=>onSelect(f.properties.id)}><path d={path?.(f)||''} fill={unknown?'url(#unknown-hatch)':level!>=2?`url(#map-pattern-${level})`:COLORS[level!]} stroke={active?'#16201E':'#FBFAF6'} strokeWidth={active?2.5:1} opacity={selected&&!active?0.55:1}><title>{f.properties.name_en} · {unknown?t('common.unavailable'):t(`level.${level}`)}</title></path>{path&&<text x={path.centroid(f)[0]} y={path.centroid(f)[1]} className="ward-number" textAnchor="middle" pointerEvents="none">{f.properties.id.split('-').pop()}</text>}</g>;})}</svg>}</div><div className="map-footnote"><span>Electoral prabhags · {data.registry.ward_count} polygons</span><span>SVG boundary map · EPSG:4326 source</span></div><details className="basemap-disclosure"><summary>Explore street basemap</summary><p>The boundary map and ward list remain available if external tiles fail.</p><button onClick={()=>setBasemap(!basemap)} aria-pressed={basemap}>{basemap?'Close street basemap':'Load OpenFreeMap'}</button>{basemap&&<><div ref={ref} className="street-map"/>{mapError&&<p>{t('state.tileFallback')}</p>}<p className="provenance-text">Map: <a href="https://openfreemap.org/">OpenFreeMap</a> / <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a></p></>}</details></section>;
+import { useMemo, useState, useRef, useEffect } from "react";
+import { geoMercator, geoPath } from "d3";
+import type { Dataset, Daily, Geometry } from "../data/types";
+import { useGeometry } from "../data/client";
+import { useTranslation } from "react-i18next";
+const COLORS = ["#CFE0CC", "#EBC65B", "#E08A2E", "#BF3A24", "#5E1646"];
+export default function WardMap({
+  data,
+  rows,
+  selected,
+  layer,
+  onSelect,
+}: {
+  data: Dataset;
+  rows: Daily[];
+  selected: string | null;
+  layer: string;
+  onSelect: (id: string) => void;
+}) {
+  const { t } = useTranslation();
+  const geometry = useGeometry(data);
+  const [basemap, setBasemap] = useState(false);
+  const [mapError, setMapError] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const values = useMemo(
+    () => new Map(rows.map((r) => [r.ward_id, r])),
+    [rows],
+  );
+  const path = useMemo(
+    () =>
+      geometry.data
+        ? geoPath(
+            geoMercator().fitExtent(
+              [
+                [35, 35],
+                [565, 575],
+              ],
+              geometry.data,
+            ),
+          )
+        : null,
+    [geometry.data],
+  );
+  useEffect(() => {
+    if (!basemap || !ref.current || !geometry.data) return;
+    let cleanup = () => {};
+    let cancelled = false;
+    void import("maplibre-gl")
+      .then(async (m) => {
+        await import("maplibre-gl/dist/maplibre-gl.css");
+        if (cancelled || !ref.current) return;
+        const map = new m.Map({
+          container: ref.current,
+          style: "https://tiles.openfreemap.org/styles/positron",
+          bounds: [
+            [data.registry.bounds[0], data.registry.bounds[1]],
+            [data.registry.bounds[2], data.registry.bounds[3]],
+          ],
+          fitBoundsOptions: { padding: 30 },
+          scrollZoom: false,
+          attributionControl: { compact: true },
+        });
+        map.addControl(
+          new m.NavigationControl({ showCompass: false }),
+          "top-right",
+        );
+        map.on("error", () => setMapError(true));
+        map.on("load", () => {
+          if (cancelled) return;
+          map.addSource("wards", {
+            type: "geojson",
+            data: geometry.data as Geometry,
+          });
+          map.addLayer({
+            id: "ward-outline",
+            type: "line",
+            source: "wards",
+            paint: { "line-color": "#16201E", "line-width": 1.5 },
+          });
+        });
+        cleanup = () => map.remove();
+      })
+      .catch(() => setMapError(true));
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
+  }, [basemap, geometry.data, data.registry.bounds]);
+  return (
+    <section className="map-panel" aria-label="Pune electoral ward map">
+      <div className="map-topbar">
+        <span className="eyebrow">PUNE MUNICIPAL CORPORATION</span>
+        <span>2022 BOUNDARIES</span>
+      </div>
+      <div className="map-stage">
+        {geometry.isPending ? (
+          <div className="skeleton map" />
+        ) : geometry.isError ? (
+          <p>{t("state.tileFallback")}</p>
+        ) : (
+          <svg
+            viewBox="0 0 600 610"
+            aria-label="Historical Pune electoral ward polygons"
+            role="img"
+          >
+            <defs>
+              <pattern
+                id="unknown-hatch"
+                width="7"
+                height="7"
+                patternUnits="userSpaceOnUse"
+              >
+                <rect width="7" height="7" fill="#E9E6DB" />
+                <path
+                  d="M-2 2L2 -2M0 7L7 0M5 9L9 5"
+                  stroke="#A9A593"
+                  strokeWidth=".7"
+                />
+              </pattern>
+              {[2, 3, 4].map((i) => (
+                <pattern
+                  key={i}
+                  id={`map-pattern-${i}`}
+                  width="8"
+                  height="8"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect width="8" height="8" fill={COLORS[i]} />
+                  {i === 2 ? (
+                    <circle cx="4" cy="4" r=".7" fill="#16201E" />
+                  ) : (
+                    <path
+                      d={i === 3 ? "M0 8L8 0" : "M0 8L8 0M0 0L8 8"}
+                      stroke="white"
+                      strokeOpacity=".5"
+                      strokeWidth=".6"
+                    />
+                  )}
+                </pattern>
+              ))}
+            </defs>
+            <text x="554" y="36" className="map-north">
+              N
+            </text>
+            <path
+              d="M561 45V68M556 52L561 45L566 52"
+              stroke="currentColor"
+              fill="none"
+            />
+            {geometry.data?.features.map((f) => {
+              const v = values.get(f.properties.id);
+              const level =
+                layer === "hazard" ? v?.hazard_level : v?.risk_level;
+              const unknown =
+                layer === "vulnerability" ||
+                layer === "refuges" ||
+                level == null;
+              const active = selected === f.properties.id;
+              return (
+                <g
+                  key={f.properties.id}
+                  className={active ? "map-ward selected" : "map-ward"}
+                  onClick={() => onSelect(f.properties.id)}
+                >
+                  <path
+                    d={path?.(f) || ""}
+                    fill={
+                      unknown
+                        ? "url(#unknown-hatch)"
+                        : level! >= 2
+                          ? `url(#map-pattern-${level})`
+                          : COLORS[level!]
+                    }
+                    stroke={active ? "#16201E" : "#FBFAF6"}
+                    strokeWidth={active ? 2.5 : 1}
+                    opacity={selected && !active ? 0.55 : 1}
+                  >
+                    <title>
+                      {f.properties.name_en} ·{" "}
+                      {unknown ? t("common.unavailable") : t(`level.${level}`)}
+                    </title>
+                  </path>
+                  {path && (
+                    <text
+                      x={path.centroid(f)[0]}
+                      y={path.centroid(f)[1]}
+                      className="ward-number"
+                      textAnchor="middle"
+                      pointerEvents="none"
+                    >
+                      {f.properties.id.split("-").pop()}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+        )}
+      </div>
+      <div className="map-footnote">
+        <span>Electoral prabhags · {data.registry.ward_count} polygons</span>
+        <span>SVG boundary map · EPSG:4326 source</span>
+      </div>
+      <details className="basemap-disclosure">
+        <summary>Explore street basemap</summary>
+        <p>
+          The boundary map and ward list remain available if external tiles
+          fail.
+        </p>
+        <button onClick={() => setBasemap(!basemap)} aria-pressed={basemap}>
+          {basemap ? "Close street basemap" : "Load OpenFreeMap"}
+        </button>
+        {basemap && (
+          <>
+            <div ref={ref} className="street-map" />
+            {mapError && <p>{t("state.tileFallback")}</p>}
+            <p className="provenance-text">
+              Map: <a href="https://openfreemap.org/">OpenFreeMap</a> /{" "}
+              <a href="https://www.openstreetmap.org/copyright">
+                © OpenStreetMap contributors
+              </a>
+            </p>
+          </>
+        )}
+      </details>
+    </section>
+  );
 }

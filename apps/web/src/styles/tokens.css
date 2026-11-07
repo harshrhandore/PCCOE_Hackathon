@@ -1,52 +1,62 @@
 @import "tailwindcss";
 :root {
   color-scheme: light;
-  --paper-0: #F3F1EA;
-  --paper-1: #FBFAF6;
-  --paper-2: #E9E6DB;
-  --rule: #D3CFC1;
-  --rule-strong: #A9A593;
-  --ink-0: #16201E;
-  --ink-1: #3C4642;
-  --ink-2: #5E6762;
-  --ink-3: #8B918A;
-  --verdigris-100: #D4E6E1;
-  --verdigris-600: #1E6B62;
+  --paper-0: #f3f1ea;
+  --paper-1: #fbfaf6;
+  --paper-2: #e9e6db;
+  --rule: #d3cfc1;
+  --rule-strong: #a9a593;
+  --ink-0: #16201e;
+  --ink-1: #3c4642;
+  --ink-2: #5e6762;
+  --ink-3: #8b918a;
+  --verdigris-100: #d4e6e1;
+  --verdigris-600: #1e6b62;
   --verdigris-700: #165249;
-  --risk-0: #CFE0CC;
-  --risk-1: #EBC65B;
-  --risk-2: #E08A2E;
-  --risk-3: #BF3A24;
-  --risk-4: #5E1646;
+  --risk-0: #cfe0cc;
+  --risk-1: #ebc65b;
+  --risk-2: #e08a2e;
+  --risk-3: #bf3a24;
+  --risk-4: #5e1646;
   --risk-text-0: var(--ink-0);
   --risk-text-1: var(--ink-0);
   --risk-text-2: var(--ink-0);
-  --risk-text-3: #FFFFFF;
-  --risk-text-4: #FFFFFF;
-  --vulnerability-0: #E9EBEE;
-  --vulnerability-1: #C5CCD6;
-  --vulnerability-2: #94A3B6;
-  --vulnerability-3: #5E7390;
-  --vulnerability-4: #2E4262;
-  --map-water: #CFDCDA;
-  --map-land: #EDEBE2;
+  --risk-text-3: #ffffff;
+  --risk-text-4: #ffffff;
+  --vulnerability-0: #e9ebee;
+  --vulnerability-1: #c5ccd6;
+  --vulnerability-2: #94a3b6;
+  --vulnerability-3: #5e7390;
+  --vulnerability-4: #2e4262;
+  --map-water: #cfdcda;
+  --map-land: #edebe2;
   --control-border: var(--ink-2);
   --link: var(--verdigris-600);
   --selected-bg: var(--verdigris-100);
   --error-text: var(--ink-0);
   --disabled-text: var(--ink-3);
   --font-headline: "Newsreader", "Noto Serif Devanagari", serif;
-  --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Noto Sans Devanagari", sans-serif;
+  --font-body:
+    "Atkinson Hyperlegible Next", "Atkinson Hyperlegible",
+    "Noto Sans Devanagari", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --text-xs: 12px; --leading-xs: 16px;
-  --text-sm: 14px; --leading-sm: 20px;
-  --text-base: 16px; --leading-base: 24px;
-  --text-lg: 18px; --leading-lg: 26px;
-  --text-h4: 22px; --leading-h4: 28px;
-  --text-h3: 32px; --leading-h3: 36px;
-  --text-h2: 48px; --leading-h2: 50px;
-  --text-risk: 88px; --leading-risk: 84px;
-  --label-tracking: .06em;
+  --text-xs: 12px;
+  --leading-xs: 16px;
+  --text-sm: 14px;
+  --leading-sm: 20px;
+  --text-base: 16px;
+  --leading-base: 24px;
+  --text-lg: 18px;
+  --leading-lg: 26px;
+  --text-h4: 22px;
+  --leading-h4: 28px;
+  --text-h3: 32px;
+  --leading-h3: 36px;
+  --text-h2: 48px;
+  --leading-h2: 50px;
+  --text-risk: 88px;
+  --leading-risk: 84px;
+  --label-tracking: 0.06em;
   --weight-regular: 400;
   --weight-strong: 600;
   --space-0: 0;
@@ -68,11 +78,11 @@
   --focus-offset: 2px;
   --focus-colour: var(--verdigris-600);
   --focus-offset-colour: var(--paper-0);
-  --shadow-overlay: 0 8px 24px rgba(22,32,30,.12);
+  --shadow-overlay: 0 8px 24px rgba(22, 32, 30, 0.12);
   --duration-fast: 150ms;
   --duration-normal: 220ms;
   --duration-map: 600ms;
-  --ease-out: cubic-bezier(.2,.8,.2,1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --target-min: 44px;
   --row-comfortable: 56px;
   --row-compact: 44px;
@@ -87,13 +97,14 @@
   --layer-popover: 30;
   --layer-modal: 40;
   --layer-toast: 50;
-  --map-fill-opacity: .8;
-  --map-other-opacity: .55;
+  --map-fill-opacity: 0.8;
+  --map-other-opacity: 0.55;
   --map-stroke: 1px;
   --map-stroke-hover: 1.5px;
   --map-stroke-selected: 2.5px;
 }
-[lang="hi"], [lang="mr"] {
+[lang="hi"],
+[lang="mr"] {
   --font-headline: "Noto Serif Devanagari", serif;
   --font-body: "Noto Sans Devanagari", sans-serif;
 }
@@ -102,6 +113,15 @@
   outline-offset: var(--focus-offset);
 }
 @media (prefers-reduced-motion: reduce) {
-  :root { --duration-fast: 0ms; --duration-normal: 0ms; --duration-map: 0ms; }
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-map: 0ms;
+  }
 }
-@theme inline { --color-paper: var(--paper-0); --color-ink: var(--ink-0); --color-accent: var(--verdigris-600); --font-sans: var(--font-body); }
+@theme inline {
+  --color-paper: var(--paper-0);
+  --color-ink: var(--ink-0);
+  --color-accent: var(--verdigris-600);
+  --font-sans: var(--font-body);
+}
