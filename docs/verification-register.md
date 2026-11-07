@@ -98,3 +98,10 @@ Started 2026-11-07 before implementation. Official-source access date for all en
 - Implementation consequence: Production build and TypeScript check passed. Self-hosted Newsreader/Atkinson Next/Noto Devanagari/IBM Plex Mono use actual OFL packages. Font-feature/contrast/browser tests remain separate acceptance checks.
 - Evidence excerpt: ?Node.js version 20.19+, 22.12+?
 
+
+## Executed verification update ? 2026-11-08 IST
+
+- Thermal/rule/API suite: 63 passed. Decimal longwave, NREL SPA, ECMWF UTCI fixtures, >=100 valid independent pythermalcomfort combinations, NWS/CCOHS checks and CAP XSD validation executed. The estimator is enabled only as explicitly approximate; urban radiometer/health validation is absent.
+- Geography: 58 real 2022 electoral polygons, zero repairs. Two actual ERA5 cells used for centroid-sampled 1991?2020 baseline. Demographic joins remain unavailable.
+- Full real replay selection scanned 2021?2025; selected 2024-04-26 through 2024-04-30. Hash/join and phone browser smoke verified; no observed-record or clinical claim.
+- Source and data branches pushed to the configured GitHub repository. Cloudflare deployment, production scheduling, Supabase database replay/advisors and Telegram acknowledgement remain unperformed. No Antigravity was used after the user's instruction to continue without it.

@@ -40,3 +40,7 @@ The live processing candidate now validates as complete for all 58 wards with th
 Real replay generated and hash/join validated: 2024-04-26 through 2024-04-30, selected by the declared full 2021?2025 city-median scan. Five consecutive qualifying days. Baseline and replay use the same method. Immutable replay input resolves through the API snapshot loader. Overall tier remains incomplete.
 
 Static deployment artifact assembled successfully in ignored dist/. Real replay browser smoke passed at 360px: historical dates and simulation banner persisted, ward data loaded, no page errors; screenshot reports/visual/replay-phone.png. Source data checks: forecast 16,287 bytes gzip and geometry 50,532 bytes gzip; both reported honestly. No cloud URL is claimed.
+
+Final browser suite: 10 passed, 2 deliberately skipped, 0 unexpected failures across 360/768/1280/1920 viewport projects. Authority primary paths exercised at 360 and 1280; other two authority duplicates intentionally skipped. Covered public flows include axe serious/critical assertions and no document overflow. This does not certify full WCAG, screen-reader or all-target-size acceptance.
+
+GitHub source master and separate data branch both published. Final cloud URL remains unavailable; run npm run dev locally.

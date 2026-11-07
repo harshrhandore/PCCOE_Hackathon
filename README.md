@@ -73,3 +73,6 @@ For this network, the fully hashed offline installation was verified with `uv pi
 
 
 Prepared real replay: **26?30 April 2024**, selected from the full 2021?2025 ERA5 scan using the declared metric. Open Scenarios or `/?mode=replay&episode=era5-2024-04-26&date=2024-04-26`. Both live and replay static artifacts are committed. `dist/` contains an assembled review/deployment artifact; Cloudflare deployment and live Telegram integration remain unconfigured.
+
+
+Final local verification: **63 pytest passed, 4 Vitest passed, 10 Playwright passed / 2 intentional skips**. Viewport coverage: 360, 768, 1280 and 1920 pixels. Covered public pages passed serious/critical axe assertions. These results do not replace the incomplete acceptance gates recorded in reports/final-review.md.
