@@ -17,6 +17,11 @@ def load(snapshot_id=None,diagnostic=True):
         if manifest is None and path.exists():
             candidate=read_json(path)
             if snapshot_id is None or candidate['snapshot_id']==snapshot_id:manifest=candidate
+    if manifest is None and snapshot_id:
+        for candidate_path in (root/'replay').glob('*/latest.json'):
+            candidate=read_json(candidate_path)
+            if candidate['snapshot_id']==snapshot_id:
+                manifest=candidate;break
     if manifest is None:raise AppError('SNAPSHOT_UNAVAILABLE')
     try:validate_release(manifest,root)
     except (ValueError,FileNotFoundError):raise AppError('SNAPSHOT_UNAVAILABLE')

@@ -8,7 +8,7 @@ Ward-level heat early warning and action support for the PCCOE International Gra
 
 ## Current build status
 
-Implementation is in progress. The React 18 production build, four frontend state/export tests, and 63 Python scientific/rule/API tests have passed. Actual 2022 geography contains 58 validated wards. Scientific integration tests, acquisition of a complete baseline/replay, real database migration replay, authentication/provider delivery, accessibility/performance measurements and deployment are **not yet accepted**. See [verification gates](docs/verification-register.md), [decisions](DECISIONS.md), and actual evidence under `reports/`. Do not call P0 complete from UI rendering alone.
+Implementation is in progress. The React 18 production build, four frontend state/export tests, and 63 Python scientific/rule/API tests have passed. Actual 2022 geography contains 58 validated wards. Scientific integration tests beyond the current reference suite,  real database migration replay, authentication/provider delivery, accessibility/performance measurements and deployment are **not yet accepted**. See [verification gates](docs/verification-register.md), [decisions](DECISIONS.md), and actual evidence under `reports/`. Do not call P0 complete from UI rendering alone.
 
 The app has an editorial Daily Bulletin interface, actual historical ward-geometry preparation, static release/hash loader, public/detail/authority/worker/scenario/subscription/Methods/status routes, shared deterministic scientific rules, a fail-closed FastAPI enhancement, prepared Supabase/PostGIS migrations and explicit unavailable adapters. The local authority walkthrough says “Local demo — no messages sent” and does not replace authenticated workflow acceptance.
 
@@ -60,3 +60,16 @@ The full requirements, build order and acceptance gates remain in [the expanded 
 
 
 For this network, the fully hashed offline installation was verified with `uv pip install --no-index --find-links data/raw/wheels --require-hashes -r requirements.lock.txt` after `scripts/download-wheels.py` acquired all 56 dependency wheels. The normal `uv sync --frozen` path remains intended for a network that supports full wheel transfers.
+
+
+## Restore, refresh and pre-demo checks
+
+- Reproduce the saved public demo without upstream availability: `npm ci`, `npm run build`, then `npm run dev`. Committed validated snapshots/geometry contain no private endpoints. No PWA/offline-install acceptance is claimed.
+- Refresh with `uv run python -m pipeline.publish --fetch`; validate before deploying. Publication writes immutable files first, validates hashes/joins, then atomically promotes latest.json. To roll back, select an existing release manifest only after validating every referenced file; preserve snapshots referenced by alert evidence.
+- Run `npm test`, `uv run python -m pytest`, `npm run test:e2e`, and `python scripts/secret-scan.py`. Browser tests need the local web server on 127.0.0.1:5173. View actual current results in reports, including skips and limitations.
+- For Cloudflare Pages: configure the account/project and scoped token in CI, update CSP connect-src for the exact API origin, build and deploy with the prepared deploy workflow. A data branch and a successful source-build artifact are prerequisites for the separate snapshot workflow. Enable HEATGUARD_PIPELINE_ENABLED only after quota/retention and publication checks. The health-check schedule is a readiness read, not a suspension workaround.
+- Before an event: inspect boundary vintage/count, exact source/publication ages, modifiers and radiation flags; verify prepared replay, API/DB readiness, independently provisioned officer/approver, bot Start consent and test allowlist; validate CAP, 360/1280 flows, API-down and tile fallback, native-language review flags and exact deployed URL. Never script successful delivery when unconfigured.
+- Staff provisioning and encrypted endpoint cleanup are documented in docs/security.md and docs/privacy.md. Apply migrations to a disposable Supabase/PostGIS stack, replay from empty and run RLS/advisor checks before enabling privileged workflow. No real staff users are seeded.
+
+
+Prepared real replay: **26?30 April 2024**, selected from the full 2021?2025 ERA5 scan using the declared metric. Open Scenarios or `/?mode=replay&episode=era5-2024-04-26&date=2024-04-26`. Both live and replay static artifacts are committed. `dist/` contains an assembled review/deployment artifact; Cloudflare deployment and live Telegram integration remain unconfigured.
