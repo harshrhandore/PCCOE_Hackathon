@@ -1,6 +1,10 @@
 @import "./tokens.css";
-.ward-row.selected[aria-pressed="true"] { color: var(--ink-0); }
-p a { text-decoration: underline; }
+.ward-row.selected[aria-pressed="true"] {
+  color: var(--ink-0);
+}
+p a {
+  text-decoration: underline;
+}
 * {
   box-sizing: border-box;
 }
@@ -2020,5 +2024,50 @@ tr {
   }
   details > * {
     display: block !important;
+  }
+}
+.server-alert-list {
+  list-style: none;
+  padding: 0;
+}
+.server-alert-list li {
+  margin: 8px 0;
+}
+.server-alert-list button {
+  display: block;
+  text-align: left;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+.server-alert-list small,
+.server-workspace .checkbox-row small {
+  display: block;
+}
+.server-workspace .channel-preview {
+  max-height: 480px;
+  overflow: auto;
+}
+.server-workspace .provenance-text {
+  overflow-wrap: anywhere;
+}
+.scenario-result table th,
+.scenario-result table td {
+  white-space: normal;
+}
+.scenario-result .risk-chip {
+  white-space: normal;
+}
+@media (max-width: 767px) {
+  .scenario-result {
+    padding: 12px;
+  }
+  .scenario-result th,
+  .scenario-result td {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+  .scenario-result tbody th {
+    max-width: 95px;
+    overflow-wrap: anywhere;
   }
 }

@@ -28,9 +28,12 @@ class Telegram:
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(15,connect=5)) as client:
                 r=await client.post(f'https://api.telegram.org/bot{token}/sendMessage',json={'chat_id':recipient,'text':approved_payload['content']['text']})
-            data=r.json()
             if r.status_code==429:return DeliveryResult('failed',error_code='RATE_LIMITED')
+            if r.status_code>=500:return DeliveryResult('unknown',error_code='PROVIDER_ACCEPTANCE_UNKNOWN')
+            try:data=r.json()
+            except ValueError:return DeliveryResult('unknown',error_code='PROVIDER_RESPONSE_INVALID')
             if not r.is_success or not data.get('ok'):return DeliveryResult('failed',error_code='PROVIDER_REJECTED')
+            if not isinstance(data.get('result'),dict) or 'message_id' not in data['result']:return DeliveryResult('unknown',error_code='PROVIDER_RESPONSE_INVALID')
             return DeliveryResult('succeeded',str(data['result']['message_id']))
         except (httpx.TimeoutException,httpx.NetworkError):return DeliveryResult('unknown',error_code='PROVIDER_ACCEPTANCE_UNKNOWN')
     def delivery_status(self,result):return result.status

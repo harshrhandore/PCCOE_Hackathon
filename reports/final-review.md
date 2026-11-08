@@ -1,5 +1,7 @@
 # Build verification checkpoint
 
+> Scope update, 2026-11-08: local hosting supersedes cloud deployment and scheduling. Earlier evidence is retained below; see [current local verification](local-verification.md).
+
 This is an incomplete P0 implementation, not a completed tier claim.
 
 Verified: production web build and TypeScript; 4 Vitest state/CSV tests; 63 pytest rule, thermal-reference, API fail-closed, encryption, and CAP XSD tests; actual DataMeet 2022 geography, 58 wards, zero geometry repairs; real Open-Meteo forecast acquisition; hashed immutable diagnostic publication. Full browser results are in reports/tests/playwright.json after the current run finishes.

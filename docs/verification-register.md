@@ -1,5 +1,7 @@
 # Verification register
 
+> Scope update, 2026-11-08: local hosting supersedes cloud deployment and scheduling. Earlier cloud research is historical; see [current local verification](../reports/local-verification.md).
+
 Started 2026-11-07 before implementation. Official-source access date for all entries: 2026-11-07. Retrieved-source hashes/redirects/errors are in `docs/evidence/retrievals.json`; package metadata in `npm-versions.json`. Status means the **stated implementation scope** is verified, not that the entire tier is complete. `pending` and `unavailable` explicitly block affected acceptance. Excerpts are at most 25 words per source.
 
 ## V01 ? verified

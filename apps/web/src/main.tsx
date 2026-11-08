@@ -13,7 +13,10 @@ import "@fontsource/noto-serif-devanagari/devanagari-400.css";
 import "./styles/app.css";
 import App from "./App";
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  // All reads can reach the local server even when internet status is offline.
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false, networkMode: "always" },
+  },
 });
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

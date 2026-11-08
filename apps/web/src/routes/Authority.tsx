@@ -1,9 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { Dataset, Daily } from "../data/types";
 import { PageHeading, RiskChip } from "../components/Shared";
 import { number, csvCell, download } from "../lib/state";
 import { api } from "../data/client";
+import ServerAlerts from "../components/ServerAlerts";
+import type { StaffRole } from "../data/alerts";
 type LocalAlert = {
   status: "draft" | "approved" | "simulated" | "cancelled";
   revision: number;
@@ -28,6 +31,9 @@ export default function Authority({
   const [demo, setDemo] = useState(false);
   const [token, setToken] = useState("");
   const [role, setRole] = useState("");
+  const [userId, setUserId] = useState("");
+  const [expiresAt, setExpiresAt] = useState(0);
+  const cache = useQueryClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -38,6 +44,29 @@ export default function Authority({
   const [alert, setAlert] = useState<LocalAlert | null>(null);
   const [step, setStep] = useState(0);
   const [guide, setGuide] = useState<number | null>(null);
+  const clearSession = useCallback(() => {
+    setToken("");
+    setRole("");
+    setUserId("");
+    setExpiresAt(0);
+    setPassword("");
+    cache.removeQueries({
+      predicate: (q) => String(q.queryKey[0]).startsWith("staff-"),
+    });
+  }, [cache]);
+  useEffect(() => {
+    if (!expiresAt) return;
+    const timer = setTimeout(clearSession, Math.max(0, expiresAt - Date.now()));
+    return () => clearTimeout(timer);
+  }, [expiresAt, clearSession]);
+  useEffect(
+    () => () => {
+      cache.removeQueries({
+        predicate: (q) => String(q.queryKey[0]).startsWith("staff-"),
+      });
+    },
+    [cache],
+  );
   const rows = useMemo(
     () =>
       data.daily
@@ -61,17 +90,22 @@ export default function Authority({
     setBusy(true);
     setError("");
     try {
-      const session = await api<{ access_token: string }>("/auth/login", {
-        email,
-        password,
-      });
-      const member = await api<{ role: string }>(
+      const session = await api<{ access_token: string; expires_in: number }>(
+        "/auth/login",
+        {
+          email,
+          password,
+        },
+      );
+      const member = await api<{ role: StaffRole; user_id: string }>(
         "/session",
         undefined,
         session.access_token,
       );
       setToken(session.access_token);
       setRole(member.role);
+      setUserId(member.user_id);
+      setExpiresAt(Date.now() + session.expires_in * 1000);
       setPassword("");
     } catch {
       setError(
@@ -234,10 +268,16 @@ export default function Authority({
           <button onClick={exportCSV}>{t("authority.csv")}</button>
           <button onClick={() => setGuide(0)}>Demo script</button>
           <button
-            onClick={() => {
+            onClick={async () => {
+              if (token) {
+                try {
+                  await api("/auth/logout", {}, token);
+                } catch {
+                  setError(t("authority.server.logoutFailure"));
+                }
+              }
               setDemo(false);
-              setToken("");
-              setRole("");
+              clearSession();
               setAlert(null);
             }}
           >
@@ -396,149 +436,166 @@ export default function Authority({
           </details>
         ))}
       </div>
-      <div className="composer-layout">
-        <section>
-          <p className="eyebrow">ACTION QUEUE</p>
-          <h2>Plan. Review. Confirm.</h2>
-          <p>
-            Municipal action confirmation is separate from alert approval. No
-            facility is represented as an open cooling centre.
-          </p>
-          <p className="note">
-            Sourced actions resolve to the versioned library. No LLM or
-            arbitrary free text enters delivery.
-          </p>
-          <button
-            className="primary"
-            disabled={!selected.size || offline || !demo}
-            onClick={() => void draft()}
-          >
-            {demo
-              ? "Draft local Exercise preview"
-              : "Use configured server alert API"}
-          </button>
-          {!demo && (
+      {!demo ? (
+        <ServerAlerts
+          data={data}
+          date={date}
+          selected={selected}
+          token={token}
+          role={role as StaffRole}
+          userId={userId}
+          stale={stale}
+          offline={offline}
+          onSessionEnd={clearSession}
+        />
+      ) : (
+        <div className="composer-layout">
+          <section>
+            <p className="eyebrow">ACTION QUEUE</p>
+            <h2>Plan. Review. Confirm.</h2>
             <p>
-              The server endpoints enforce independent approval; this prototype
-              UI currently exposes local walkthrough only.
+              Municipal action confirmation is separate from alert approval. No
+              facility is represented as an open cooling centre.
             </p>
-          )}
-        </section>
-        <section className="alert-composer">
-          <ol className="composer-steps">
-            {["Audience & wards", "Preview", "Approval", "Delivery"].map(
-              (s, i) => (
-                <li key={s} aria-current={step === i ? "step" : undefined}>
-                  {i + 1}. {s}
-                </li>
-              ),
-            )}
-          </ol>
-          {alert ? (
-            <>
-              <div className="alert-status">
-                <strong>
-                  {alert.status} · r{alert.revision}
-                </strong>
-                <span>Exercise / LOCAL ONLY</span>
-              </div>
-              <pre className="channel-preview">{alert.text}</pre>
-              <p className="provenance-text">SHA-256 {alert.digest}</p>
-              <div className="button-row">
-                {alert.status === "draft" && (
-                  <button
-                    disabled={actor !== "approver" || actor === alert.creator}
-                    onClick={() => {
-                      setAlert((a) =>
-                        a
-                          ? {
-                              ...a,
-                              status: "approved",
-                              approver: actor,
-                              events: [
-                                ...a.events,
-                                "Exact r1 digest approved by independent local approver",
-                              ],
-                            }
-                          : null,
-                      );
-                      setStep(2);
-                    }}
-                  >
-                    Approve local revision
-                  </button>
-                )}
-                {alert.status === "approved" && (
-                  <button
-                    disabled={actor !== "approver"}
-                    onClick={() => {
-                      setAlert((a) =>
-                        a
-                          ? {
-                              ...a,
-                              status: "simulated",
-                              events: [
-                                ...a.events,
-                                "Delivery intentionally simulated; no provider contacted",
-                              ],
-                            }
-                          : null,
-                      );
-                      setStep(3);
-                    }}
-                  >
-                    Simulate delivery
-                  </button>
-                )}
-                <button
-                  disabled={
-                    alert.status === "simulated" || alert.status === "cancelled"
-                  }
-                  onClick={() =>
-                    setAlert((a) =>
-                      a
-                        ? {
-                            ...a,
-                            status: "cancelled",
-                            events: [...a.events, "Local alert cancelled"],
-                          }
-                        : null,
-                    )
-                  }
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() =>
-                    download("heatguard-local-preview.txt", alert.text)
-                  }
-                >
-                  Download preview
-                </button>
-              </div>
-              {alert.status === "draft" && <p>{t("authority.independent")}</p>}
-              <details>
-                <summary>Local audit walkthrough</summary>
-                <ol>
-                  {alert.events.map((e, i) => (
-                    <li key={i}>{e}</li>
-                  ))}
-                </ol>
-              </details>
+            <p className="note">
+              Sourced actions resolve to the versioned library. No LLM or
+              arbitrary free text enters delivery.
+            </p>
+            <button
+              className="primary"
+              disabled={!selected.size || offline || !demo}
+              onClick={() => void draft()}
+            >
+              {demo
+                ? "Draft local Exercise preview"
+                : "Use configured server alert API"}
+            </button>
+            {!demo && (
               <p>
-                CAP XSD-validated export is available through the authorized
-                API. Local preview does not claim a frozen server alert or real
-                delivery.
+                The server endpoints enforce independent approval; this
+                prototype UI currently exposes local walkthrough only.
               </p>
-            </>
-          ) : (
-            <p>
-              Select wards to begin a local draft. Provider previews never send
-              a message.
-            </p>
-          )}
-        </section>
-      </div>
+            )}
+          </section>
+          <section className="alert-composer">
+            <ol className="composer-steps">
+              {["Audience & wards", "Preview", "Approval", "Delivery"].map(
+                (s, i) => (
+                  <li key={s} aria-current={step === i ? "step" : undefined}>
+                    {i + 1}. {s}
+                  </li>
+                ),
+              )}
+            </ol>
+            {alert ? (
+              <>
+                <div className="alert-status">
+                  <strong>
+                    {alert.status} · r{alert.revision}
+                  </strong>
+                  <span>Exercise / LOCAL ONLY</span>
+                </div>
+                <pre className="channel-preview">{alert.text}</pre>
+                <p className="provenance-text">SHA-256 {alert.digest}</p>
+                <div className="button-row">
+                  {alert.status === "draft" && (
+                    <button
+                      disabled={actor !== "approver" || actor === alert.creator}
+                      onClick={() => {
+                        setAlert((a) =>
+                          a
+                            ? {
+                                ...a,
+                                status: "approved",
+                                approver: actor,
+                                events: [
+                                  ...a.events,
+                                  "Exact r1 digest approved by independent local approver",
+                                ],
+                              }
+                            : null,
+                        );
+                        setStep(2);
+                      }}
+                    >
+                      Approve local revision
+                    </button>
+                  )}
+                  {alert.status === "approved" && (
+                    <button
+                      disabled={actor !== "approver"}
+                      onClick={() => {
+                        setAlert((a) =>
+                          a
+                            ? {
+                                ...a,
+                                status: "simulated",
+                                events: [
+                                  ...a.events,
+                                  "Delivery intentionally simulated; no provider contacted",
+                                ],
+                              }
+                            : null,
+                        );
+                        setStep(3);
+                      }}
+                    >
+                      Simulate delivery
+                    </button>
+                  )}
+                  <button
+                    disabled={
+                      alert.status === "simulated" ||
+                      alert.status === "cancelled"
+                    }
+                    onClick={() =>
+                      setAlert((a) =>
+                        a
+                          ? {
+                              ...a,
+                              status: "cancelled",
+                              events: [...a.events, "Local alert cancelled"],
+                            }
+                          : null,
+                      )
+                    }
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() =>
+                      download("heatguard-local-preview.txt", alert.text)
+                    }
+                  >
+                    Download preview
+                  </button>
+                </div>
+                {alert.status === "draft" && (
+                  <p>{t("authority.independent")}</p>
+                )}
+                <details>
+                  <summary>Local audit walkthrough</summary>
+                  <ol>
+                    {alert.events.map((e, i) => (
+                      <li key={i}>{e}</li>
+                    ))}
+                  </ol>
+                </details>
+                <p>
+                  CAP XSD-validated export is available through the authorized
+                  API. Local preview does not claim a frozen server alert or
+                  real delivery.
+                </p>
+              </>
+            ) : (
+              <p>
+                Select wards to begin a local draft. Provider previews never
+                send a message.
+              </p>
+            )}
+          </section>
+        </div>
+      )}
     </>
   );
 }

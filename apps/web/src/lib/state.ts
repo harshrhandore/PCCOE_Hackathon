@@ -24,32 +24,44 @@ export function number(value: number | null | undefined, digits = 1) {
   return value === null || value === undefined ? "—" : value.toFixed(digits);
 }
 export function dateLabel(day: string, lang = "en") {
-  return new Intl.DateTimeFormat(lang, {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    timeZone: "Asia/Kolkata",
-  }).format(new Date(`${day}T06:30:00Z`));
+  let formatter = dateFormatters.get(lang);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat(lang, {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      timeZone: "Asia/Kolkata",
+    });
+    dateFormatters.set(lang, formatter);
+  }
+  return formatter.format(new Date(`${day}T06:30:00Z`));
 }
 export function timeLabel(instant: string | null | undefined, lang = "en") {
-  return instant
-    ? new Intl.DateTimeFormat(lang, {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Kolkata",
-      }).format(new Date(instant))
-    : "—";
+  if (!instant) return "\u2014";
+  let formatter = timeFormatters.get(lang);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat(lang, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    });
+    timeFormatters.set(lang, formatter);
+  }
+  return formatter.format(new Date(instant));
 }
+const dateFormatters = new Map<string, Intl.DateTimeFormat>();
+const timeFormatters = new Map<string, Intl.DateTimeFormat>();
+const localPartsFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Kolkata",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  hourCycle: "h23",
+});
 export function localParts(instant: string) {
-  const p = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Kolkata",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(new Date(instant));
+  const p = localPartsFormatter.formatToParts(new Date(instant));
   const get = (k: string) => p.find((x) => x.type === k)?.value || "";
   return {
     date: `${get("year")}-${get("month")}-${get("day")}`,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Dataset, Hourly } from "../data/types";
@@ -14,22 +14,28 @@ export default function HeatRibbon({
   const [index, setIndex] = useState(0);
   const days = data.manifest.meta.dates;
   const [params] = useSearchParams();
-  const selectedDate = params.get('date');
-  const selectedHour = params.get('t');
+  const selectedDate = params.get("date");
+  const selectedHour = params.get("t");
   useEffect(() => {
     const day = days.indexOf(selectedDate || days[0]);
     const hour = Number(selectedHour ?? 14);
-    if (day >= 0 && Number.isInteger(hour) && hour >= 0 && hour < 24) setIndex(day * 24 + hour);
+    if (day >= 0 && Number.isInteger(hour) && hour >= 0 && hour < 24)
+      setIndex(day * 24 + hour);
   }, [selectedDate, selectedHour, days]);
-  const cells = days.flatMap((date) =>
-    Array.from({ length: 24 }, (_, hour) => {
-      const i = hourly.time.findIndex((time) => {
-        const p = localParts(time);
-        return p.date === date && p.hour === hour;
-      });
-      return { date, hour, i, value: i < 0 ? null : hourly.utci[i] };
-    }),
-  );
+  const cells = useMemo(() => {
+    const indices = new Map<string, number>();
+    hourly.time.forEach((time, index) => {
+      const part = localParts(time);
+      const key = `${part.date}/${part.hour}`;
+      if (!indices.has(key)) indices.set(key, index);
+    });
+    return days.flatMap((date) =>
+      Array.from({ length: 24 }, (_, hour) => {
+        const i = indices.get(`${date}/${hour}`) ?? -1;
+        return { date, hour, i, value: i < 0 ? null : hourly.utci[i] };
+      }),
+    );
+  }, [days, hourly]);
   const selected = cells[index];
   const category = (v: number | null) =>
     v === null

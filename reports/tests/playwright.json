@@ -103,7 +103,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 120000,
         "use": {
-          "baseURL": "http://127.0.0.1:5173",
+          "baseURL": "http://127.0.0.1:8081",
           "headless": true,
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
@@ -132,7 +132,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 120000,
         "use": {
-          "baseURL": "http://127.0.0.1:5173",
+          "baseURL": "http://127.0.0.1:8081",
           "headless": true,
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
@@ -161,7 +161,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 120000,
         "use": {
-          "baseURL": "http://127.0.0.1:5173",
+          "baseURL": "http://127.0.0.1:8081",
           "headless": true,
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
@@ -190,7 +190,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 120000,
         "use": {
-          "baseURL": "http://127.0.0.1:5173",
+          "baseURL": "http://127.0.0.1:8081",
           "headless": true,
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
@@ -252,12 +252,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 57358,
+                  "duration": 6258,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:42:28.794Z",
+                  "startTime": "2026-11-08T04:43:39.122Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -275,12 +275,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 51101,
+                  "duration": 5934,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:43:31.870Z",
+                  "startTime": "2026-11-08T04:43:56.515Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -298,12 +298,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 49815,
+                  "duration": 5698,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:44:27.057Z",
+                  "startTime": "2026-11-08T04:44:08.280Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -321,12 +321,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 57568,
+                  "duration": 5880,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:45:22.705Z",
+                  "startTime": "2026-11-08T04:44:25.546Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -355,12 +355,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2063,
+                  "duration": 1778,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:43:26.422Z",
+                  "startTime": "2026-11-08T04:43:45.677Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -388,12 +388,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 259,
+                  "duration": 234,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:44:23.230Z",
+                  "startTime": "2026-11-08T04:44:02.725Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -421,12 +421,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2166,
+                  "duration": 1715,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:45:17.139Z",
+                  "startTime": "2026-11-08T04:44:14.242Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -454,12 +454,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 292,
+                  "duration": 226,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:46:20.534Z",
+                  "startTime": "2026-11-08T04:44:31.684Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -498,12 +498,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1416,
+                  "duration": 835,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:43:28.517Z",
+                  "startTime": "2026-11-08T04:43:47.478Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -521,12 +521,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1541,
+                  "duration": 875,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:44:23.515Z",
+                  "startTime": "2026-11-08T04:44:02.980Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -544,12 +544,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1492,
+                  "duration": 919,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:45:19.339Z",
+                  "startTime": "2026-11-08T04:44:15.983Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -567,12 +567,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1546,
+                  "duration": 952,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-07T20:46:20.851Z",
+                  "startTime": "2026-11-08T04:44:31.940Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -586,14 +586,419 @@
           "column": 1
         }
       ]
+    },
+    {
+      "title": "local.spec.ts",
+      "file": "local.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "saved bulletin, real calculation and replay survive external network loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2457,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:43:48.349Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2067,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:03.891Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2159,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:16.943Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2123,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:32.935Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f8ab1ecd5facf788fad0-a53009fbd42c867b2f8c",
+          "file": "local.spec.ts",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "server-flows.spec.ts",
+      "file": "server-flows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "server authority UI binds approval, prevents self-approval and stops unknown retries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2344,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:43:50.858Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary authority contracts covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                    "line": 6,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 184,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:06.015Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary authority contracts covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                        "line": 6,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2419,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:19.154Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary authority contracts covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                    "line": 6,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:35.117Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary authority contracts covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                        "line": 6,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "7355044c354ad8f59122-63213aed914fe1cd3917",
+          "file": "server-flows.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "what-if comparison retains explicit simulation and exact returned inputs",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1470,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:43:53.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary comparison UI covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                    "line": 205,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 196,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:06.219Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary comparison UI covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                        "line": 205,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2055,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:21.597Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary comparison UI covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                    "line": 205,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 222,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T04:44:35.374Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary comparison UI covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
+                        "line": 205,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "7355044c354ad8f59122-31771272f9d2a5eb1d33",
+          "file": "server-flows.spec.ts",
+          "line": 202,
+          "column": 1
+        }
+      ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-07T20:42:26.958Z",
-    "duration": 235691.301,
-    "expected": 10,
-    "skipped": 2,
+    "startTime": "2026-11-08T04:43:37.114Z",
+    "duration": 58681.105,
+    "expected": 18,
+    "skipped": 6,
     "unexpected": 0,
     "flaky": 0
   }

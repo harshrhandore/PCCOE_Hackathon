@@ -250,9 +250,7 @@ export default function App() {
               <Route path="/methods" element={<Methods data={data} />} />
               <Route
                 path="/scenarios"
-                element={
-                  <Scenarios data={data} update={update} offline={offline} />
-                }
+                element={<Scenarios data={data} update={update} />}
               />
               <Route
                 path="/subscribe"

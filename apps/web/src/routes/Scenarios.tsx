@@ -2,6 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { Dataset } from "../data/types";
 import { PageHeading, RouteLink, Empty } from "../components/Shared";
+import ScenarioComparison, {
+  type ScenarioResult,
+} from "../components/ScenarioComparison";
+import { API_BASE } from "../data/client";
 type Episode = {
   id: string;
   start: string;
@@ -11,24 +15,29 @@ type Episode = {
 export default function Scenarios({
   data,
   update,
-  offline,
 }: {
   data: Dataset;
   update: (v: Record<string, string>) => void;
-  offline: boolean;
 }) {
   const { t } = useTranslation();
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [temp, setTemp] = useState(0);
   const [rh, setRh] = useState(0);
   const [wind, setWind] = useState(1);
-  const [result, setResult] = useState<unknown>(null);
+  const [result, setResult] = useState<ScenarioResult | null>(null);
+  const [pending, setPending] = useState(false);
+  const [runVersion, setRunVersion] = useState(0);
   const [status, setStatus] = useState("");
   const [playing, setPlaying] = useState(false);
   const [hour, setHour] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [requested, setRequested] = useState(false);
   const baseline = data.manifest.snapshot_id;
+  useEffect(() => {
+    setResult(null);
+    setRequested(false);
+    setPending(false);
+  }, [baseline]);
   useEffect(() => {
     const ac = new AbortController();
     void fetch("/data/replay/catalog.json", { signal: ac.signal })
@@ -41,33 +50,35 @@ export default function Scenarios({
     if (!requested) return;
     const ac = new AbortController();
     const timer = setTimeout(() => {
-      if (offline) {
-        setStatus("What-if computation is unavailable offline.");
-        return;
-      }
       setStatus("Computing scenario…");
-      void fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1"}/whatif`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            snapshot_id: baseline,
-            ward_ids: data.registry.wards.map((w) => w.id),
-            temperature_delta_c: temp,
-            relative_humidity_delta_pp: rh,
-            wind_multiplier: wind,
-            weights_mode: "default",
-          }),
-          signal: ac.signal,
-        },
-      )
+      setPending(true);
+      void fetch(`${API_BASE}/whatif`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          snapshot_id: baseline,
+          ward_ids: data.registry.wards.map((w) => w.id),
+          temperature_delta_c: temp,
+          relative_humidity_delta_pp: rh,
+          wind_multiplier: wind,
+          weights_mode: "default",
+        }),
+        signal: ac.signal,
+      })
         .then(async (r) => {
           const value = await r.json();
           if (!r.ok) throw new Error();
           return value.data;
         })
         .then((v) => {
+          if (ac.signal.aborted) return;
+          if (
+            !v ||
+            v.source_snapshot_id !== baseline ||
+            !Array.isArray(v.baseline) ||
+            !Array.isArray(v.scenario)
+          )
+            throw new Error("invalid-scenario");
           setResult(v);
           setStatus("Computed simulation. Baseline remains unchanged.");
         })
@@ -76,13 +87,16 @@ export default function Scenarios({
             setStatus(
               "What-if service unavailable or baseline inputs incomplete. No synthetic comparison is substituted.",
             );
+        })
+        .finally(() => {
+          if (!ac.signal.aborted) setPending(false);
         });
     }, 300);
     return () => {
       clearTimeout(timer);
       ac.abort();
     };
-  }, [temp, rh, wind, requested, offline, baseline, data.registry.wards]);
+  }, [temp, rh, wind, requested, runVersion, baseline, data.registry.wards]);
   useEffect(() => {
     if (!playing) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -285,18 +299,17 @@ export default function Scenarios({
             </button>
             <button
               className="primary"
-              disabled={offline}
-              onClick={() => setRequested(true)}
+              onClick={() => {
+                setRequested(true);
+                setRunVersion((v) => v + 1);
+              }}
             >
               Compute what-if
             </button>
           </div>
           <p role="status">{status}</p>
           {result !== null && (
-            <div className="scenario-result">
-              <strong>SIMULATION — not a live forecast.</strong>
-              <pre>{JSON.stringify(result, null, 2)}</pre>
-            </div>
+            <ScenarioComparison result={result} data={data} pending={pending} />
           )}
         </section>
       </div>

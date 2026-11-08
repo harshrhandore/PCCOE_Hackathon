@@ -1,5 +1,5 @@
 from __future__ import annotations
-import asyncio,base64,datetime,hashlib,hmac,json,os,secrets,time,uuid
+import asyncio,base64,datetime,hashlib,hmac,json,os,secrets,time,uuid,threading,gzip
 from collections import OrderedDict,defaultdict,deque
 from pathlib import Path
 from typing import Annotated
@@ -27,6 +27,7 @@ app=FastAPI(title='HeatGuard AI prototype',version='1.0.0',description='Static-f
 origins=[x.strip() for x in os.environ.get('API_ALLOWED_ORIGINS','http://localhost:5173,http://127.0.0.1:5173,http://127.0.0.1:4173').split(',') if x.strip()]
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=False,allow_methods=['GET','POST','PATCH','DELETE'],allow_headers=['Authorization','Content-Type','Idempotency-Key','X-Request-ID','X-Telegram-Bot-Api-Secret-Token'],expose_headers=['X-Request-ID','ETag'])
 rate_limits=defaultdict(deque);scenarios=OrderedDict()
+whatif_slots=threading.BoundedSemaphore(2)
 
 def metadata(meta=None):
     return meta or {'snapshot_id':None,'issued_at':None,'model_run':None,'data_vintage':{},'git_sha':None,'is_simulation':False,'mode':'live','schema_version':'1.0.0','method_version':'1.0.0','timezone':'Asia/Kolkata','quality_flags':[]}
@@ -38,14 +39,17 @@ def error_response(error,request):
 @app.middleware('http')
 async def safeguards(request:Request,call_next):
     request.state.request_id=str(uuid.uuid4())
-    key_ip=request.client.host if request.client else 'unknown';timestamp=time.monotonic();bucket=rate_limits[key_ip]
-    while bucket and timestamp-bucket[0]>60:bucket.popleft()
-    if len(bucket)>=120:return error_response(AppError('RATE_LIMITED',429,'validation.tooMany',{'seconds':60},True),request)
-    bucket.append(timestamp)
+    # Static chunks, fonts and immutable weather files must not consume the
+    # API budget when the same process hosts the local frontend.
+    if request.url.path.startswith('/api/') or request.url.path=='/health':
+        key_ip=request.client.host if request.client else 'unknown';timestamp=time.monotonic();bucket=rate_limits[key_ip]
+        while bucket and timestamp-bucket[0]>60:bucket.popleft()
+        if len(bucket)>=120:return error_response(AppError('RATE_LIMITED',429,'validation.tooMany',{'seconds':60},True),request)
+        bucket.append(timestamp)
     # Bound keys as well as per-IP event queues; do not retain IPs indefinitely.
     if len(rate_limits)>10000:
         for k in list(rate_limits)[:5000]:
-            if not rate_limits[k] or timestamp-rate_limits[k][-1]>60:rate_limits.pop(k,None)
+            if not rate_limits[k] or time.monotonic()-rate_limits[k][-1]>60:rate_limits.pop(k,None)
     if request.method in ['POST','PATCH','DELETE']:
         if int(request.headers.get('content-length','0') or '0')>65536:return error_response(AppError('INVALID_INPUT',413,'validation.summary'),request)
         if len(await request.body())>65536:return error_response(AppError('INVALID_INPUT',413,'validation.summary'),request)
@@ -135,6 +139,11 @@ def replay(episode_id:str):
 
 @app.post('/api/v1/whatif')
 def whatif(payload:WhatIf):
+    if not whatif_slots.acquire(blocking=False):raise AppError('RATE_LIMITED',429,'validation.tooMany',{'seconds':60},True)
+    try:return compute_whatif(payload)
+    finally:whatif_slots.release()
+
+def compute_whatif(payload:WhatIf):
     manifest,file=load(payload.snapshot_id);registry=file('geography.json');ids={w['id'] for w in registry['wards']}
     if set(payload.ward_ids)-ids:raise AppError('INVALID_INPUT',422,'validation.ward')
     if payload.weights_mode=='equal':raise AppError('DEPENDENCY_UNAVAILABLE',details={'dependency':'complete_vulnerability_cohort'})
@@ -142,9 +151,13 @@ def whatif(payload:WhatIf):
     for k in list(scenarios):
         if scenarios[k][0]<timestamp:scenarios.pop(k)
     if key_scenario in scenarios:return scenarios[key_scenario][1]
-    source=ROOT/'data/raw/latest-forecast.json'
-    if not source.exists() or payload.snapshot_id!=load()[0]['snapshot_id']:raise AppError('SNAPSHOT_UNAVAILABLE')
-    raw_by_id={r['ward_id']:r['raw'] for r in read_json(source)}
+    source=ROOT/'data/raw/snapshots'/f'{payload.snapshot_id}.json'
+    bundle=ROOT/'data/processed/inputs'/f'{payload.snapshot_id}.json.gz'
+    if source.exists():inputs=read_json(source)
+    elif bundle.exists():inputs=json.loads(gzip.decompress(bundle.read_bytes()))
+    else:raise AppError('SNAPSHOT_UNAVAILABLE')
+    if digest(inputs)!=manifest['meta'].get('source_input_sha256'):raise AppError('SNAPSHOT_UNAVAILABLE')
+    raw_by_id={r['ward_id']:r['raw'] for r in inputs}
     if any(w not in raw_by_id for w in payload.ward_ids):raise AppError('SNAPSHOT_UNAVAILABLE')
     baseline=[r for r in file('forecast.json')['daily'] if r['ward_id'] in payload.ward_ids];scenario=[];clamps=0
     climate=read_json(ROOT/'data/processed/climatology.json') if (ROOT/'data/processed/climatology.json').exists() else {'cells':{},'ward_cells':{}}
@@ -168,7 +181,17 @@ async def login(payload:Login):
     value=r.json();return envelope({'access_token':value['access_token'],'expires_in':value['expires_in']})
 
 @app.get('/api/v1/session')
-def session(current:Member=Depends(member)):return envelope({'role':current.role})
+def session(current:Member=Depends(member)):return envelope({'role':current.role,'user_id':current.user_id})
+
+@app.post('/api/v1/auth/logout')
+async def logout(authorization:str|None=Header(None)):
+    url=os.environ.get('SUPABASE_URL');publishable=os.environ.get('SUPABASE_PUBLISHABLE_KEY')
+    if not authorization or not authorization.startswith('Bearer '):raise AppError('UNAUTHENTICATED',401,'state.unauthorized')
+    if not url or not publishable:raise AppError('DEPENDENCY_UNAVAILABLE',details={'dependency':'auth_configuration'})
+    async with httpx.AsyncClient(timeout=10) as client:
+        response=await client.post(url.rstrip('/')+'/auth/v1/logout?scope=local',headers={'apikey':publishable,'Authorization':authorization})
+    if not response.is_success:raise AppError('UNAUTHENTICATED',401,'state.unauthorized')
+    return envelope({'signed_out':True})
 
 @app.post('/api/v1/alerts/draft',status_code=201)
 def draft(payload:Draft,request:Request,current:Member=Depends(member),idempotency_key:str|None=Header(None)):
@@ -183,6 +206,16 @@ def alerts(current:Member=Depends(member),limit:int=Query(50,ge=1,le=200),status
 
 @app.patch('/api/v1/alerts/{alert_id}')
 def edit(alert_id:uuid.UUID,payload:PatchDraft,request:Request,current:Member=Depends(member)):return envelope({'alert':workflow.patch(alert_id,payload,current,request.state.request_id)})
+
+@app.get('/api/v1/alerts/{alert_id}')
+def alert_detail(alert_id:uuid.UUID,current:Member=Depends(member)):
+    with database() as db:
+        row=db.execute('select * from public.alerts where id=%s',(alert_id,)).fetchone()
+        if not row:raise AppError('INVALID_INPUT',404,'state.noAlerts')
+        deliveries=db.execute('select status,count(*) as n from public.alert_deliveries where alert_id=%s and revision=%s group by status',(alert_id,row['revision'])).fetchall()
+    value=workflow.safe_alert(row)
+    value['delivery_summary']={d['status']:d['n'] for d in deliveries}
+    return envelope({'alert':value})
 @app.post('/api/v1/alerts/{alert_id}/approve')
 def approve(alert_id:uuid.UUID,payload:Approval,request:Request,current:Member=Depends(member)):return envelope({'alert':workflow.approve(alert_id,payload,current,request.state.request_id)})
 @app.post('/api/v1/alerts/{alert_id}/cancel')
@@ -252,3 +285,8 @@ def delete_subscription(subscription_id:uuid.UUID,authorization:str|None=Header(
         db.execute("update public.alert_deliveries set subscription_id=null,status=case when status in ('pending','sending') then 'failed' else status end where subscription_id=%s",(subscription_id,))
         db.execute('delete from public.subscriptions where id=%s',(subscription_id,))
     return envelope({'deleted':True})
+
+# Opt-in only: development/API tests keep the regular API-only application.
+if os.environ.get('HEATGUARD_SERVE_WEB','').lower()=='true':
+    from .web import mount_local_web
+    mount_local_web(app,os.environ.get('HEATGUARD_STATIC_WEB_DIR',str(ROOT/'dist')),data_root())

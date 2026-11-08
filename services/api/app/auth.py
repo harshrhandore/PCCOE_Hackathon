@@ -45,3 +45,4 @@ def recheck_member(connection,current,roles):
     row=connection.execute('select role from app_private.authority_members where user_id=%s and active for share',(current.user_id,)).fetchone()
     session=connection.execute('select id from auth.sessions where id=%s and user_id=%s and (not_after is null or not_after>now())',(current.session_id,current.user_id)).fetchone()
     if not row or row['role'] not in roles or not session:raise AppError('FORBIDDEN',403,'state.forbidden')
+    return row['role']

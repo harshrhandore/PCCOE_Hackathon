@@ -13,7 +13,7 @@ def gitsha():
     r=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True)
     return r.stdout.strip() if r.returncode==0 else 'uncommitted-local-source'
 
-def assemble(records, issued_at, mode='live', dates=None, episode=None, output_root=None):
+def assemble(records, issued_at, mode='live', dates=None, episode=None, output_root=None, promote=True):
     registry=read_json(ROOT/'data/processed/ward-manifest.json')
     features=read_json(ROOT/'data/processed/features.json') if (ROOT/'data/processed/features.json').exists() else prepare()
     climate=read_json(ROOT/'data/processed/climatology.json') if (ROOT/'data/processed/climatology.json').exists() else {'ward_cells':{},'cells':{}}
@@ -36,10 +36,12 @@ def assemble(records, issued_at, mode='live', dates=None, episode=None, output_r
     if mode=='live':
         retrievals=[read_json(p)['retrieved_at'] for p in (ROOT/'data/raw/weather').glob('*.request.json') if read_json(p)['url'].endswith('/forecast')]
         if retrievals:fetched_at=max(retrievals)
+    record_times=[r['fetched_at'] for r in records if r.get('fetched_at')]
+    if record_times:fetched_at=max(record_times)
     meta={'issued_at':issued_at,'fetched_at':fetched_at,'model_run':None,'model_id':'era5' if mode=='replay' else 'best_match','data_vintage':{'weather':mode,'boundaries':'2022','climatology':'1991–2020' if climate['cells'] else 'unavailable','demographics':'unavailable'},
         'git_sha':gitsha(),'data_git_sha':os.environ.get('DATA_GIT_SHA','local-uncommitted-data'),'schema_version':'1.0.0','method_version':'1.0.0','boundary_version':registry['boundary_version'],
         'is_simulation':mode!='live','mode':mode,'timezone':'Asia/Kolkata','quality_flags':['NEAR_REAL_TIME_MODEL_BASED','BOUNDARIES_HISTORICAL_2022','ML_NOT_TRAINED'],
-        'dates':dates,'ward_count':len(registry['wards']),'episode':episode,'publication_health':'complete' if all(d['completeness']['hourly'] and d['modifier_status']=='complete' for d in daily) else 'incomplete'}
+        'dates':dates,'ward_count':len(registry['wards']),'episode':episode,'source_input_sha256':digest(records),'publication_health':'complete' if all(d['completeness']['hourly'] and d['modifier_status']=='complete' for d in daily) else 'incomplete'}
     forecast={'daily':daily,'dates':dates,'ward_count':len(registry['wards'])}
     payloads={'forecast.json':forecast,'wards.geojson':read_json(ROOT/'data/processed/wards.geojson'),'methods.json':methods(),'meta.json':meta,'features.json':features,'geography.json':registry}
     bulletins=[]
@@ -50,6 +52,12 @@ def assemble(records, issued_at, mode='live', dates=None, episode=None, output_r
     for wid,h in hourlies.items():payloads[f'hourly/{wid}.json']=h
     snapshot_id=datetime.datetime.fromisoformat(issued_at.replace('Z','+00:00')).strftime('%Y%m%dT%H%M%SZ')+'-'+digest(payloads)[:12]
     meta['snapshot_id']=snapshot_id
+    write_json(ROOT/'data/raw/snapshots'/f'{snapshot_id}.json',records)
+    # Small redistribution-safe weather inputs make saved what-if reproducible
+    # locally. This bundle has no recipient/authentication data.
+    bundle=ROOT/'data/processed/inputs'/f'{snapshot_id}.json.gz'
+    bundle.parent.mkdir(parents=True,exist_ok=True)
+    bundle.write_bytes(gzip.compress(canonical(records),mtime=0))
     output_root=Path(output_root or ROOT/'apps/web/public/data')
     relative=f'releases/{snapshot_id}';release=output_root/relative
     files={}
@@ -58,6 +66,7 @@ def assemble(records, issued_at, mode='live', dates=None, episode=None, output_r
     manifest={'snapshot_id':snapshot_id,'schema_version':'1.0.0','method_version':'1.0.0','meta':meta,'files':files}
     validate_release(manifest,output_root)
     write_json(release/'manifest.json',manifest)
+    if not promote:return manifest
     # Complete operational publication cannot be replaced by an incomplete candidate.
     latest=output_root/'latest.json'
     if meta['publication_health']!='complete':

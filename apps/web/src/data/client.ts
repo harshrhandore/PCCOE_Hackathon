@@ -40,6 +40,8 @@ async function getManifest(url: string): Promise<Manifest> {
 }
 export function useDataset(mode: string, episode: string | null) {
   return useQuery({
+    // Loopback serving remains reachable when the computer loses internet.
+    networkMode: "always",
     queryKey: ["snapshot", mode, episode],
     queryFn: async (): Promise<Dataset> => {
       let manifest: Manifest,
@@ -129,27 +131,40 @@ export function useGeometry(data: Dataset) {
     retry: 1,
   });
 }
+export class ApiError extends Error {
+  constructor(
+    public code: string,
+    public status: number,
+    public messageKey: string,
+  ) {
+    super(messageKey);
+  }
+}
+export const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api/v1";
 export async function api<T>(
   path: string,
   body?: unknown,
   token?: string,
   method?: string,
+  requestKey?: string,
 ): Promise<T> {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1"}${path}`,
-    {
-      method: method || (body ? "POST" : "GET"),
-      headers: {
-        "Content-Type": "application/json",
-        ...(body ? { "Idempotency-Key": crypto.randomUUID() } : {}),
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-      signal: AbortSignal.timeout(15000),
+  const response = await fetch(`${API_BASE}${path}`, {
+    method: method || (body ? "POST" : "GET"),
+    cache: token ? "no-store" : "default",
+    headers: {
+      "Content-Type": "application/json",
+      ...(body ? { "Idempotency-Key": requestKey || crypto.randomUUID() } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
-  );
+    ...(body ? { body: JSON.stringify(body) } : {}),
+    signal: AbortSignal.timeout(15000),
+  });
   const result = await response.json();
   if (!response.ok)
-    throw new Error(result.error?.message_key || "state.waking");
+    throw new ApiError(
+      result.error?.code || "DEPENDENCY_UNAVAILABLE",
+      response.status,
+      result.error?.message_key || "state.waking",
+    );
   return result.data as T;
 }

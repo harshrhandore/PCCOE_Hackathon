@@ -2,11 +2,11 @@
 import argparse,datetime
 from collections import defaultdict
 import numpy as np
-from .io import ROOT,read_json,write_json,fetch_json,digest
+from .io import ROOT,read_json,write_json,fetch_json,digest,retrieval_time
 from .fetch_forecast import VARIABLES
 from .heatguard_core.thermal import compute
 from .heatguard_core.hazard import local_time,category
-from .publish import assemble,utcnow
+from .publish import assemble,utcnow,validate_release
 
 def consecutive(values):
     best=run=0
@@ -56,13 +56,18 @@ def acquire(build_year):
     records=[]
     for ward in registry['wards']:
         point=ward['weather_point'];args={'latitude':point[1],'longitude':point[0],'start_date':(start-datetime.timedelta(days=3)).isoformat(),'end_date':(start+datetime.timedelta(days=6)).isoformat(),'hourly':','.join(VARIABLES),'wind_speed_unit':'ms','temperature_unit':'celsius','timezone':'UTC','timeformat':'unixtime','models':'era5'}
-        records.append({'ward_id':ward['id'],'raw':fetch_json('https://archive-api.open-meteo.com/v1/archive',args,cache_hours=None)})
+        raw=fetch_json('https://archive-api.open-meteo.com/v1/archive',args,cache_hours=None)
+        records.append({'ward_id':ward['id'],'raw':raw,'fetched_at':retrieval_time('https://archive-api.open-meteo.com/v1/archive',args)})
     output=ROOT/'apps/web/public/data/replay'/episode_id
-    manifest=assemble(records,utcnow(),mode='replay',dates=display,episode=episode,output_root=output)
+    manifest=assemble(records,utcnow(),mode='replay',dates=display,episode=episode,output_root=output,promote=False)
+    if manifest['meta']['publication_health']!='complete':raise RuntimeError('Incomplete replay candidate; prior replay remains unchanged')
     write_json(ROOT/f'data/replay/{episode_id}/manifest.json',episode);write_json(ROOT/f'data/replay/{episode_id}/candidate-scores.json',{'coverage_years':years,'scores':scores,'daily_medians':[{'date':d,'utci':a,'wbgt':b} for d,a,b in zip(dates,u,w)]})
     # Rewrite nested release URLs relative to the shared public data root.
     for f in manifest['files'].values():f['url']=f'replay/{episode_id}/'+f['url']
-    write_json(output/'latest.json',manifest);write_json(output/'episode.json',episode)
+    validate_release(manifest,ROOT/'apps/web/public/data')
+    import os
+    pending=output/'latest.pending.json';write_json(pending,manifest);os.replace(pending,output/'latest.json')
+    write_json(output/'episode.json',episode)
     write_json(ROOT/'apps/web/public/data/replay/catalog.json',[episode])
     write_json(ROOT/f'data/replay/{episode_id}/raw-reference.json',{'content_sha256':digest(records),'source_raw_cache':'data/raw/weather','record_count':len(records)})
     return episode

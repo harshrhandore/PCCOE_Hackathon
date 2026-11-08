@@ -9,12 +9,15 @@
     "dev": "npm run dev --workspace apps/web",
     "build": "npm run build --workspace apps/web",
     "typecheck": "npm run typecheck --workspace apps/web",
-    "test": "npm run test --workspace apps/web",
-    "test:e2e": "npm run test:e2e --workspace apps/web",
+    "test": "node scripts/web-tool.mjs unit",
+    "test:e2e": "node scripts/web-tool.mjs e2e",
     "data:prepare": "uv run python -m pipeline.prepare_wards",
     "data:refresh": "uv run python -m pipeline.publish --fetch",
     "data:validate": "uv run python scripts/validate-data.py",
-    "api": "uv run uvicorn services.api.app.main:app --host 127.0.0.1 --port 8000"
+    "api": "node scripts/run-python.mjs -m uvicorn services.api.app.main:app --host 127.0.0.1 --port 8000 --no-access-log",
+    "start": "node scripts/start-local.mjs",
+    "local:check": "node scripts/start-local.mjs --check",
+    "local:refresh": "node scripts/run-python.mjs -m pipeline.publish --fetch"
   },
   "engines": {
     "node": ">=22.12.0"

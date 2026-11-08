@@ -11,6 +11,10 @@ def write_json(path,value):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(canonical(value))
 def read_json(path):return json.loads(Path(path).read_text(encoding='utf8'))
 
+def retrieval_time(url,params):
+    path=ROOT/'data/raw/weather'/f'{digest({"url":url,"params":params})}.request.json'
+    return read_json(path)['retrieved_at'] if path.exists() else None
+
 def fetch_json(url, params, cache_hours=3):
     if url not in ['https://api.open-meteo.com/v1/forecast','https://archive-api.open-meteo.com/v1/archive']:
         raise ValueError('Untrusted upstream endpoint')
