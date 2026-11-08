@@ -44,6 +44,11 @@ export function useDataset(mode: string, episode: string | null) {
     networkMode: "always",
     queryKey: ["snapshot", mode, episode],
     queryFn: async (): Promise<Dataset> => {
+      if (
+        mode === "replay" &&
+        (!episode || !/^[A-Za-z0-9_-]{1,100}$/.test(episode))
+      )
+        throw new Error("A valid prepared replay episode is required.");
       let manifest: Manifest,
         diagnostic = false;
       try {

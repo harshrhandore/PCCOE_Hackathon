@@ -25,7 +25,8 @@
     "db:status": "node scripts/run-python.mjs scripts/local_db.py status",
     "staff:create": "node scripts/run-python.mjs scripts/staff.py create",
     "staff:bootstrap": "node scripts/run-python.mjs scripts/staff.py bootstrap",
-    "staff:disable": "node scripts/run-python.mjs scripts/staff.py disable"
+    "staff:disable": "node scripts/run-python.mjs scripts/staff.py disable",
+    "audit:local": "node scripts/audit-local.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -88,3 +88,5 @@ The migration test creates and removes only its own disposable database; it does
 **Local hosting supersedes online-hosting requirements.** Cloud deployment, remote scheduled pipeline and keep-alive workflows have been removed. GitHub stores source and runs verification CI only. No online deployment is performed. DECISIONS.md records this override; the expanded build prompt remains historical requirements context.
 
 See reports/local-verification.md for current evidence and remaining acceptance. Older reports retain earlier scope. P0 is not claimed complete.
+
+Production performance can be checked with `npm run audit:local` while the app runs. The latest three mobile/4G simulations reached performance 96 median (87-97), automated accessibility 100 and LCP 0.77 seconds median (0.77-3.46 seconds). All measured median budgets passed; the LCP outlier and unmeasured INP are disclosed in reports/performance/budget-status.md. CI records the same three-run check.

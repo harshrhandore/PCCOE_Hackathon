@@ -49,6 +49,10 @@ jobs:
           export HEATGUARD_TEST_BASE_URL=http://127.0.0.1:8081
           export HEATGUARD_RUN_DB_TESTS=1
           npm run test:e2e
+      - name: Three production mobile audits and size budgets
+        env:
+          HEATGUARD_TEST_BASE_URL: http://127.0.0.1:8081/
+        run: npm run audit:local
       - name: Stop owned local database stack
         if: always() && steps.local-db.outcome != 'skipped'
         run: npm run db:stop

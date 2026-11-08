@@ -1,0 +1,215 @@
+{
+  "target": "http://127.0.0.1:8081/",
+  "generated_at": "2026-11-08T18:29:32.637Z",
+  "settings": {
+    "output": [
+      "json"
+    ],
+    "maxWaitForFcp": 30000,
+    "maxWaitForLoad": 45000,
+    "pauseAfterFcpMs": 1000,
+    "pauseAfterLoadMs": 1000,
+    "networkQuietThresholdMs": 1000,
+    "cpuQuietThresholdMs": 1000,
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "simulate",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "auditMode": false,
+    "gatherMode": false,
+    "clearStorageTypes": [
+      "file_systems",
+      "shader_cache",
+      "service_workers",
+      "cache_storage"
+    ],
+    "disableStorageReset": false,
+    "debugNavigation": false,
+    "channel": "cli",
+    "usePassiveGathering": false,
+    "disableFullPageScreenshot": false,
+    "skipAboutBlank": false,
+    "blankPage": "about:blank",
+    "ignoreStatusCode": false,
+    "locale": "en-US",
+    "blockedUrlPatterns": null,
+    "additionalTraceCategories": null,
+    "extraHeaders": null,
+    "precomputedLanternData": null,
+    "onlyAudits": null,
+    "onlyCategories": [
+      "performance",
+      "accessibility"
+    ],
+    "skipAudits": null
+  },
+  "html_sha256": "cee0f273ca07755df6d27f48f7b307ecb6f82f9a35cc443cf22557113e5d882b",
+  "local_server_sha256": "93f61afcc1f1c0181e40adc07e4c856304dacbb96820a5c73ba9205f742fcc2a",
+  "note": "Browser lab mobile/4G simulation, not physical Android field data. Transfer sizes include HTTP overhead. INP is unmeasured; TBT is reported separately.",
+  "rows": [
+    {
+      "run": 1,
+      "measured_at": "2026-11-08T18:28:58.768Z",
+      "performance": 96,
+      "accessibility": 100,
+      "lcp_ms": 765.6516999999999,
+      "cls": 0.00009410357104140367,
+      "tbt_ms": 225,
+      "initial_js_bytes": 155239,
+      "font_bytes": 139090,
+      "maplibre_bytes": 0,
+      "chart_bytes": 0,
+      "geometry_bytes": 51338,
+      "forecast_bytes": 19305,
+      "total_bytes": 405962
+    },
+    {
+      "run": 2,
+      "measured_at": "2026-11-08T18:29:11.175Z",
+      "performance": 87,
+      "accessibility": 100,
+      "lcp_ms": 3457.5589999999997,
+      "cls": 0.06025393727076489,
+      "tbt_ms": 231,
+      "initial_js_bytes": 155239,
+      "font_bytes": 139090,
+      "maplibre_bytes": 0,
+      "chart_bytes": 0,
+      "geometry_bytes": 51338,
+      "forecast_bytes": 19305,
+      "total_bytes": 405962
+    },
+    {
+      "run": 3,
+      "measured_at": "2026-11-08T18:29:23.478Z",
+      "performance": 97,
+      "accessibility": 100,
+      "lcp_ms": 766.2816,
+      "cls": 0.00009410357104140367,
+      "tbt_ms": 207,
+      "initial_js_bytes": 155239,
+      "font_bytes": 139090,
+      "maplibre_bytes": 0,
+      "chart_bytes": 0,
+      "geometry_bytes": 51338,
+      "forecast_bytes": 19305,
+      "total_bytes": 405962
+    }
+  ],
+  "metrics": {
+    "performance": {
+      "median": 96,
+      "min": 87,
+      "max": 97
+    },
+    "accessibility": {
+      "median": 100,
+      "min": 100,
+      "max": 100
+    },
+    "lcp_ms": {
+      "median": 766.2816,
+      "min": 765.6516999999999,
+      "max": 3457.5589999999997
+    },
+    "cls": {
+      "median": 0.00009410357104140367,
+      "min": 0.00009410357104140367,
+      "max": 0.06025393727076489
+    },
+    "tbt_ms": {
+      "median": 225,
+      "min": 207,
+      "max": 231
+    },
+    "initial_js_bytes": {
+      "median": 155239,
+      "min": 155239,
+      "max": 155239
+    },
+    "font_bytes": {
+      "median": 139090,
+      "min": 139090,
+      "max": 139090
+    },
+    "maplibre_bytes": {
+      "median": 0,
+      "min": 0,
+      "max": 0
+    },
+    "chart_bytes": {
+      "median": 0,
+      "min": 0,
+      "max": 0
+    },
+    "geometry_bytes": {
+      "median": 51338,
+      "min": 51338,
+      "max": 51338
+    },
+    "forecast_bytes": {
+      "median": 19305,
+      "min": 19305,
+      "max": 19305
+    },
+    "total_bytes": {
+      "median": 405962,
+      "min": 405962,
+      "max": 405962
+    }
+  },
+  "budgets": [
+    {
+      "metric": "performance",
+      "limit": 85,
+      "actual": 96,
+      "passed": true
+    },
+    {
+      "metric": "accessibility",
+      "limit": 95,
+      "actual": 100,
+      "passed": true
+    },
+    {
+      "metric": "lcp_ms",
+      "limit": 2500,
+      "actual": 766.2816,
+      "passed": true
+    },
+    {
+      "metric": "cls",
+      "limit": 0.1,
+      "actual": 0.00009410357104140367,
+      "passed": true
+    },
+    {
+      "metric": "initial_js_bytes",
+      "limit": 200000,
+      "actual": 155239,
+      "passed": true
+    },
+    {
+      "metric": "forecast_bytes",
+      "limit": 300000,
+      "actual": 19305,
+      "passed": true
+    }
+  ],
+  "inp_ms": null,
+  "passed": true
+}

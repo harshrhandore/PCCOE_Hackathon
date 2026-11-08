@@ -1,5 +1,20 @@
 import { test, expect } from "@playwright/test";
 
+test("a replay URL without an episode never loads live data as a replay", async ({
+  page,
+}) => {
+  await page.goto("/?mode=replay");
+  await expect(
+    page.getByText(/No validated snapshot could be loaded/),
+  ).toBeVisible();
+  await expect(page.locator(".ward-row")).toHaveCount(0);
+  await page
+    .locator("main")
+    .getByRole("button", { name: "Exit simulation", exact: true })
+    .click();
+  await expect(page.locator(".ward-row").first()).toBeVisible();
+});
+
 test("saved bulletin, real calculation and replay survive external network loss", async ({
   page,
 }) => {

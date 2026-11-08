@@ -1,5 +1,15 @@
 # Local hosting checkpoint - 8 November 2026
 
+## Startup performance checkpoint - 9 November 2026 IST
+
+Current evidence: **111 pytest passed**, including actual local Auth/PostGIS integration; **24 Playwright passed, 8 deliberate duplicate-viewport skips**; production build, TypeScript and 4 Vitest checks passed. The added checks cover refreshed/replay-specific resource hints, private-path rejection and malformed replay URLs. Current successful logs and machine-readable results are retained under reports/.
+
+Three production mobile/4G runs: performance **96 median (87-97)**, automated accessibility **100**, LCP **0.766 s median (0.766-3.458 s)**, CLS **0.000094 median**, initial JavaScript **155,239 transferred bytes**, forecast **19,305 bytes**. All six measured median budgets passed. One LCP run remained above 2.5 seconds; the range and raw reports are preserved, and INP remains unmeasured. See performance/summary.json and performance/budget-status.md. This is browser emulation, not a physical Android or full accessibility certification.
+
+Startup now overlaps source-bound public data and font transfers with application loading. Server hints follow the live manifest or selected replay, including after refresh. Each resource was fetched once; the full ward list and hash validation remain active. Mutable manifests revalidate on every use. A replay URL without a valid episode fails honestly and can return to live mode.
+
+The local database/staff workflow and measured median performance gates are complete for this prototype. Remaining acceptance centres on valid demographic/crosswalk data, native-language/manual accessibility review, local urban radiation and clinical/ML validation. Telegram stays optional and disabled. Earlier checkpoint text below is historical.
+
 ## Superseding local database checkpoint
 
 The remaining local Auth/PostGIS work is now implemented and verified. Existing Ubuntu WSL runs Docker 29.1.3 and the pinned Supabase CLI 3.0.0. Services are PostgreSQL 17.11 (image 17.11.0.011), PostGIS 3.3.7, GoTrue 2.197.0, PostgREST 16.5 and Kong 2.8.1. Only loopback ports 54321/54322 are published. No hosted project or tunnel was created.
