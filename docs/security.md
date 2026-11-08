@@ -1,5 +1,9 @@
 # Security and operational boundaries
 
+Local checkpoint, 2026-11-08: the actual WSL Supabase/PostGIS stack is configured and migration replay, RLS, real Auth and protected browser flows have passed. Telegram remains optional and disabled. The application uses a non-superuser login inheriting service_role object grants and BYPASSRLS, with only id/user_id/not_after SELECT access to Auth sessions. Administrator credentials are reserved for local provisioning scripts. All published ports are checked for loopback binding.
+
+Tokens allow only five seconds of clock skew. Signature, issuer, audience, required UUID session and active database membership checks remain mandatory; expired or substantially future tokens fail. Sensitive mutations recheck membership and session presence within their transaction. In-flight authorized requests can complete during logout; subsequent requests reject the revoked session. Protected Data API policies also require a current Auth session. Browser password fields clear immediately on submission, including failures. Authentication diagnostics log exception types, never tokens or passwords. Local test passwords were rotated during QA.
+
 Public pages use same-origin validated static files. Browser code receives no database secret, Telegram token, delivery endpoint or private audit data. Route/query IDs are validated; source snapshots are immutable and SHA-256 checked. CSV text is formula-escaped. XML uses lxml with entities/network/DTD loading disabled; CAP uses Test/Exercise and geocodes, never Actual.
 
 Privileged API calls validate ES256/RS256 JWKS signatures, issuer, audience, expiry and session ID; anonymous sessions are rejected. Membership and session presence are read from the database, rechecked within mutation transactions; user_metadata is never trusted. Revoked/removed membership is effective on the next privileged call. Database errors fail closed. No development header can impersonate staff.
@@ -10,4 +14,4 @@ Telegram uses explicit consent, private-chat Start, expiring opaque tokens, secr
 
 Limits: JSON body ≤64 KB; bounded IDs/strings/ranges; per-IP 120 requests/minute; scenario LRU ≤100, expiry one hour. This process-local limiter is not a distributed production defence. CORS accepts configured exact origins only. Update static `_headers` connect-src to an explicitly trusted deployed API origin; never use wildcard credentialed CORS. No secrets should appear in URL/query logs.
 
-Use a narrowly privileged application database role rather than a schema owner. Read-only health is available when credentials are missing, while mutation adapters remain disabled. Current lack of cloud credentials, database provisioning and provider integration is visible in the UI and acceptance report.
+Use the restricted application database role rather than a schema owner. Read-only health remains available when credentials are missing, while privileged operations fail closed. Local database/Auth provisioning is verified for the prototype. Optional Telegram remains disabled and its availability is reported explicitly in the UI and health response.

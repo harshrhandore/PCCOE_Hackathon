@@ -1,5 +1,19 @@
 # Local hosting checkpoint - 8 November 2026
 
+## Superseding local database checkpoint
+
+The remaining local Auth/PostGIS work is now implemented and verified. Existing Ubuntu WSL runs Docker 29.1.3 and the pinned Supabase CLI 3.0.0. Services are PostgreSQL 17.11 (image 17.11.0.011), PostGIS 3.3.7, GoTrue 2.197.0, PostgREST 16.5 and Kong 2.8.1. Only loopback ports 54321/54322 are published. No hosted project or tunnel was created.
+
+- **110 pytest passed**, including 8 opt-in tests against the real local Auth/PostGIS stack and 11 new claim/local-target checks. The normal database-independent run skips those 8 integration checks unless HEATGUARD_RUN_DB_TESTS=1. Evidence: reports/tests/pytest.xml and reports/tests/local-database.xml.
+- **20 Playwright passed, 8 deliberate duplicate-viewport skips**. Two passing flows use actual local staff sign-in, database-backed drafts, independent approval, Exercise CAP download and cancellation. External browser requests are blocked during those flows and Telegram is disabled. Other server-contract tests remain explicitly mocked. Evidence: reports/tests/playwright.json and reports/local-browser-run.log.
+- TypeScript, production build, 4 Vitest checks, public release validation and the expanded bounded credential-pattern scan passed. npm audit reports zero findings after pinning patched basic-ftp 6.2.6 in the development toolchain.
+- All three migrations replayed successfully in a fresh disposable database using the actual Supabase Auth schema and PostGIS. Database privileges, revoked-session RLS, missing-membership rejection, viewer write denial, immutable audit, deferred ward-set checks and approved-content freezing were exercised. Equivalent expiry timezone offsets preserve approval bindings.
+- A stop/start cycle retained all 10 then-existing alert records with identical IDs/statuses/revisions/content digests. The db:setup, db:start, db:configure, db:status and db:stop paths executed successfully. A project-owned hidden WSL keeper prevents idle distro suspension while the stack is active.
+- Two explicit local test staff accounts have separate random passwords in ignored data/raw/local/staff-credentials.json. They are technical test identities, with no real municipal affiliation or identity verification. Test passwords were rotated during QA; sign-in now clears the password field immediately, including failures. No credential-bearing error snapshots are published.
+- Fresh complete live release: 20261108T104546Z-da2088ccf5d2. Saved data still becomes stale after six hours; startup never silently fetches weather. Historical replay remains 26-30 April 2024.
+
+Telegram is an optional extension, not a blocker for core local acceptance. Remaining work is the mobile performance target, valid demographic/crosswalk inputs, native-language and manual accessibility review, local urban radiation and clinical/ML validation. Earlier evidence below is historical and does not negate the completed local database checks. P0 is not claimed complete overall.
+
 The user changed the target to local-only hosting. Cloud deployment, remote weather schedules and keep-alive jobs are removed. GitHub remains source control and verification CI. No online deployment was performed.
 
 ## Implemented

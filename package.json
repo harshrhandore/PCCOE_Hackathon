@@ -17,14 +17,27 @@
     "api": "node scripts/run-python.mjs -m uvicorn services.api.app.main:app --host 127.0.0.1 --port 8000 --no-access-log",
     "start": "node scripts/start-local.mjs",
     "local:check": "node scripts/start-local.mjs --check",
-    "local:refresh": "node scripts/run-python.mjs -m pipeline.publish --fetch"
+    "local:refresh": "node scripts/run-python.mjs -m pipeline.publish --fetch",
+    "db:setup": "node scripts/run-python.mjs scripts/local_db.py setup",
+    "db:start": "node scripts/run-python.mjs scripts/local_db.py start",
+    "db:configure": "node scripts/run-python.mjs scripts/local_db.py configure",
+    "db:stop": "node scripts/run-python.mjs scripts/local_db.py stop",
+    "db:status": "node scripts/run-python.mjs scripts/local_db.py status",
+    "staff:create": "node scripts/run-python.mjs scripts/staff.py create",
+    "staff:bootstrap": "node scripts/run-python.mjs scripts/staff.py bootstrap",
+    "staff:disable": "node scripts/run-python.mjs scripts/staff.py disable"
   },
   "engines": {
     "node": ">=22.12.0"
   },
+  "overrides": {
+    "basic-ftp": "6.2.6"
+  },
   "devDependencies": {
+    "basic-ftp": "6.2.6",
     "node": "22.22.0",
     "openapi-typescript": "7.13.0",
-    "prettier": "3.6.2"
+    "prettier": "3.6.2",
+    "supabase": "3.0.0"
   }
 }

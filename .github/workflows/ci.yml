@@ -32,13 +32,26 @@ jobs:
       - run: npm run build
       - run: uv run python scripts/assemble-deploy.py
       - run: uv run python scripts/secret-scan.py
+      - name: Start isolated local Auth and PostGIS
+        id: local-db
+        run: |
+          npm run db:start
+          npm run staff:bootstrap
+      - name: Real local database and Auth integration
+        env:
+          HEATGUARD_RUN_DB_TESTS: '1'
+        run: uv run python -m pytest services/api/tests/test_local_database_integration.py --junitxml=reports/tests/local-database.xml
       - run: npx playwright install --with-deps chromium
       - name: Browser flows and axe
         run: |
           npm start -- --no-build > /tmp/heatguard-local.log 2>&1 &
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8081/ > /dev/null && break; sleep 1; done
           export HEATGUARD_TEST_BASE_URL=http://127.0.0.1:8081
+          export HEATGUARD_RUN_DB_TESTS=1
           npm run test:e2e
+      - name: Stop owned local database stack
+        if: always() && steps.local-db.outcome != 'skipped'
+        run: npm run db:stop
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

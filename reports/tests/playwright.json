@@ -252,12 +252,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6258,
+                  "duration": 2800,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:39.122Z",
+                  "startTime": "2026-11-08T18:11:11.574Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -272,15 +272,15 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5934,
+                  "duration": 2904,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:56.515Z",
+                  "startTime": "2026-11-08T18:11:24.822Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -295,15 +295,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5698,
+                  "duration": 2952,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:08.280Z",
+                  "startTime": "2026-11-08T18:11:31.560Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -318,15 +318,15 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5880,
+                  "duration": 2795,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:25.546Z",
+                  "startTime": "2026-11-08T18:11:45.293Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -355,12 +355,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1778,
+                  "duration": 835,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:45.677Z",
+                  "startTime": "2026-11-08T18:11:14.502Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -385,15 +385,15 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 234,
+                  "duration": 106,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:02.725Z",
+                  "startTime": "2026-11-08T18:11:27.860Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -418,15 +418,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1715,
+                  "duration": 912,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:14.242Z",
+                  "startTime": "2026-11-08T18:11:34.655Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -451,15 +451,15 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 226,
+                  "duration": 119,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:31.684Z",
+                  "startTime": "2026-11-08T18:11:48.218Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -498,12 +498,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 835,
+                  "duration": 423,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:47.478Z",
+                  "startTime": "2026-11-08T18:11:15.348Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -518,15 +518,15 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 875,
+                  "duration": 418,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:02.980Z",
+                  "startTime": "2026-11-08T18:11:27.976Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -541,15 +541,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 919,
+                  "duration": 543,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:15.983Z",
+                  "startTime": "2026-11-08T18:11:35.582Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -564,15 +564,15 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 952,
+                  "duration": 445,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:31.940Z",
+                  "startTime": "2026-11-08T18:11:48.351Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -583,6 +583,157 @@
           "id": "c31ff144dc4fee3acd0a-ee6788d7b8f503f42305",
           "file": "app.spec.ts",
           "line": 100,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "authority-local.spec.ts",
+      "file": "authority-local.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real local staff approve and export an Exercise without Telegram or internet",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3621,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T18:11:20.283Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Real staff flow covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\authority-local.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 138,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T18:11:30.489Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Real staff flow covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\authority-local.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3453,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T18:11:40.944Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Real staff flow covered at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\authority-local.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 160,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T18:11:50.871Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Real staff flow covered at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\authority-local.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38ffef8ff49487668908-76c5b680ae59c6c011c0",
+          "file": "authority-local.spec.ts",
+          "line": 7,
           "column": 1
         }
       ]
@@ -609,12 +760,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2457,
+                  "duration": 1130,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:48.349Z",
+                  "startTime": "2026-11-08T18:11:15.792Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -629,15 +780,15 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2067,
+                  "duration": 1080,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:03.891Z",
+                  "startTime": "2026-11-08T18:11:28.415Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -652,15 +803,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2159,
+                  "duration": 1199,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:16.943Z",
+                  "startTime": "2026-11-08T18:11:36.146Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -675,15 +826,15 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2123,
+                  "duration": 1069,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:32.935Z",
+                  "startTime": "2026-11-08T18:11:48.814Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -720,12 +871,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2344,
+                  "duration": 1245,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:50.858Z",
+                  "startTime": "2026-11-08T18:11:16.943Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -750,15 +901,15 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 184,
+                  "duration": 103,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:06.015Z",
+                  "startTime": "2026-11-08T18:11:29.532Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -783,15 +934,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2419,
+                  "duration": 1400,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:19.154Z",
+                  "startTime": "2026-11-08T18:11:37.367Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -816,15 +967,15 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 236,
+                  "duration": 116,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:35.117Z",
+                  "startTime": "2026-11-08T18:11:49.905Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -863,12 +1014,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1470,
+                  "duration": 1374,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:43:53.230Z",
+                  "startTime": "2026-11-08T18:11:18.198Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -883,7 +1034,7 @@
                   "description": "Primary comparison UI covered at 360 and 1280",
                   "location": {
                     "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
-                    "line": 205,
+                    "line": 207,
                     "column": 8
                   }
                 }
@@ -893,22 +1044,22 @@
               "projectName": "tablet",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 196,
+                  "duration": 100,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:06.219Z",
+                  "startTime": "2026-11-08T18:11:29.648Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Primary comparison UI covered at 360 and 1280",
                       "location": {
                         "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
-                        "line": 205,
+                        "line": 207,
                         "column": 8
                       }
                     }
@@ -926,15 +1077,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2055,
+                  "duration": 1391,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:21.597Z",
+                  "startTime": "2026-11-08T18:11:38.781Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -949,7 +1100,7 @@
                   "description": "Primary comparison UI covered at 360 and 1280",
                   "location": {
                     "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
-                    "line": 205,
+                    "line": 207,
                     "column": 8
                   }
                 }
@@ -959,22 +1110,22 @@
               "projectName": "wide",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 222,
+                  "duration": 123,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-08T04:44:35.374Z",
+                  "startTime": "2026-11-08T18:11:50.032Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Primary comparison UI covered at 360 and 1280",
                       "location": {
                         "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\server-flows.spec.ts",
-                        "line": 205,
+                        "line": 207,
                         "column": 8
                       }
                     }
@@ -987,7 +1138,7 @@
           ],
           "id": "7355044c354ad8f59122-31771272f9d2a5eb1d33",
           "file": "server-flows.spec.ts",
-          "line": 202,
+          "line": 204,
           "column": 1
         }
       ]
@@ -995,10 +1146,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-08T04:43:37.114Z",
-    "duration": 58681.105,
-    "expected": 18,
-    "skipped": 6,
+    "startTime": "2026-11-08T18:11:10.712Z",
+    "duration": 40487.609,
+    "expected": 20,
+    "skipped": 8,
     "unexpected": 0,
     "flaky": 0
   }

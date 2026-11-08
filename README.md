@@ -51,7 +51,37 @@ React 18/Vite and FastAPI share deterministic thermofeel/pythermalcomfort rules.
 
 Missing matched demographics remain unavailable: vulnerability and priority are null, with hazard-only risk. Radiation and derived indices remain approximate, without local urban or clinical validation. No trained ML model or invented skill is claimed. Native Hindi/Marathi review is pending; newer strings use English fallback.
 
-The local authority walkthrough sends nothing. The real staff UI supports source-bound drafts, independent revision/digest approval, restricted CAP export, cancellation and delivery outcomes. It requires a separately configured local Supabase Auth/PostGIS stack, staff provisioning, migration/RLS verification and optional test-only Telegram credentials. Those real integrations remain unaccepted. No usable local database server or Docker runtime was found at this checkpoint; missing configuration fails closed. See docs/security.md and docs/privacy.md. No inbound tunnel is started automatically.
+The local authority walkthrough sends nothing. A real local Supabase Auth/PostGIS stack now supports source-bound drafts, independent revision/digest approval, restricted CAP export, cancellation and audit records. Eight actual database/Auth integration checks passed, including migration replay and RLS; the real browser workflow also passed at phone and desktop sizes. Telegram is optional and disabled: no messages are sent. See docs/security.md and docs/privacy.md. No inbound tunnel is started automatically.
+
+## Local staff workspace
+
+On this Windows machine, Ubuntu is already installed in WSL. The setup command installs Docker inside that distro and verifies the pinned Supabase CLI package. It does not install Docker Desktop or create a hosted project. First setup needs internet for software and container downloads; subsequent use works locally.
+
+```powershell
+npm run db:setup
+npm run db:start
+npm run staff:bootstrap
+npm start
+```
+
+`db:start` starts only database, Auth, gateway and Data API services, applies pending local migrations, checks loopback port bindings, configures a non-superuser application login and mirrors validated public geography/manifests. Database port: 54322; local Auth gateway: 54321; app: 8081. On Linux, install Docker first; npm ci supplies the pinned CLI and db:start uses it directly. Set HEATGUARD_WSL_DISTRO if your existing Windows distro is named differently from Ubuntu.
+
+The bootstrap creates two explicitly labelled **local test staff accounts**, officer and approver, with separate random passwords. Open `data/raw/local/staff-credentials.json` locally to use them on the Authority page. Credentials, signing keys and service configuration stay in ignored files; do not upload them. These accounts do not represent real municipal authorities. An officer submits a draft, then a separate approver signs in to approve that exact revision. CAP download and cancellation work with Telegram disabled.
+
+To provision your own account, run `npm run staff:create -- --email your-address@example.org --role officer` and enter a password privately when prompted. Use role approver for a second account. `npm run staff:disable -- --email your-address@example.org` revokes membership. Public signup and anonymous login are disabled.
+
+Use `npm run db:stop` to stop this project's services while retaining its data. `db:start` resumes them. The Windows helper retains one hidden, project-owned WSL process while the stack runs; db:stop releases it. Other WSL projects are untouched. The stop/start persistence check preserved all existing alert content digests.
+
+Run the actual database checks explicitly:
+
+```powershell
+$env:HEATGUARD_RUN_DB_TESTS='1'
+.venv/Scripts/python.exe -m pytest services/api/tests/test_local_database_integration.py
+$env:HEATGUARD_TEST_BASE_URL='http://127.0.0.1:8081'
+npm run test:e2e
+```
+
+The migration test creates and removes only its own disposable database; it does not reset your application database. Integration-test staff accounts are disabled and their sessions revoked on teardown. Their audit evidence is retained. CI runs the same local stack and tests without hosted credentials.
 
 ## Scope
 

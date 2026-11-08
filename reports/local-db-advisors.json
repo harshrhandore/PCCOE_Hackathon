@@ -1,0 +1,6 @@
+{
+  "command": "supabase db advisors --type all --fail-on error (local)",
+  "exit_code": 0,
+  "stdout": "",
+  "diagnostics": "Target: local stack (127.0.0.1:54322)\nNo issues found"
+}

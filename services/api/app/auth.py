@@ -1,4 +1,4 @@
-import os
+import os,logging
 from dataclasses import dataclass
 from functools import lru_cache
 from uuid import UUID
@@ -23,11 +23,13 @@ def validate_claims(token):
     if not url or not issuer:raise AppError('DEPENDENCY_UNAVAILABLE',details={'dependency':'auth_configuration'})
     try:
         key=jwks_client(url).get_signing_key_from_jwt(token)
-        claims=jwt.decode(token,key.key,algorithms=['ES256','RS256'],issuer=issuer,audience=audience,options={'require':['exp','iat','sub','session_id']})
+        claims=jwt.decode(token,key.key,algorithms=['ES256','RS256'],issuer=issuer,audience=audience,leeway=5,options={'require':['exp','iat','sub','session_id']})
         UUID(claims['sub']);UUID(claims['session_id'])
         if claims.get('is_anonymous'):raise ValueError('Anonymous session')
         return claims
-    except (jwt.PyJWTError,ValueError,KeyError) as exc:raise AppError('UNAUTHENTICATED',401,'state.unauthorized') from exc
+    except (jwt.PyJWTError,ValueError,KeyError) as exc:
+        logging.getLogger(__name__).warning('Staff token validation rejected (%s)',type(exc).__name__)
+        raise AppError('UNAUTHENTICATED',401,'state.unauthorized') from exc
 
 def member(credentials:HTTPAuthorizationCredentials|None=Depends(security)):
     if credentials is None:raise AppError('UNAUTHENTICATED',401,'state.unauthorized')

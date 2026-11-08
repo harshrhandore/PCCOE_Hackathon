@@ -1,5 +1,17 @@
 # Verification register
 
+## Superseding V11 local verification - 2026-11-08
+
+Official references checked before implementation: https://supabase.com/changelog (CLI v3 local defaults and renamed local_smtp section), https://supabase.com/docs/guides/local-development (dedicated loopback Docker network), https://supabase.com/docs/guides/local-development/cli/config and https://supabase.com/docs/guides/auth/signing-keys. The generated CLI 3.0.0 config/help and official key generator were also inspected. Native experimental hosting was not selected.
+
+Actual local versions: Docker 29.1.3 in Ubuntu 24.04 WSL, CLI 3.0.0 with npm package SHA-512 verified, PostgreSQL 17.11.0.011, PostGIS 3.3.7, Auth 2.197.0. Eight real integration checks passed, including a fresh disposable migration replay, independent exact-revision approval, restricted CAP, current-session Data API RLS, revoked membership, read-only viewer and protected audit/ward constraints. Full suite: 110 pytest passed. Real browser flows passed at phone and desktop sizes with external requests blocked. Telegram is optional and disabled.
+
+JWT clock tolerance follows https://pyjwt.readthedocs.io/en/stable/usage.html and is limited to five seconds. Tests reject substantially future/expired timestamps, incorrect issuer/audience, anonymous sessions and malformed UUIDs. Signature algorithms remain ES256/RS256; local endpoints are verified before provisioning.
+
+Development dependency remediation: https://github.com/advisories/GHSA-c475-qrg2-pj4r lists basic-ftp <=6.2.0 as affected. Version 6.2.6 is pinned/overridden; npm audit returned zero findings. No force downgrade of Lighthouse was used.
+
+Earlier entries retain initial findings, including unavailable local infrastructure before WSL setup. Hosted Supabase and provider integration remain outside this completed local verification.
+
 > Scope update, 2026-11-08: local hosting supersedes cloud deployment and scheduling. Earlier cloud research is historical; see [current local verification](../reports/local-verification.md).
 
 Started 2026-11-07 before implementation. Official-source access date for all entries: 2026-11-07. Retrieved-source hashes/redirects/errors are in `docs/evidence/retrievals.json`; package metadata in `npm-versions.json`. Status means the **stated implementation scope** is verified, not that the entire tier is complete. `pending` and `unavailable` explicitly block affected acceptance. Excerpts are at most 25 words per source.

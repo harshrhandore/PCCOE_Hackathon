@@ -19,7 +19,6 @@ export default function ServerAlerts({
   role,
   userId,
   stale,
-  offline,
   onSessionEnd,
 }: {
   data: Dataset;
@@ -29,7 +28,6 @@ export default function ServerAlerts({
   role: StaffRole;
   userId: string;
   stale: boolean;
-  offline: boolean;
   onSessionEnd: () => void;
 }) {
   const { t } = useTranslation();
@@ -49,6 +47,14 @@ export default function ServerAlerts({
     retry: false,
     refetchInterval: 30000,
   });
+  const channels = useQuery({
+    queryKey: ["optional-channel-status"],
+    queryFn: () => api<{ optional_channels: { telegram: string } }>("/health"),
+    retry: false,
+    staleTime: 60000,
+  });
+  const telegramEnabled =
+    channels.data?.optional_channels?.telegram === "test_configured";
   const queue = useQuery({
     queryKey: ["staff-alerts", userId],
     queryFn: () => api<{ items: ServerAlert[] }>("/alerts", undefined, token),
@@ -112,10 +118,7 @@ export default function ServerAlerts({
     applicable.some((a) => a.id === id),
   );
   const canWrite =
-    sessionReady &&
-    ["officer", "approver"].includes(currentRole) &&
-    !offline &&
-    !busy;
+    sessionReady && ["officer", "approver"].includes(currentRole) && !busy;
   const sourceUnsafe =
     (!data.manifest.meta.is_simulation && stale) ||
     data.manifest.meta.publication_health !== "complete";
@@ -379,10 +382,7 @@ export default function ServerAlerts({
             )}
           </div>
           <h3>{t("authority.server.queue")}</h3>
-          <button
-            disabled={busy || offline}
-            onClick={() => void perform(refresh)}
-          >
+          <button disabled={busy} onClick={() => void perform(refresh)}>
             {t("common.retry")}
           </button>
           {queue.isPending ? (
@@ -427,7 +427,7 @@ export default function ServerAlerts({
               <p>{t("authority.server.expires", { time: alert.expires_at })}</p>
               <div className="button-row">
                 <button
-                  disabled={!sessionReady || busy || offline}
+                  disabled={!sessionReady || busy}
                   onClick={() => void perform(capDownload)}
                 >
                   {t("authority.cap")}
@@ -439,7 +439,6 @@ export default function ServerAlerts({
                       currentRole !== "approver" ||
                       alert.created_by === userId ||
                       busy ||
-                      offline ||
                       !!alertUnsafe
                     }
                     onClick={() => void perform(() => mutate("approve"))}
@@ -453,7 +452,7 @@ export default function ServerAlerts({
                       !sessionReady ||
                       currentRole !== "approver" ||
                       busy ||
-                      offline ||
+                      !telegramEnabled ||
                       (alert.delivery_summary?.unknown || 0) > 0 ||
                       (alert.delivery_summary?.sending || 0) > 0 ||
                       !!alertUnsafe
@@ -468,7 +467,6 @@ export default function ServerAlerts({
                     disabled={
                       !sessionReady ||
                       busy ||
-                      offline ||
                       !(
                         currentRole === "approver" ||
                         (currentRole === "officer" &&
@@ -489,6 +487,9 @@ export default function ServerAlerts({
                 <p className="note">{t("authority.staleBlock")}</p>
               )}
               <h3>{t("authority.server.deliveries")}</h3>
+              {!telegramEnabled && (
+                <p>{t("authority.server.telegramOptional")}</p>
+              )}
               <p>{t("authority.server.unknown")}</p>
               <dl>
                 {Object.entries(alert.delivery_summary || {}).map(

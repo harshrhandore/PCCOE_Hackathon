@@ -4,15 +4,17 @@ rootdir: C:\Users\Lenovo\Desktop\PCCOE_Hackathon
 configfile: pyproject.toml
 testpaths: pipeline/tests, services/api/tests
 plugins: anyio-4.16.0, cov-7.1.0
-collected 91 items
+collected 110 items
 
-pipeline\tests\test_replay.py ..                                         [  2%]
-pipeline\tests\test_rules.py .......................................     [ 45%]
-pipeline\tests\test_thermal.py ......                                    [ 51%]
-services\api\tests\test_api.py ................                          [ 69%]
-services\api\tests\test_local_web.py ..                                  [ 71%]
-services\api\tests\test_saved_scenarios.py ..                            [ 73%]
-services\api\tests\test_telegram_adapter.py ........                     [ 82%]
+pipeline\tests\test_replay.py ..                                         [  1%]
+pipeline\tests\test_rules.py .......................................     [ 37%]
+pipeline\tests\test_thermal.py ......                                    [ 42%]
+services\api\tests\test_api.py ................                          [ 57%]
+services\api\tests\test_auth_claims.py ...........                       [ 67%]
+services\api\tests\test_local_database_integration.py ........           [ 74%]
+services\api\tests\test_local_web.py ..                                  [ 76%]
+services\api\tests\test_saved_scenarios.py ..                            [ 78%]
+services\api\tests\test_telegram_adapter.py ........                     [ 85%]
 services\api\tests\test_workflow_guards.py ................              [100%]
 
 ============================== warnings summary ===============================
@@ -22,4 +24,4 @@ services\api\tests\test_workflow_guards.py ................              [100%]
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 - generated xml file: C:\Users\Lenovo\Desktop\PCCOE_Hackathon\reports\tests\pytest.xml -
-======================= 91 passed, 1 warning in 21.53s ========================
+======================= 110 passed, 1 warning in 22.12s =======================

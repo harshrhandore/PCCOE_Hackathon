@@ -266,5 +266,6 @@
   "scenario.compare.before": "Baseline risk",
   "scenario.compare.after": "Scenario risk",
   "scenario.compare.utci": "Change in peak UTCI",
-  "scenario.compare.expires": "Scenario cache expires {time}."
+  "scenario.compare.expires": "Scenario cache expires {time}.",
+  "authority.server.telegramOptional": "Telegram delivery is optional and disabled. Drafting, independent approval and CAP downloads work locally."
 }

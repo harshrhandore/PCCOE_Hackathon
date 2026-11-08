@@ -239,12 +239,7 @@ export default function App() {
               <Route
                 path="/authority"
                 element={
-                  <Authority
-                    data={data}
-                    date={state.date}
-                    stale={stale}
-                    offline={offline}
-                  />
+                  <Authority data={data} date={state.date} stale={stale} />
                 }
               />
               <Route path="/methods" element={<Methods data={data} />} />

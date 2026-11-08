@@ -9,7 +9,7 @@ from .storage import database,audit
 from .snapshots import load
 
 def now():return datetime.datetime.now(datetime.timezone.utc)
-def iso(value):return value.isoformat().replace('+00:00','Z') if isinstance(value,datetime.datetime) else value
+def iso(value):return value.astimezone(datetime.timezone.utc).isoformat().replace('+00:00','Z') if isinstance(value,datetime.datetime) else value
 def safe_alert(row):return {k:iso(v) for k,v in row.items()}
 
 def binding_digest(alert):

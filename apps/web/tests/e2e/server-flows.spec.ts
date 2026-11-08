@@ -46,6 +46,8 @@ test("server authority UI binds approval, prevents self-approval and stops unkno
         expires_in: 3600,
       });
     if (path === "/auth/logout") return answer({ signed_out: true });
+    if (path === "/health")
+      return answer({ optional_channels: { telegram: "test_configured" } });
     if (revoked)
       return route.fulfill({
         status: 403,

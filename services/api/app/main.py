@@ -88,7 +88,9 @@ def health(readiness:bool=False):
         m,_=load();age=(datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(m['meta']['issued_at'].replace('Z','+00:00'))).total_seconds();pipeline=m['meta']['publication_health']
     except AppError:pass
     configured=all(os.environ.get(k) for k in ['DATABASE_URL','SUPABASE_JWKS_URL','SUPABASE_JWT_ISSUER','HANDLE_HMAC_KEY','HANDLE_ENCRYPTION_KEY','DELETION_TOKEN_HMAC_KEY'])
-    return envelope({'status':'ok' if configured and pipeline=='complete' and db in ['ready','not_checked'] else 'degraded','api':'ready','db':db,'pipeline':pipeline,'snapshot_age_seconds':age,'mutations':'enabled' if configured else 'disabled_missing_configuration','sources':{'weather':'last_snapshot_only','model_run':'unavailable'}})
+    fresh=age is not None and 0<=age<=21600
+    telegram=bool(os.environ.get('TELEGRAM_BOT_TOKEN') and os.environ.get('TELEGRAM_TEST_CHAT_IDS'))
+    return envelope({'status':'ok' if configured and pipeline=='complete' and fresh and db in ['ready','not_checked'] else 'degraded','api':'ready','db':db,'pipeline':pipeline,'snapshot_age_seconds':age,'mutations':'enabled' if configured else 'disabled_missing_configuration','optional_channels':{'telegram':'test_configured' if telegram else 'disabled'},'sources':{'weather':'last_snapshot_only','model_run':'unavailable'}})
 
 @app.get('/api/v1/methods')
 def get_methods(version:str|None=None):

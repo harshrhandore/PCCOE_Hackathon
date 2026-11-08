@@ -20,12 +20,10 @@ export default function Authority({
   data,
   date,
   stale,
-  offline,
 }: {
   data: Dataset;
   date: string;
   stale: boolean;
-  offline: boolean;
 }) {
   const { t } = useTranslation();
   const [demo, setDemo] = useState(false);
@@ -87,6 +85,9 @@ export default function Authority({
   );
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
+    // Clear the controlled field immediately, including on rejected requests.
+    // The submitted value remains in this invocation's closure for the request.
+    setPassword("");
     setBusy(true);
     setError("");
     try {
@@ -242,7 +243,7 @@ export default function Authority({
                 required
               />
             </label>
-            <button className="primary" disabled={busy || offline}>
+            <button className="primary" disabled={busy}>
               {busy ? "Checking membership…" : t("authority.signIn")}
             </button>
           </form>
@@ -445,7 +446,6 @@ export default function Authority({
           role={role as StaffRole}
           userId={userId}
           stale={stale}
-          offline={offline}
           onSessionEnd={clearSession}
         />
       ) : (
@@ -463,7 +463,7 @@ export default function Authority({
             </p>
             <button
               className="primary"
-              disabled={!selected.size || offline || !demo}
+              disabled={!selected.size || !demo}
               onClick={() => void draft()}
             >
               {demo
