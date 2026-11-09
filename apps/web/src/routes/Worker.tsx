@@ -3,17 +3,30 @@ import { useTranslation } from "react-i18next";
 import type { Dataset } from "../data/types";
 import { PageHeading, SourceChip } from "../components/Shared";
 import { useHourly } from "../data/client";
-import { localParts, number, timeLabel, download } from "../lib/state";
+import {
+  localParts,
+  number,
+  timeLabel,
+  download,
+  usePreferences,
+} from "../lib/state";
 const HourlyChart = lazy(() => import("../components/HourlyChart"));
 export default function Worker({
   data,
   date,
+  wardId,
+  update,
 }: {
   data: Dataset;
   date: string;
+  wardId: string | null;
+  update: (values: Record<string, string>) => void;
 }) {
   const { t } = useTranslation();
-  const [ward, setWard] = useState(data.registry.wards[0]?.id);
+  const prefs = usePreferences();
+  const ward =
+    data.registry.wards.find((w) => w.id === wardId)?.id ||
+    data.registry.wards[0]?.id;
   const [load, setLoad] = useState("moderate");
   const [accl, setAccl] = useState("unknown");
   const [clothing, setClothing] = useState("unknown");
@@ -64,7 +77,7 @@ export default function Worker({
   return (
     <>
       <PageHeading
-        kicker="OUTDOOR WORK / PLANNING SCREEN"
+        kicker={`OUTDOOR WORK / ${date} IST`}
         title={t("nav.worker")}
       />
       <div className="worker-layout">
@@ -72,7 +85,14 @@ export default function Worker({
           <div className="form-columns">
             <label>
               {t("common.chooseWard")}
-              <select value={ward} onChange={(e) => setWard(e.target.value)}>
+              <select
+                aria-label={t("common.chooseWard")}
+                value={ward}
+                onChange={(e) => {
+                  prefs.set("ward", e.target.value);
+                  update({ ward: e.target.value });
+                }}
+              >
                 {data.registry.wards.map((w) => (
                   <option value={w.id} key={w.id}>
                     {w.name_en}
@@ -172,7 +192,7 @@ export default function Worker({
               )
             }
           >
-            Share planning text
+            Download worker planning text
           </button>
         </section>
         <aside className="assumptions-panel">

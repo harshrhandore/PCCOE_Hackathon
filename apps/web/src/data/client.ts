@@ -10,15 +10,56 @@ import type {
 } from "./types";
 const BASE = import.meta.env.VITE_DATA_BASE_URL || "/data";
 let lastGood: Dataset | undefined;
-export async function checkedJSON<T>(entry: FileEntry): Promise<T> {
+type Bootstrap = {
+  mode: string;
+  episode: string | null;
+  manifest: Manifest;
+  files: Record<string, string>;
+};
+let bootstrapConsumed = false;
+function takeBootstrap(
+  mode: string,
+  episode: string | null,
+): Bootstrap | undefined {
+  if (bootstrapConsumed || BASE !== "/data") return;
+  bootstrapConsumed = true;
+  const node = document.getElementById("heatguard-bootstrap");
+  if (!node) return;
+  try {
+    const value = JSON.parse(node.textContent || "") as Bootstrap;
+    node.remove();
+    if (
+      value.mode !== (mode === "replay" ? "replay" : "live") ||
+      (mode === "replay" && value.episode !== episode)
+    )
+      return;
+    if (
+      value.manifest?.schema_version !== "1.0.0" ||
+      !value.manifest.files?.["forecast.json"] ||
+      !value.manifest.meta?.dates?.length
+    )
+      return;
+    return value;
+  } catch {
+    return;
+  }
+}
+export async function checkedJSON<T>(
+  entry: FileEntry,
+  embedded?: string,
+): Promise<T> {
   if (
     !/^(releases|replay)\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_./-]+$/.test(entry.url) ||
     entry.url.includes("..")
   )
     throw new Error("Invalid snapshot path");
-  const response = await fetch(`${BASE}/${entry.url}`);
-  if (!response.ok) throw new Error("Snapshot file unavailable");
-  const bytes = await response.arrayBuffer();
+  let bytes: ArrayBuffer;
+  if (embedded !== undefined) bytes = new TextEncoder().encode(embedded).buffer;
+  else {
+    const response = await fetch(`${BASE}/${entry.url}`);
+    if (!response.ok) throw new Error("Snapshot file unavailable");
+    bytes = await response.arrayBuffer();
+  }
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   const hex = Array.from(new Uint8Array(digest), (v) =>
     v.toString(16).padStart(2, "0"),
@@ -51,12 +92,15 @@ export function useDataset(mode: string, episode: string | null) {
         throw new Error("A valid prepared replay episode is required.");
       let manifest: Manifest,
         diagnostic = false;
+      const embedded = takeBootstrap(mode, episode);
       try {
-        manifest = await getManifest(
-          mode === "replay" && episode
-            ? `replay/${episode}/latest.json`
-            : "latest.json",
-        );
+        manifest =
+          embedded?.manifest ||
+          (await getManifest(
+            mode === "replay" && episode
+              ? `replay/${episode}/latest.json`
+              : "latest.json",
+          ));
       } catch (error) {
         if (mode === "replay") throw error;
         try {
@@ -73,9 +117,15 @@ export function useDataset(mode: string, episode: string | null) {
             daily: Dataset["daily"];
             dates: string[];
             ward_count: number;
-          }>(manifest.files["forecast.json"]),
-          checkedJSON<Registry>(manifest.files["geography.json"]),
-          checkedJSON<Methods>(manifest.files["methods.json"]),
+          }>(manifest.files["forecast.json"], embedded?.files["forecast.json"]),
+          checkedJSON<Registry>(
+            manifest.files["geography.json"],
+            embedded?.files["geography.json"],
+          ),
+          checkedJSON<Methods>(
+            manifest.files["methods.json"],
+            embedded?.files["methods.json"],
+          ),
         ]);
         const ids = new Set(registry.wards.map((w) => w.id));
         if (

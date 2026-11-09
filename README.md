@@ -1,10 +1,10 @@
-# HeatGuard AI
+# HeatGuard
 
-**No account is required for the normal app.** The Authority page opens directly into a clearly labelled local preview. Drafting, simulated approval, CSV export and simulated delivery work without signing in. This preview sends no messages and performs no staff database writes. Use `npm start` and open http://127.0.0.1:8081/.
+**Local heat-stress planning for Pune, without an account.** Choose a ward and day, inspect the thermal estimates and rule explanations, then download a source-linked planning brief. The three primary sections are Ward heat outlook, Outdoor work, and Replay & what-if. Evidence, the guided case study, status and the simulated approval workflow are secondary tools. Use `npm start` and open http://127.0.0.1:8081/.
 
 The protected staff integration is retained only as an optional advanced workspace at `/authority/staff`; it is not needed for the local prototype. Google login is not enabled. The dedicated hosted **HeatGuard AI** Supabase project was created on the free plan, but the app has not been switched to it and no Google OAuth client was configured.
 
-**Predict heat. Protect people.** Ward-level heat early-warning research prototype for Pune, AVCOE student team, PCCOE International Grand Challenge 2026. No PMC/IMD affiliation or operational national alert connection.
+**Inspect local heat stress. Prepare an evidence-linked brief.** Research prototype by the AVCOE student team for PCCOE International Grand Challenge 2026. The implementation uses weather-model inputs, thermal physics and transparent rules. There is no team-trained ML model, validated population-risk ranking, PMC/IMD affiliation or operational national alert connection. Earlier project/prompt names retain “HeatGuard AI” as historical context.
 
 ## Local setup
 
@@ -51,7 +51,11 @@ On Linux use .venv/bin/python or uv run python. The legacy-named scripts/assembl
 
 ## Behavior and limits
 
-React 18/Vite and FastAPI share deterministic thermofeel/pythermalcomfort rules. The public dashboard, ward details, Methods, worker screening, historical replay, local authority walkthrough and what-if comparison are available. Real 2022 DataMeet electoral geography contains 58 wards and is labelled historical. The 1991-2020 ERA5 baseline uses two actual source cells. Prepared replay: **26-30 April 2024**, selected from the full 2021-2025 ERA5 scan. Open `/?mode=replay&episode=era5-2024-04-26&date=2024-04-26`.
+React 18/Vite and FastAPI share deterministic thermofeel/pythermalcomfort rules. Ward/date selection persists across the overview, brief, worker and scenario journeys. Live mode defaults to the current IST day when covered, otherwise the next covered day or the last saved day; explicit dates and replay dates are preserved. A minute clock keeps default-day selection and stale warnings current. Downloaded briefs retain source, method, classification rules, shared-cell limits and freshness/simulation labels.
+
+What-if runs explicitly on Compute and defaults to the selected ward; all-ward comparison is available when needed. Replay uses direct day selection, with a guided real case at `/presenter`. Methods includes a downloadable classification/coverage audit. Unsupported vulnerability/refuge map layers are hidden; priority sorting is unavailable without data. `/subscribe` explains that delivery is unavailable and collects no information. The app does not register subscribers or send messages.
+
+Real 2022 DataMeet electoral geography contains 58 wards and is labelled historical. The 1991-2020 ERA5 baseline uses two actual source cells. Prepared replay: **26-30 April 2024**, selected from the full 2021-2025 ERA5 scan. Open `/?mode=replay&episode=era5-2024-04-26&date=2024-04-26`.
 
 Missing matched demographics remain unavailable: vulnerability and priority are null, with hazard-only risk. Radiation and derived indices remain approximate, without local urban or clinical validation. No trained ML model or invented skill is claimed. Native Hindi/Marathi review is pending; newer strings use English fallback.
 
@@ -93,4 +97,10 @@ The migration test creates and removes only its own disposable database; it does
 
 See reports/local-verification.md for current evidence and remaining acceptance. Older reports retain earlier scope. P0 is not claimed complete.
 
-Production performance can be checked with `npm run audit:local` while the app runs. The latest three mobile/4G simulations reached performance 96 median (87-97), automated accessibility 100 and LCP 0.77 seconds median (0.77-3.46 seconds). All measured median budgets passed; the LCP outlier and unmeasured INP are disclosed in reports/performance/budget-status.md. CI records the same three-run check.
+## Evaluation and demonstration
+
+Open `/presenter` for the three-minute historical case: inspect the episode, explain its screening rules, review the ward's sourced actions, export a simulation-labelled brief, then show the evidence audit. Similar heat-warning and mapping tools already exist; the proposed contribution is the inspectable local planning workflow, whose advantage still needs a real-user comparison.
+
+See [the pilot protocol](docs/pilot-evaluation.md), [blank observations](docs/templates/observations.csv) and [blank feedback sheet](docs/templates/pilot-feedback.csv). The observation tool (`python -m scripts.evaluate_observations --help`) validates supplied references against immutable snapshot samples and reports descriptive agreement. It does not establish as-issued forecast skill, reference independence or health benefit. Raw participant/observation files belong in ignored `data/raw/pilot/`, not Git. Native-language, physical-device, manual accessibility, local scientific and real-user validation remain pending.
+
+Production performance can be checked with `npm run audit:local` while the app runs. Current raw three-run measurements and budget comparisons are in `reports/performance/summary.json` and `reports/performance/budget-status.md`. These are browser lab mobile/4G simulations; physical-device performance and INP remain unmeasured. CI records the same three-run check.

@@ -39,7 +39,7 @@
   --font-body:
     "Atkinson Hyperlegible Next", "Atkinson Hyperlegible",
     "Noto Sans Devanagari", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-mono: ui-monospace, Consolas, monospace;
   --text-xs: 12px;
   --leading-xs: 16px;
   --text-sm: 14px;

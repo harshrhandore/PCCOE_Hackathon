@@ -16,10 +16,32 @@ describe("public state and safe exports", () => {
     ).toMatchObject({
       hour: 14,
       ward: null,
-      layer: "risk",
+      layer: "hazard",
       mode: "live",
       date: "2026-11-07",
     });
+  });
+  it("defaults to the current IST day and clamps to available coverage", () => {
+    const dates = ["2026-11-08", "2026-11-09", "2026-11-10"];
+    const now = new Date("2026-11-08T19:00:00Z"); // already November 9 in IST
+    expect(validatedParams(new URLSearchParams(), dates, [], now).date).toBe(
+      "2026-11-09",
+    );
+    expect(
+      validatedParams(
+        new URLSearchParams(),
+        dates,
+        [],
+        new Date("2026-12-01T00:00:00Z"),
+      ).date,
+    ).toBe("2026-11-10");
+    expect(
+      validatedParams(new URLSearchParams("mode=replay"), dates, [], now).date,
+    ).toBe("2026-11-08");
+    expect(
+      validatedParams(new URLSearchParams("date=2026-11-08"), dates, [], now)
+        .date,
+    ).toBe("2026-11-08");
   });
   it("retains UTC instants in the containing IST bins", () => {
     expect(localParts("2025-05-01T15:00:00Z")).toEqual({

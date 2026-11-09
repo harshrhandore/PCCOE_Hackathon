@@ -23,7 +23,10 @@ export default function WardDetail({
   return (
     <div className="ward-detail-page">
       <RouteLink to="/">← {t("common.returnList")}</RouteLink>
-      <PageHeading kicker={`WARD BULLETIN · ${date}`} title={ward.name_en} />
+      <PageHeading
+        kicker={`PRABHAG ${ward.source_ward_id} · ${date} IST · 2022 BOUNDARIES`}
+        title={ward.name_en}
+      />
       <WardContext
         data={data}
         ward={ward}

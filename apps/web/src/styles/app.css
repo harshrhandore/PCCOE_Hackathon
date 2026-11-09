@@ -2026,6 +2026,220 @@ tr {
     display: block !important;
   }
 }
+
+/* Focused local-planning workflow. */
+.brand strong,
+.global-footer > div > strong {
+  font-weight: 400;
+}
+.language-switch button {
+  font-family: system-ui, sans-serif;
+}
+.language-note {
+  max-width: 64px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--ink-2);
+}
+.secondary-nav {
+  position: relative;
+  font-size: 14px;
+}
+.secondary-nav > summary {
+  cursor: pointer;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+.secondary-nav > summary::after {
+  content: " ▾";
+  margin-left: 6px;
+}
+.secondary-nav > div {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  display: grid;
+  z-index: 20;
+  background: var(--paper-1);
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 8px 20px #16201e15;
+}
+.secondary-nav a {
+  padding: 12px 16px;
+  min-height: 44px;
+}
+.planning-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  margin: 16px 0;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper-1);
+}
+.planning-entry label {
+  display: grid;
+  gap: 6px;
+  max-width: 560px;
+}
+.planning-entry p {
+  margin: 8px 0;
+}
+.planning-entry .eyebrow {
+  font-size: 11px;
+}
+.planning-entry select {
+  width: 100%;
+}
+.planning-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin: 12px 0 0;
+}
+.planning-summary dt {
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.planning-summary dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+}
+.brief-actions {
+  padding: 16px 0;
+  border-block: 1px solid var(--rule);
+}
+.brief-actions label {
+  display: grid;
+  gap: 8px;
+}
+.brief-actions select {
+  width: 100%;
+}
+.brief-actions .button-row {
+  margin-top: 16px;
+}
+.brief-actions small,
+.brief-actions a.provenance-text {
+  display: block;
+  margin-top: 8px;
+}
+.brief-actions .button-row > * {
+  white-space: normal;
+}
+.ward-context > details {
+  margin: 16px 0;
+}
+.ward-context summary,
+.evidence-panel summary,
+.case-steps + details summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 10px;
+}
+.timeline-control {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.timeline-control input {
+  width: 100%;
+}
+.evidence-panel {
+  padding: 24px;
+  border: 1px solid var(--rule);
+  background: var(--paper-1);
+  margin-bottom: 28px;
+}
+.evidence-panel details {
+  border-top: 1px solid var(--rule);
+  margin-top: 12px;
+}
+.case-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  list-style: none;
+  counter-reset: case;
+  padding: 0;
+}
+.case-steps > li {
+  counter-increment: case;
+  padding: 24px;
+  background: var(--paper-1);
+  border: 1px solid var(--rule);
+}
+.case-steps > li::before {
+  content: "STEP " counter(case);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--verdigris-700);
+}
+.case-steps h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-top: 16px;
+}
+.authority-tools {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--paper-0);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.authority-tools > button.primary {
+  margin-left: auto;
+}
+@media (max-width: 767px) {
+  .secondary-nav > div {
+    position: static;
+    box-shadow: none;
+    min-width: 0;
+  }
+  .planning-entry {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+  }
+  .planning-entry .eyebrow {
+    display: none;
+  }
+  .planning-entry > .button {
+    width: 100%;
+    text-align: center;
+  }
+  .overview-grid > .ward-context {
+    order: 1;
+  }
+  .overview-grid > .ward-ranking {
+    order: 2;
+  }
+  .authority-mobile-list {
+    max-height: 300px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-bottom: 1px solid var(--rule);
+  }
+  .authority-tools > button.primary {
+    width: 100%;
+    margin-left: 0;
+  }
+  .case-steps {
+    grid-template-columns: 1fr;
+  }
+  .evidence-panel {
+    padding: 16px;
+  }
+  .brief-actions .button-row > * {
+    width: 100%;
+  }
+}
 .server-alert-list {
   list-style: none;
   padding: 0;

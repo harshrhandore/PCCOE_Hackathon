@@ -242,6 +242,9 @@ test("what-if comparison retains explicit simulation and exact returned inputs",
   });
   await page.goto("/scenarios");
   await page.getByLabel("Air temperature change numeric value").fill("2");
+  await page
+    .getByRole("button", { name: "Compute what-if", exact: true })
+    .click();
   await expect(
     page.getByRole("heading", { name: "Computed comparison", exact: true }),
   ).toBeVisible();

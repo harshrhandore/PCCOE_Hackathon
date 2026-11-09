@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { lazy, Suspense, useRef, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import * as Dialog from "@radix-ui/react-dialog";
+const SourceDialog = lazy(() => import("./SourceDialog"));
 import { Link, useLocation } from "react-router-dom";
 import type { Level, Dataset, Daily } from "../data/types";
 import { dateLabel, timeLabel, number } from "../lib/state";
@@ -16,15 +16,20 @@ export function RiskChip({ level, label }: { level: Level; label?: string }) {
 export function RouteLink({
   to,
   children,
+  params,
   ...props
 }: {
   to: string;
   children: ReactNode;
   className?: string;
+  params?: Record<string, string>;
 }) {
   const l = useLocation();
+  const search = new URLSearchParams(l.search);
+  for (const [key, value] of Object.entries(params || {}))
+    value ? search.set(key, value) : search.delete(key);
   return (
-    <Link to={`${to}${l.search}`} {...props}>
+    <Link to={`${to}${search.size ? `?${search}` : ""}`} {...props}>
       {children}
     </Link>
   );
@@ -38,55 +43,36 @@ export function SourceChip({
   field?: Daily;
   children?: ReactNode;
 }) {
-  const { t } = useTranslation();
   const meta = data.manifest.meta;
+  const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  function close() {
+    setOpen(false);
+    setTimeout(() => {
+      if (trigger.current?.isConnected) trigger.current.focus();
+    }, 0);
+  }
   return (
-    <Dialog.Root>
-      <Dialog.Trigger className="source-chip">
+    <>
+      <button
+        ref={trigger}
+        className="source-chip"
+        aria-haspopup="dialog"
+        onClick={() => setOpen(true)}
+      >
         {children ||
           `${meta.model_id} · ${field?.indices_quality || "model-based"} · ${timeLabel(meta.issued_at)} IST`}{" "}
         <span aria-hidden="true">↗</span>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="modal-overlay" />
-        <Dialog.Content className="modal-content">
-          <Dialog.Title>{t("common.source")}</Dialog.Title>
-          <Dialog.Description>{t("methods.resolution")}</Dialog.Description>
-          <dl className="definition-grid">
-            <dt>Publication</dt>
-            <dd>{meta.issued_at}</dd>
-            <dt>Fetched</dt>
-            <dd>{meta.fetched_at}</dd>
-            <dt>Model run</dt>
-            <dd>{meta.model_run || t("freshness.noRun")}</dd>
-            <dt>Boundary vintage</dt>
-            <dd>2022 · {data.registry.definition}</dd>
-            <dt>Method</dt>
-            <dd>{meta.method_version}</dd>
-            <dt>Quality flags</dt>
-            <dd>
-              {[...meta.quality_flags, ...(field?.quality_flags || [])].join(
-                " · ",
-              )}
-            </dd>
-            {field && (
-              <>
-                <dt>Upstream grid</dt>
-                <dd>
-                  {field.source_grid.latitude}, {field.source_grid.longitude}
-                </dd>
-              </>
-            )}
-          </dl>
-          <RouteLink to="/methods">{t("nav.methods")}</RouteLink>
-          <Dialog.Close className="button primary">
-            {t("common.close")}
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+      </button>
+      {open && (
+        <Suspense fallback={<p role="status">Loading source details…</p>}>
+          <SourceDialog data={data} field={field} onClose={close} />
+        </Suspense>
+      )}
+    </>
   );
 }
+
 export function Skeleton() {
   const { t } = useTranslation();
   return (
@@ -144,32 +130,48 @@ export function Metrics({ row }: { row: Daily }) {
   const { t } = useTranslation();
   return (
     <dl className="metric-grid">
+      {row.risk_basis !== "hazard_only" && (
+        <>
+          <div>
+            <dt>{t("field.risk")}</dt>
+            <dd>
+              <RiskChip level={row.risk_level} />
+            </dd>
+          </div>
+        </>
+      )}
       <div>
-        <dt>{t("field.risk")}</dt>
-        <dd>
-          <RiskChip level={row.risk_level} />
-        </dd>
-      </div>
-      <div>
-        <dt>{t("field.hazard")}</dt>
+        <dt>
+          {row.risk_basis === "hazard_only"
+            ? "Heat-stress screening"
+            : t("field.hazard")}
+        </dt>
         <dd>
           <RiskChip level={row.hazard_level} />
         </dd>
       </div>
-      <div>
-        <dt>{t("field.vulnerability")}</dt>
-        <dd className="numeric">
-          {number(row.vulnerability, 2)}
-          <span className="metric-unit"> / 1</span>
-        </dd>
-      </div>
-      <div>
-        <dt>{t("field.priority")}</dt>
-        <dd className="numeric">
-          {number(row.priority_score)}
-          <span className="metric-unit"> / 100</span>
-        </dd>
-      </div>
+      {row.vulnerability !== null && (
+        <>
+          <div>
+            <dt>{t("field.vulnerability")}</dt>
+            <dd className="numeric">
+              {number(row.vulnerability, 2)}
+              <span className="metric-unit"> / 1</span>
+            </dd>
+          </div>
+        </>
+      )}
+      {row.priority_score !== null && (
+        <>
+          <div>
+            <dt>{t("field.priority")}</dt>
+            <dd className="numeric">
+              {number(row.priority_score)}
+              <span className="metric-unit"> / 100</span>
+            </dd>
+          </div>
+        </>
+      )}
     </dl>
   );
 }

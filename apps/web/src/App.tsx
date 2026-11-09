@@ -8,9 +8,15 @@ import {
 } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDataset } from "./data/client";
-import { usePreferences, validatedParams, timeLabel } from "./lib/state";
+import {
+  usePreferences,
+  validatedParams,
+  timeLabel,
+  localParts,
+} from "./lib/state";
 import { RouteLink, Skeleton, Empty } from "./components/Shared";
 import Overview from "./routes/Overview";
+import { loadLanguage } from "./i18n";
 const Authority = lazy(() => import("./routes/Authority"));
 const Methods = lazy(() => import("./routes/Methods"));
 const Scenarios = lazy(() => import("./routes/Scenarios"));
@@ -18,13 +24,20 @@ const Subscribe = lazy(() => import("./routes/Subscribe"));
 const Worker = lazy(() => import("./routes/Worker"));
 const Status = lazy(() => import("./routes/Status"));
 const WardDetail = lazy(() => import("./routes/WardDetail"));
+const Presenter = lazy(() => import("./routes/Presenter"));
 export default function App() {
   const { t, i18n } = useTranslation();
   const [params, setParams] = useSearchParams();
   const location = useLocation();
   const prefs = usePreferences();
   const [menu, setMenu] = useState(false);
+  const [languageError, setLanguageError] = useState(false);
   const [offline, setOffline] = useState(!navigator.onLine);
+  const [now, setNow] = useState(Date.now);
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 60000);
+    return () => clearInterval(timer);
+  }, []);
   const requestedMode =
     params.get("mode") === "replay"
       ? "replay"
@@ -37,14 +50,29 @@ export default function App() {
     params,
     data?.manifest.meta.dates || [],
     data?.registry.wards.map((w) => w.id) || [],
+    new Date(now),
   );
   const lang =
     params.get("lang") && ["en", "hi", "mr"].includes(params.get("lang")!)
       ? params.get("lang")!
       : prefs.lang;
   useEffect(() => {
-    void i18n.changeLanguage(lang);
-    document.documentElement.lang = lang;
+    let cancelled = false;
+    setLanguageError(false);
+    void loadLanguage(lang)
+      .then(() => {
+        if (cancelled) return;
+        void i18n.changeLanguage(lang);
+        document.documentElement.lang = lang;
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setLanguageError(true);
+        document.documentElement.lang = i18n.resolvedLanguage || "en";
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [lang, i18n]);
   useEffect(() => {
     const online = () => setOffline(!navigator.onLine);
@@ -57,7 +85,7 @@ export default function App() {
   }, []);
   useEffect(() => {
     setMenu(false);
-    document.title = `HeatGuard AI · ${location.pathname === "/" ? t("nav.overview") : location.pathname.slice(1).split("/")[0]}`;
+    document.title = `HeatGuard · ${location.pathname === "/" ? t("nav.overview") : location.pathname.slice(1).split("/")[0]}`;
     if (location.pathname !== "/")
       setTimeout(() => document.getElementById("page-title")?.focus(), 30);
   }, [location.pathname, t]);
@@ -83,15 +111,11 @@ export default function App() {
   const stale =
     !!meta &&
     requestedMode === "live" &&
-    Date.now() - new Date(meta.issued_at).getTime() > 21600000;
+    now - new Date(meta.issued_at).getTime() > 21600000;
   const routes = [
     ["/", "nav.overview"],
-    ["/authority", "nav.authority"],
     ["/worker", "nav.worker"],
     ["/scenarios", "nav.scenarios"],
-    ["/subscribe", "nav.subscribe"],
-    ["/methods", "nav.methods"],
-    ["/status", "nav.status"],
   ];
   return (
     <>
@@ -103,24 +127,22 @@ export default function App() {
           <RouteLink to="/" className="brand">
             <img src="/icons/logo-mark.svg" width="38" height="42" alt="" />
             <span>
-              <strong>
-                HeatGuard <em>AI</em>
-              </strong>
-              <small>Predict heat. Protect people.</small>
+              <strong>HeatGuard</strong>
+              <small>Heat-stress planning for Pune.</small>
             </span>
           </RouteLink>
           <div className="header-edition">
-            <span className="eyebrow">PUNE / HEAT EARLY WARNING</span>
-            <span>
-              Research prototype · {meta?.model_id || "Static data first"}
-            </span>
+            <span className="eyebrow">LOCAL HEAT-ACTION PLANNING</span>
+            <span>Physics + transparent rules · research prototype</span>
           </div>
           <div className="header-controls">
             <div
               role="group"
               aria-label={t("common.language")}
               className="language-switch"
+              title="Hindi and Marathi are translation previews; safety wording remains in English pending review."
             >
+              <small className="language-note">Language previews</small>
               {[
                 ["en", "EN"],
                 ["hi", "हिंदी"],
@@ -163,17 +185,32 @@ export default function App() {
               {t(key)}
             </NavLink>
           ))}
+          <details key={location.pathname} className="secondary-nav">
+            <summary>Evidence & tools</summary>
+            <div>
+              <RouteLink to="/methods">Methods & validation</RouteLink>
+              <RouteLink to="/presenter">Guided case study</RouteLink>
+              <RouteLink to="/authority">Alert workflow preview</RouteLink>
+              <RouteLink to="/status">Data & service status</RouteLink>
+            </div>
+          </details>
           <span className="nav-edition">PCCOE GRAND CHALLENGE 2026</span>
         </nav>
       </header>
       <div className="status-region" role="status" aria-live="polite">
+        {languageError && (
+          <div className="state-strip">
+            Language preview unavailable. Current text retained; reload to
+            retry.
+          </div>
+        )}
         {(requestedMode !== "live" || meta?.is_simulation) && (
           <div className="simulation-banner">
             <strong>SIMULATION</strong>
             <span>
               {requestedMode === "replay"
                 ? `Replay · ${meta?.dates[0] || params.get("episode") || "episode unavailable"} · not a live forecast.`
-                : "What-if · independent perturbation, not a new forecast."}
+                : "Experiment context · the published baseline is unchanged. Computed comparisons appear on Replay & what-if."}
             </span>
             <button onClick={exit}>{t("scenario.exit")}</button>
           </div>
@@ -185,7 +222,9 @@ export default function App() {
         )}
         {stale && (
           <div className="state-strip">
-            {t("state.stale", { time: timeLabel(meta?.issued_at) })}
+            {t("state.stale", {
+              time: `${meta && localParts(meta.issued_at).date} ${timeLabel(meta?.issued_at)}`,
+            })}
           </div>
         )}
         {data?.updateError && (
@@ -243,6 +282,7 @@ export default function App() {
                 }
               />
               <Route path="/methods" element={<Methods data={data} />} />
+              <Route path="/presenter" element={<Presenter data={data} />} />
               <Route
                 path="/authority/staff"
                 element={
@@ -257,7 +297,14 @@ export default function App() {
               />
               <Route
                 path="/scenarios"
-                element={<Scenarios data={data} update={update} />}
+                element={
+                  <Scenarios
+                    data={data}
+                    update={update}
+                    wardId={state.ward || prefs.ward}
+                    date={state.date}
+                  />
+                }
               />
               <Route
                 path="/subscribe"
@@ -265,7 +312,14 @@ export default function App() {
               />
               <Route
                 path="/worker"
-                element={<Worker data={data} date={state.date} />}
+                element={
+                  <Worker
+                    data={data}
+                    date={state.date}
+                    wardId={state.ward || prefs.ward}
+                    update={update}
+                  />
+                }
               />
               <Route path="/status" element={<Status data={data} />} />
               <Route
@@ -282,10 +336,10 @@ export default function App() {
       </main>
       <footer className="global-footer frame">
         <div>
-          <strong>HeatGuard AI</strong>
+          <strong>HeatGuard</strong>
           <p>
-            Not just predicting heat — predicting human risk and enabling early
-            action.
+            Inspect local heat stress. Prepare an evidence-linked planning
+            brief.
           </p>
           <small>
             AVCOE student team · PCCOE International Grand Challenge 2026, Pune.
@@ -307,6 +361,7 @@ export default function App() {
             · historical electoral geography
           </p>
           <RouteLink to="/methods">{t("nav.methods")} / licences</RouteLink>
+          <RouteLink to="/status">Data & service status</RouteLink>
           <span>
             Source {meta?.git_sha.slice(0, 12) || "unavailable"} · Data{" "}
             {meta?.data_git_sha.slice(0, 12) || "unavailable"}

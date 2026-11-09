@@ -4,29 +4,55 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
   page,
 }, testInfo) => {
   const errors: string[] = [];
+  const hourlyRequests: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  page.on("request", (request) => {
+    if (new URL(request.url()).pathname.includes("/hourly/"))
+      hourlyRequests.push(request.url());
+  });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "Today in Pune", exact: true }),
+    page.getByRole("heading", { name: "Ward heat outlook", exact: true }),
   ).toBeVisible({ timeout: 30000 });
   await expect(
     page.getByRole("heading", { name: "Ward watch", exact: true }),
   ).toBeVisible();
+  await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
   await page.locator(".ward-row").nth(1).click();
   await expect(page).toHaveURL(/ward=pune-2022-/);
-  await page.getByRole("button", { name: "Hazard", exact: true }).click();
-  await expect(page).toHaveURL(/layer=hazard/);
+  await expect(
+    page.getByRole("button", { name: "Vulnerability", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Cooling refuges", exact: true }),
+  ).toHaveCount(0);
   await page.getByText("Why this level", { exact: true }).click();
   await expect(page.getByText("UTCI_BASE", { exact: true })).toBeVisible();
+  expect(hourlyRequests).toEqual([]);
+  await page
+    .getByText("Hour-by-hour thermal estimates", { exact: true })
+    .click();
+  await expect(
+    page.getByRole("slider", { name: "Hourly UTCI timeline", exact: true }),
+  ).toBeVisible();
+  expect(hourlyRequests).toHaveLength(1);
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > innerWidth,
   );
   expect(overflow).toBe(false);
+  await page.locator(".map-column").scrollIntoViewIfNeeded();
+  await expect(page.locator(".map-ward")).toHaveCount(58);
   await page.screenshot({
     path: `../../reports/visual/overview-${testInfo.project.name}.png`,
     fullPage: true,
   });
+  const source = page.locator(".bulletin-sentence .source-chip");
+  await source.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(source).toBeFocused();
   const accessibility = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
@@ -124,9 +150,12 @@ test("invalid ward and unconfigured subscription remain honest", async ({
   ).toBeVisible();
   await page.goto("/subscribe");
   await expect(
-    page.getByRole("heading", { name: "Subscribe", exact: true }),
+    page.getByRole("heading", {
+      name: "Alert delivery is unavailable",
+      exact: true,
+    }),
   ).toBeVisible();
   await expect(
-    page.getByText("Consent comes before delivery.", { exact: true }),
-  ).toBeVisible();
+    page.getByRole("button", { name: "Continue to Telegram", exact: true }),
+  ).toHaveCount(0);
 });

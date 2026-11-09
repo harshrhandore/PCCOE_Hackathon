@@ -7,7 +7,13 @@ export default function Status({ data }: { data: Dataset }) {
   const { t } = useTranslation();
   const health = useQuery({
     queryKey: ["health"],
-    queryFn: () => api<{ status: string; db: string }>("/health"),
+    queryFn: () =>
+      api<{
+        status: string;
+        api: string;
+        db: string;
+        optional_channels: { telegram: string };
+      }>("/health"),
     retry: 1,
     staleTime: 60000,
   });
@@ -71,12 +77,17 @@ export default function Status({ data }: { data: Dataset }) {
                   ? "Checking"
                   : health.isError
                     ? "Unavailable · public static views remain usable"
-                    : health.data?.status}
+                    : health.data?.api}
               </td>
             </tr>
             <tr>
-              <th>Database</th>
-              <td>{health.data?.db || "Not checked / unavailable"}</td>
+              <th>Optional staff database</th>
+              <td>
+                {health.data?.db === "not_checked"
+                  ? "Not checked by this read-only status request"
+                  : health.data?.db || "Not checked"}
+                . Not required for ward planning.
+              </td>
             </tr>
             <tr>
               <th>Weather source</th>
@@ -121,8 +132,9 @@ export default function Status({ data }: { data: Dataset }) {
           {t("common.retry")}
         </button>
         <p>
-          Health checks report observed readiness only. They do not prevent
-          free-host suspension or promise availability.
+          API readiness, snapshot freshness and optional staff services are
+          separate checks. A reachable API can serve a stale saved snapshot. No
+          alert delivery is enabled by this local planning interface.
         </p>
       </div>
     </>

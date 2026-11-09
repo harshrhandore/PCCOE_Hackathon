@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Daily, Dataset } from "../data/types";
 import { RiskChip } from "./Shared";
@@ -22,15 +21,18 @@ export default function ScenarioComparison({
   result,
   data,
   pending,
+  selectedDate,
+  onDateChange,
 }: {
   result: ScenarioResult;
   data: Dataset;
   pending: boolean;
+  selectedDate: string;
+  onDateChange: (date: string) => void;
 }) {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState(data.manifest.meta.dates[0]);
-  const date = data.manifest.meta.dates.includes(selected)
-    ? selected
+  const date = data.manifest.meta.dates.includes(selectedDate)
+    ? selectedDate
     : data.manifest.meta.dates[0];
   const baseline = result.baseline.filter((r) => r.date === date);
   const scenario = result.scenario.filter((r) => r.date === date);
@@ -75,7 +77,7 @@ export default function ScenarioComparison({
       </p>
       <label>
         {t("common.date")}
-        <select value={date} onChange={(e) => setSelected(e.target.value)}>
+        <select value={date} onChange={(e) => onDateChange(e.target.value)}>
           {data.manifest.meta.dates.map((d) => (
             <option key={d} value={d}>
               {dateLabel(d)}

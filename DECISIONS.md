@@ -1,5 +1,7 @@
 # Decisions
 
+Product-focus update, 2026-11-09: the primary user is a local heat-action planner. The main task is ward/day selection, thermal/rule inspection and export of a source-linked planning brief. Visible branding is HeatGuard, with physics/rule-based scope stated explicitly; no trained team ML or validated human-risk prediction is claimed. Unsupported layers and subscription forms are removed from the main journey, approval simulation stays secondary, and scientific thresholds remain unchanged. Real observations, user feedback and native/manual accessibility review cannot be manufactured; an evaluation protocol, blank templates and a guarded comparison tool support collecting that evidence.
+
 Latest user scope, 2026-11-09: only app deployment must be local; external services are allowed. The user then decided login is unnecessary. Default Authority access is therefore a no-account local simulation; real staff APIs remain protected and are available only through the optional `/authority/staff` workspace. Google OAuth work was cancelled before configuration or activation. The dedicated hosted HeatGuard AI project (etnqihgkgqpvurauysai, Mumbai, free-plan quote $0/month) remains unused by the running app; no local data was migrated or deleted.
 
 | id | decision | reason | evidence | tier | review_status |

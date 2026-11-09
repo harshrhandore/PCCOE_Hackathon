@@ -72,14 +72,21 @@ export function validatedParams(
   params: URLSearchParams,
   dates: string[],
   ids: string[],
+  now = new Date(),
 ) {
+  const today = localParts(now.toISOString()).date;
+  const ordered = [...dates].sort();
+  const defaultDate =
+    params.get("mode") === "replay"
+      ? ordered[0]
+      : ordered.find((day) => day >= today) || ordered[ordered.length - 1];
   return {
     mode: ["live", "replay", "whatif"].includes(params.get("mode") || "")
       ? params.get("mode")!
       : "live",
     date: dates.includes(params.get("date") || "")
       ? params.get("date")!
-      : dates[0],
+      : defaultDate,
     hour: /^(?:[01]?\d|2[0-3])$/.test(params.get("t") || "")
       ? Number(params.get("t"))
       : 14,
@@ -88,7 +95,7 @@ export function validatedParams(
       params.get("layer") || "",
     )
       ? params.get("layer")!
-      : "risk",
+      : "hazard",
     lang: ["en", "hi", "mr"].includes(params.get("lang") || "")
       ? params.get("lang")!
       : "en",

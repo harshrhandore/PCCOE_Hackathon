@@ -12,6 +12,7 @@ test("a replay URL without an episode never loads live data as a replay", async 
     .locator("main")
     .getByRole("button", { name: "Exit simulation", exact: true })
     .click();
+  await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
 });
 
@@ -29,8 +30,9 @@ test("saved bulletin, real calculation and replay survive external network loss"
   });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "Today in Pune", exact: true }),
+    page.getByRole("heading", { name: "Ward heat outlook", exact: true }),
   ).toBeVisible();
+  await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
   await page.evaluate(() => window.dispatchEvent(new Event("offline")));
   const manifest = await (await page.request.get("/data/latest.json")).json();
@@ -58,6 +60,7 @@ test("saved bulletin, real calculation and replay survive external network loss"
     page.getByRole("button", { name: "Compute what-if", exact: true }),
   ).toBeEnabled();
   await page.goto("/?mode=replay&episode=era5-2024-04-26&date=2024-04-26");
+  await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
   await expect(page.getByText(/SIMULATION/).first()).toBeVisible();
 });

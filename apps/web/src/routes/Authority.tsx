@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { Dataset, Daily } from "../data/types";
@@ -28,6 +29,7 @@ export default function Authority({
   requireAuth?: boolean;
 }) {
   const { t } = useTranslation();
+  const [params] = useSearchParams();
   const [demo, setDemo] = useState(!requireAuth);
   const [token, setToken] = useState("");
   const [role, setRole] = useState("");
@@ -85,6 +87,7 @@ export default function Authority({
         ),
     [data, date, search],
   );
+  const hasVulnerability = data.daily.some((row) => row.vulnerability !== null);
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
     // Clear the controlled field immediately, including on rejected requests.
@@ -180,7 +183,7 @@ export default function Authority({
     const names = targeted
       .map((r) => data.registry.wards.find((w) => w.id === r.ward_id)?.name_en)
       .join("; ");
-    const text = `SIMULATION — not a live forecast.\nLocal demo — no messages sent.\nHeatGuard AI · ${date}\nWards: ${names}. Boundary vintage 2022.\n${targeted.map((r) => `${r.ward_id}: risk ${r.risk_level ?? "unavailable"}, hazard ${r.hazard_level ?? "unavailable"}`).join("\n")}\nSource: Open-Meteo; thermofeel. Issued ${data.manifest.meta.issued_at}. Method ${data.manifest.meta.method_version}.\nSafety actions require the versioned source library; no arbitrary text is sent.`;
+    const text = `SIMULATION — not a live forecast.\nLocal demo — no messages sent.\nHeatGuard · ${date}\nWards: ${names}. Boundary vintage 2022.\n${targeted.map((r) => `${r.ward_id}: risk ${r.risk_level ?? "unavailable"}, hazard ${r.hazard_level ?? "unavailable"}`).join("\n")}\nSource: Open-Meteo; thermofeel. Issued ${data.manifest.meta.issued_at}. Method ${data.manifest.meta.method_version}.\nSafety actions require the versioned source library; no arbitrary text is sent.`;
     const hash = await crypto.subtle.digest(
       "SHA-256",
       new TextEncoder().encode(text),
@@ -266,10 +269,15 @@ export default function Authority({
     );
   return (
     <>
-      <PageHeading kicker={`CONTROL ROOM · ${date}`} title={t("nav.authority")}>
+      <PageHeading
+        kicker={`${demo ? "LOCAL WORKFLOW PREVIEW" : "STAFF WORKSPACE"} · ${date}`}
+        title={demo ? "Approval workflow preview" : t("nav.authority")}
+      >
         <div className="button-row">
           <button onClick={exportCSV}>{t("authority.csv")}</button>
-          <button onClick={() => setGuide(0)}>Demo script</button>
+          {params.get("presenter") === "1" && (
+            <button onClick={() => setGuide(0)}>Demo script</button>
+          )}
           <button
             onClick={async () => {
               if (token) {
@@ -362,7 +370,16 @@ export default function Authority({
         >
           {t("table.selectAll")} ({rows.length})
         </button>
-        <strong>{selected.size} selected</strong>
+        <strong aria-live="polite">{selected.size} selected</strong>
+        {demo && (
+          <button
+            className="primary"
+            disabled={!selected.size}
+            onClick={() => void draft()}
+          >
+            Draft local Exercise preview
+          </button>
+        )}
       </div>
       <div className="authority-table table-scroll">
         <table>
@@ -373,10 +390,14 @@ export default function Authority({
           <thead>
             <tr>
               <th>Select / Ward</th>
-              <th>Risk</th>
-              <th>Hazard</th>
-              <th>Vulnerability</th>
-              <th>Priority</th>
+              {hasVulnerability && <th>Risk</th>}
+              <th>Heat stress</th>
+              {hasVulnerability && (
+                <>
+                  <th>Vulnerability</th>
+                  <th>Priority</th>
+                </>
+              )}
               <th>Peak UTCI °C</th>
               <th>Peak WBGT °C</th>
               <th>Night min °C</th>
@@ -399,14 +420,20 @@ export default function Authority({
                     }
                   </label>
                 </th>
-                <td>
-                  <RiskChip level={r.risk_level} />
-                </td>
+                {hasVulnerability && (
+                  <td>
+                    <RiskChip level={r.risk_level} />
+                  </td>
+                )}
                 <td>
                   <RiskChip level={r.hazard_level} />
                 </td>
-                <td className="numeric">{number(r.vulnerability, 2)}</td>
-                <td className="numeric">{number(r.priority_score)}</td>
+                {hasVulnerability && (
+                  <>
+                    <td className="numeric">{number(r.vulnerability, 2)}</td>
+                    <td className="numeric">{number(r.priority_score)}</td>
+                  </>
+                )}
                 <td className="numeric">{number(r.peak_utci)}</td>
                 <td className="numeric">{number(r.peak_wbgt)}</td>
                 <td className="numeric">{number(r.night_min_t)}</td>
@@ -419,7 +446,12 @@ export default function Authority({
           </tbody>
         </table>
       </div>
-      <div className="authority-mobile-list">
+      <div
+        className="authority-mobile-list"
+        tabIndex={0}
+        role="region"
+        aria-label="Select wards for the local preview"
+      >
         {rows.map((r) => (
           <details key={r.ward_id}>
             <summary>
@@ -434,9 +466,9 @@ export default function Authority({
               Select ward
             </label>
             <p>
-              Risk {r.risk_level ?? "unavailable"} · Hazard{" "}
-              {r.hazard_level ?? "unavailable"} · Priority{" "}
-              {number(r.priority_score)}
+              Heat stress {r.hazard_level ?? "unavailable"}
+              {r.priority_score !== null &&
+                ` · Priority ${number(r.priority_score)}`}
             </p>
             <p>
               UTCI {number(r.peak_utci)} °C · WBGT {number(r.peak_wbgt)} °C
@@ -465,18 +497,11 @@ export default function Authority({
               facility is represented as an open cooling centre.
             </p>
             <p className="note">
-              Sourced actions resolve to the versioned library. No LLM or
-              arbitrary free text enters delivery.
+              This screen demonstrates an approval workflow using simulated
+              identities. For a useful source-linked output, export a planning
+              brief from a ward bulletin.
             </p>
-            <button
-              className="primary"
-              disabled={!selected.size || !demo}
-              onClick={() => void draft()}
-            >
-              {demo
-                ? "Draft local Exercise preview"
-                : "Use configured server alert API"}
-            </button>
+
             {!demo && (
               <p>
                 The server endpoints enforce independent approval; this

@@ -2,7 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Dataset, Hourly } from "../data/types";
-import { dateLabel, localParts, number, timeLabel } from "../lib/state";
+import {
+  dateLabel,
+  localParts,
+  number,
+  timeLabel,
+  validatedParams,
+} from "../lib/state";
 export default function HeatRibbon({
   data,
   hourly,
@@ -14,7 +20,7 @@ export default function HeatRibbon({
   const [index, setIndex] = useState(0);
   const days = data.manifest.meta.dates;
   const [params] = useSearchParams();
-  const selectedDate = params.get("date");
+  const selectedDate = validatedParams(params, days, []).date;
   const selectedHour = params.get("t");
   useEffect(() => {
     const day = days.indexOf(selectedDate || days[0]);
@@ -51,6 +57,18 @@ export default function HeatRibbon({
       <p className="provenance-text">
         Hourly UTCI · °C · actual source samples, IST
       </p>
+      <label className="timeline-control">
+        Inspect sample · {selected.date}{" "}
+        {String(selected.hour).padStart(2, "0")}:00 IST bin
+        <input
+          type="range"
+          min="0"
+          max="119"
+          value={index}
+          onChange={(e) => setIndex(Number(e.target.value))}
+          aria-label="Inspect hourly UTCI sample"
+        />
+      </label>
       <div className="ribbon-axis">
         <span />
         {[0, 6, 12, 18].map((h) => (

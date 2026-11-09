@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import EvidencePanel from "../components/EvidencePanel";
 import type { Dataset } from "../data/types";
 import { PageHeading, SourceChip, RouteLink } from "../components/Shared";
 export default function Methods({ data }: { data: Dataset }) {
   const { t } = useTranslation();
-  const [equal, setEqual] = useState(false);
   const m = data.methods;
   return (
     <>
@@ -12,14 +11,15 @@ export default function Methods({ data }: { data: Dataset }) {
         kicker={`METHOD ${m.version} · TRANSPARENT BY DESIGN`}
         title={t("nav.methods")}
       />
+      <EvidencePanel data={data} />
       <p className="method-flow">
-        Data <span>→</span> Thermal stress <span>→</span> Vulnerability{" "}
-        <span>→</span> Risk <span>→</span> Alert <span>→</span> Action
+        Weather <span>→</span> Thermal stress <span>→</span> Explainable
+        screening <span>→</span> Planning brief
       </p>
       <div className="methods-layout">
         <nav aria-label="Methods contents">
           <a href="#physics">Weather & physics</a>
-          <a href="#rules">Risk rules</a>
+          <a href="#rules">Screening rules</a>
           <a href="#vulnerability">Vulnerability</a>
           <a href="#validation">Validation</a>
           <a href="#sources">Sources & licences</a>
@@ -130,45 +130,33 @@ export default function Methods({ data }: { data: Dataset }) {
               informative components, ≥50% default weight coverage and
               adaptive-capacity coverage are required.
             </p>
-            <div role="group" aria-label="Weight sensitivity">
-              <button aria-pressed={!equal} onClick={() => setEqual(false)}>
-                {t("methods.defaultWeights")}
-              </button>
-              <button aria-pressed={equal} onClick={() => setEqual(true)}>
-                {t("methods.equalWeights")}
-              </button>
-            </div>
-            {equal && (
-              <div className="simulation-banner">
-                <strong>SIMULATION</strong>
-                <span>
-                  Equal-weight sensitivity does not alter published data.
-                </span>
-              </div>
-            )}
-            <table>
-              <caption>
-                Analyst-selected weights; no health-outcome fitting
-              </caption>
-              <thead>
-                <tr>
-                  <th>Component</th>
-                  <th>Weight</th>
-                </tr>
-              </thead>
-              <tbody>
-                {m.weights.components.map((c) => (
-                  <tr key={c.id}>
-                    <th>{c.id.replaceAll("_", " ")}</th>
-                    <td>
-                      {equal
-                        ? "Requires complete cohort"
-                        : `${Math.round(c.weight * 100)}%`}
-                    </td>
+            <p className="note">
+              Weight sensitivity is unavailable until a complete spatially
+              matched cohort exists. No active sensitivity control or population
+              ranking is presented.
+            </p>
+            <details>
+              <summary>Proposed vulnerability weights</summary>
+              <table>
+                <caption>
+                  Analyst-selected weights; no health-outcome fitting
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>Weight</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {m.weights.components.map((c) => (
+                    <tr key={c.id}>
+                      <th>{c.id.replaceAll("_", " ")}</th>
+                      <td>{`${Math.round(c.weight * 100)}%`}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </details>
             <p className="note">
               Vulnerability and rank sensitivity unavailable: no licensed,
               spatially matched demographic/land-cover/refuge cohort has been
@@ -198,7 +186,14 @@ export default function Methods({ data }: { data: Dataset }) {
             </p>
             <RouteLink to="/status">View current processing status →</RouteLink>
           </section>
-          <section id="sources"><p>Contains modified Copernicus Climate Change Service information 2026. Neither the European Commission nor ECMWF is responsible for any use that may be made of the Copernicus information or data it contains. ERA5 hourly single levels, DOI 10.24381/cds.adbb2d47, derived through Open-Meteo.</p>
+          <section id="sources">
+            <p>
+              Contains modified Copernicus Climate Change Service information
+              2026. Neither the European Commission nor ECMWF is responsible for
+              any use that may be made of the Copernicus information or data it
+              contains. ERA5 hourly single levels, DOI 10.24381/cds.adbb2d47,
+              derived through Open-Meteo.
+            </p>
             <p className="eyebrow">05 / PROVENANCE AND LICENCES</p>
             <h2>Trace each number to its source.</h2>
             <ul className="source-list">
@@ -219,7 +214,7 @@ export default function Methods({ data }: { data: Dataset }) {
             </p>
             <p>
               Fonts: Newsreader, Atkinson Hyperlegible Next, Noto Sans/Serif
-              Devanagari and IBM Plex Mono, SIL OFL. React MIT; MapLibre
+              Devanagari, SIL OFL; system monospace for numeric tables. React MIT; MapLibre
               BSD-3-Clause; thermofeel Apache-2.0; pythermalcomfort MIT. Full
               dependency inventory and redistribution notices are in the
               repository.
@@ -241,10 +236,11 @@ export default function Methods({ data }: { data: Dataset }) {
             <p>{t("methods.noHealth")}</p>
             <p>
               Unreviewed Hindi/Marathi safety copy cannot be externally
-              delivered. Candidate refuges require owner confirmation. Provider
-              delivery, staff provisioning, local DB migration replay and cloud
-              scheduling need configured accounts and separate recorded
-              acceptance evidence.
+              delivered. Candidate refuges require owner confirmation. Local
+              staff provisioning and migration replay have recorded integration
+              checks; external provider delivery, local observation comparisons
+              and health outcome validation remain unverified. Hosting is local
+              only.
             </p>
           </section>
         </article>

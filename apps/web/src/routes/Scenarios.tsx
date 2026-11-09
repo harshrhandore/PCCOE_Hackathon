@@ -1,227 +1,218 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import type { Dataset } from "../data/types";
-import { PageHeading, RouteLink, Empty } from "../components/Shared";
+import { PageHeading, RouteLink } from "../components/Shared";
 import ScenarioComparison, {
   type ScenarioResult,
 } from "../components/ScenarioComparison";
 import { API_BASE } from "../data/client";
-type Episode = {
-  id: string;
-  start: string;
-  end: string;
-  selection_method: string;
+
+type Submission = {
+  snapshot: string;
+  temp: number;
+  rh: number;
+  wind: number;
+  wardIds: string[];
 };
 export default function Scenarios({
   data,
   update,
+  wardId,
+  date,
 }: {
   data: Dataset;
   update: (v: Record<string, string>) => void;
+  wardId: string | null;
+  date: string;
 }) {
   const { t } = useTranslation();
-  const [episodes, setEpisodes] = useState<Episode[]>([]);
-  const [temp, setTemp] = useState(0);
-  const [rh, setRh] = useState(0);
-  const [wind, setWind] = useState(1);
+  const catalog = useQuery({
+    queryKey: ["replay-catalog"],
+    networkMode: "always",
+    queryFn: async () => {
+      const r = await fetch("/data/replay/catalog.json");
+      if (!r.ok) throw new Error("Catalog unavailable");
+      return r.json() as Promise<{ id: string; start: string; end: string }[]>;
+    },
+  });
+  const [temp, setTemp] = useState(0),
+    [rh, setRh] = useState(0),
+    [wind, setWind] = useState(1);
+  const [scope, setScope] = useState("ward");
   const [result, setResult] = useState<ScenarioResult | null>(null);
-  const [pending, setPending] = useState(false);
-  const [runVersion, setRunVersion] = useState(0);
-  const [status, setStatus] = useState("");
-  const [playing, setPlaying] = useState(false);
-  const [hour, setHour] = useState(0);
-  const [speed, setSpeed] = useState(1);
-  const [requested, setRequested] = useState(false);
+  const [submission, setSubmission] = useState<Submission | null>(null);
+  const [pending, setPending] = useState(false),
+    [status, setStatus] = useState("");
   const baseline = data.manifest.snapshot_id;
+  const ward =
+    data.registry.wards.find((w) => w.id === wardId) || data.registry.wards[0];
+  const wardIds =
+    scope === "all" ? data.registry.wards.map((w) => w.id) : [ward.id];
+  const dirty =
+    !!submission &&
+    (submission.temp !== temp ||
+      submission.rh !== rh ||
+      submission.wind !== wind ||
+      submission.wardIds.join() !== wardIds.join());
   useEffect(() => {
     setResult(null);
-    setRequested(false);
+    setSubmission(null);
     setPending(false);
+    setStatus("");
   }, [baseline]);
   useEffect(() => {
+    if (!submission || submission.snapshot !== baseline) return;
     const ac = new AbortController();
-    void fetch("/data/replay/catalog.json", { signal: ac.signal })
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setEpisodes)
-      .catch(() => {});
-    return () => ac.abort();
-  }, []);
-  useEffect(() => {
-    if (!requested) return;
-    const ac = new AbortController();
-    const timer = setTimeout(() => {
-      setStatus("Computing scenario…");
-      setPending(true);
-      void fetch(`${API_BASE}/whatif`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          snapshot_id: baseline,
-          ward_ids: data.registry.wards.map((w) => w.id),
-          temperature_delta_c: temp,
-          relative_humidity_delta_pp: rh,
-          wind_multiplier: wind,
-          weights_mode: "default",
-        }),
-        signal: ac.signal,
+    setResult(null);
+    setPending(true);
+    setStatus("Computing thermal indices from saved inputs…");
+    void fetch(`${API_BASE}/whatif`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: ac.signal,
+      body: JSON.stringify({
+        snapshot_id: baseline,
+        ward_ids: submission.wardIds,
+        temperature_delta_c: submission.temp,
+        relative_humidity_delta_pp: submission.rh,
+        wind_multiplier: submission.wind,
+        weights_mode: "default",
+      }),
+    })
+      .then(async (r) => {
+        if (!r.ok) throw new Error("Unavailable");
+        return (await r.json()).data;
       })
-        .then(async (r) => {
-          const value = await r.json();
-          if (!r.ok) throw new Error();
-          return value.data;
-        })
-        .then((v) => {
-          if (ac.signal.aborted) return;
-          if (
-            !v ||
-            v.source_snapshot_id !== baseline ||
-            !Array.isArray(v.baseline) ||
-            !Array.isArray(v.scenario)
-          )
-            throw new Error("invalid-scenario");
-          setResult(v);
-          setStatus("Computed simulation. Baseline remains unchanged.");
-        })
-        .catch(() => {
-          if (!ac.signal.aborted)
-            setStatus(
-              "What-if service unavailable or baseline inputs incomplete. No synthetic comparison is substituted.",
-            );
-        })
-        .finally(() => {
-          if (!ac.signal.aborted) setPending(false);
-        });
-    }, 300);
-    return () => {
-      clearTimeout(timer);
-      ac.abort();
-    };
-  }, [temp, rh, wind, requested, runVersion, baseline, data.registry.wards]);
-  useEffect(() => {
-    if (!playing) return;
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduced.matches) {
-      setPlaying(false);
-      return;
-    }
-    const timer = setInterval(
-      () => setHour((h) => (h >= 119 ? (setPlaying(false), 119) : h + 1)),
-      1000 / speed,
-    );
-    const pause = () => {
-      if (document.hidden) setPlaying(false);
-    };
-    document.addEventListener("visibilitychange", pause);
-    return () => {
-      clearInterval(timer);
-      document.removeEventListener("visibilitychange", pause);
-    };
-  }, [playing, speed]);
+      .then((value) => {
+        if (ac.signal.aborted) return;
+        if (
+          value?.source_snapshot_id !== baseline ||
+          !Array.isArray(value.baseline) ||
+          !Array.isArray(value.scenario)
+        )
+          throw new Error("Invalid scenario");
+        setResult(value);
+        setStatus("Computed simulation. Baseline remains unchanged.");
+      })
+      .catch(() => {
+        if (!ac.signal.aborted)
+          setStatus(
+            "What-if service unavailable or baseline inputs incomplete. No synthetic comparison is substituted.",
+          );
+      })
+      .finally(() => {
+        if (!ac.signal.aborted) setPending(false);
+      });
+    return () => ac.abort();
+  }, [submission, baseline]);
   return (
     <>
       <PageHeading
-        kicker="REPLAY / CONTROLLED PERTURBATIONS"
+        kicker="HISTORICAL EVIDENCE / CONTROLLED PERTURBATIONS"
         title={t("nav.scenarios")}
       />
       <div className="scenario-layout">
         <section className="scenario-controls">
-          <h2>A historical episode, selected by a rule.</h2>
+          <h2>Inspect a historical heat episode.</h2>
           <p>
-            Replay scans the five complete years preceding the build year.
-            Selection ranks consecutive strong-heat days, UTCI exceedance, WBGT
-            and earliest date. It is not a claim about the hottest observed
-            episode.
+            ERA5 reanalysis supports a reproducible case study. It is not an
+            as-issued forecast or a prediction-accuracy test. Selection scanned
+            2021–2025 using the documented heat-spell rule.
           </p>
-          {episodes.length ? (
+          {catalog.data?.length ? (
             <label>
               Prepared episode
               <select
-                defaultValue=""
+                value={
+                  data.manifest.meta.mode === "replay"
+                    ? data.manifest.meta.episode?.id || catalog.data[0].id
+                    : ""
+                }
                 onChange={(e) => {
-                  const ep = episodes.find((x) => x.id === e.target.value);
+                  const ep = catalog.data.find((x) => x.id === e.target.value);
                   if (ep)
                     update({
                       mode: "replay",
                       episode: ep.id,
                       date: ep.start,
-                      t: "0",
+                      t: "14",
                     });
                 }}
               >
                 <option value="">Choose a real episode</option>
-                {episodes.map((e) => (
-                  <option value={e.id} key={e.id}>
-                    {e.start} → {e.end}
+                {catalog.data.map((ep) => (
+                  <option key={ep.id} value={ep.id}>
+                    {ep.start} → {ep.end}
                   </option>
                 ))}
               </select>
             </label>
           ) : (
-            <Empty title={t("state.noReplay")}>
-              <p>
-                Run{" "}
-                <code>uv run python -m pipeline.select_replay --acquire</code>.
-                Missing data is never replaced by an invented episode.
-              </p>
-            </Empty>
+            <p>
+              {catalog.isPending
+                ? "Loading prepared episodes…"
+                : "Prepared replay unavailable."}
+            </p>
           )}
           {data.manifest.meta.mode === "replay" && (
             <>
-              <div className="button-row">
-                <button onClick={() => setPlaying(!playing)}>
-                  {playing ? "Pause" : "Play"}
-                </button>
-                <button
-                  onClick={() => {
-                    setHour(0);
-                    setPlaying(false);
-                  }}
-                >
-                  Reset
-                </button>
-                <button onClick={() => setSpeed(speed === 1 ? 2 : 1)}>
-                  {speed}×
-                </button>
-              </div>
               <label>
-                Replay hour {hour}
-                <input
-                  type="range"
-                  min="0"
-                  max="119"
-                  value={hour}
-                  onChange={(e) => {
-                    setPlaying(false);
-                    setHour(Number(e.target.value));
-                  }}
-                />
+                Replay day
+                <select
+                  value={date}
+                  onChange={(e) => update({ date: e.target.value })}
+                >
+                  {data.manifest.meta.dates.map((day) => (
+                    <option key={day}>{day}</option>
+                  ))}
+                </select>
               </label>
-              <button
-                onClick={() =>
-                  update({
-                    date: data.manifest.meta.dates[Math.floor(hour / 24)],
-                    t: String(hour % 24),
-                  })
-                }
-              >
-                Apply time to overview
-              </button>
-              <RouteLink to="/">Open replay on overview →</RouteLink>
+              <RouteLink className="button primary" to="/">
+                Inspect this day on the overview →
+              </RouteLink>
             </>
           )}
+          <RouteLink to="/presenter">Follow the guided case study</RouteLink>
         </section>
-        <section className="whatif-panel">
+        <section className="whatif-panel" aria-busy={pending}>
           <p className="eyebrow">WHAT-IF / SIMULATION</p>
-          <h2>
-            Change the conditions.
-            <br />
-            Keep the assumptions visible.
-          </h2>
+          <h2>Test a change in conditions.</h2>
           <p>
-            Independent perturbations are not a physically coherent new weather
-            forecast. All context hours are recomputed. Vulnerability remains
-            fixed.
+            Recompute thermal indices for the selected ward. Expand to all wards
+            when needed. Independent perturbations are not a physically coherent
+            new weather forecast; vulnerability is unchanged.
           </p>
+          <div className="form-columns">
+            <label>
+              Comparison scope
+              <select
+                aria-label="Comparison scope"
+                value={scope}
+                onChange={(e) => setScope(e.target.value)}
+              >
+                <option value="ward">Selected ward</option>
+                <option value="all">
+                  All {data.registry.ward_count} wards
+                </option>
+              </select>
+            </label>
+            <label>
+              Comparison ward
+              <select
+                aria-label="Comparison ward"
+                value={ward.id}
+                disabled={scope === "all"}
+                onChange={(e) => update({ ward: e.target.value })}
+              >
+                {data.registry.wards.map((w) => (
+                  <option key={w.id} value={w.id}>
+                    {w.name_en}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           {[
             {
               name: "Air temperature change",
@@ -264,10 +255,7 @@ export default function Scenarios({
                 max={c.max}
                 step={c.step}
                 value={c.value}
-                onChange={(e) => {
-                  c.set(Number(e.target.value));
-                  setRequested(true);
-                }}
+                onChange={(e) => c.set(Number(e.target.value))}
               />
               <input
                 aria-label={`${c.name} numeric value`}
@@ -277,11 +265,13 @@ export default function Scenarios({
                 step={c.step}
                 value={c.value}
                 onChange={(e) => {
-                  const n = Number(e.target.value);
-                  if (n >= c.min && n <= c.max) {
-                    c.set(n);
-                    setRequested(true);
-                  }
+                  const value = Number(e.target.value);
+                  if (
+                    Number.isFinite(value) &&
+                    value >= c.min &&
+                    value <= c.max
+                  )
+                    c.set(value);
                 }}
               />
             </label>
@@ -292,24 +282,33 @@ export default function Scenarios({
                 setTemp(0);
                 setRh(0);
                 setWind(1);
-                setRequested(true);
               }}
             >
               Reset inputs
             </button>
             <button
               className="primary"
-              onClick={() => {
-                setRequested(true);
-                setRunVersion((v) => v + 1);
-              }}
+              disabled={pending}
+              onClick={() =>
+                setSubmission({ snapshot: baseline, temp, rh, wind, wardIds })
+              }
             >
-              Compute what-if
+              {pending ? "Computing…" : "Compute what-if"}
             </button>
           </div>
-          <p role="status">{status}</p>
-          {result !== null && (
-            <ScenarioComparison result={result} data={data} pending={pending} />
+          <p role="status">
+            {dirty
+              ? "Inputs changed. Compute again to update the comparison."
+              : status}
+          </p>
+          {result && (
+            <ScenarioComparison
+              result={result}
+              data={data}
+              pending={pending || dirty}
+              selectedDate={date}
+              onDateChange={(date) => update({ date })}
+            />
           )}
         </section>
       </div>

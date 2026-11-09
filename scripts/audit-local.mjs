@@ -21,6 +21,8 @@ if (
 const directory = resolve("reports/performance");
 mkdirSync(directory, { recursive: true });
 const rows = [];
+const servedHTML = await (await fetch(target.href)).text();
+const inlineData = servedHTML.includes('id="heatguard-bootstrap"');
 for (let run = 1; run <= 3; run++) {
   const path = resolve(directory, `preload-${run}.json`);
   const measured = spawnSync(
@@ -65,7 +67,11 @@ for (let run = 1; run <= 3; run++) {
     maplibre_bytes: bytes(isMap),
     chart_bytes: bytes(isChart),
     geometry_bytes: bytes((r) => /\/wards\.geojson$/.test(r.url)),
-    forecast_bytes: bytes((r) => /\/forecast\.json$/.test(r.url)),
+    // Attribute the entire document to the forecast budget when data is inline.
+    // This is a conservative measured upper bound, never a zero-byte claim.
+    forecast_bytes: inlineData
+      ? bytes((r) => r.resourceType === "Document")
+      : bytes((r) => /\/forecast\.json$/.test(r.url)),
     total_bytes: report.audits.diagnostics.details.items[0].totalByteWeight,
   });
   console.log(
@@ -110,6 +116,12 @@ const summary = {
   html_sha256: sha("dist/index.html"),
   local_server_sha256: sha("services/api/app/web.py"),
   note: "Browser lab mobile/4G simulation, not physical Android field data. Transfer sizes include HTTP overhead. INP is unmeasured; TBT is reported separately.",
+  data_transport: inlineData
+    ? "inline public data, rechecked by browser SHA-256"
+    : "manifest and checked fetches",
+  forecast_bytes_definition: inlineData
+    ? "Entire measured HTML document transfer, including forecast, registry, methods and markup; conservative upper bound"
+    : "Measured forecast JSON transfer",
   rows,
   metrics,
   budgets,
