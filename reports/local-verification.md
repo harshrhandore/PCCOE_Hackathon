@@ -1,5 +1,13 @@
 # Local hosting checkpoint - 8 November 2026
 
+## Planner-focus checkpoint - 9 November 2026 IST
+
+The judge-review fixes are implemented and verified: [review-to-fix register](judge-fixes.md). The primary no-account task is ward/day selection, evidence inspection and a local source-linked planning brief. Main navigation has three sections; unavailable layers, subscription forms and inactive sensitivity controls have been removed from the main journey. Ward/date continuity, explicit selected-ward what-if, compact mobile selection and a guided historical case are covered by browser checks. Visible claims describe physics/rules and missing population/ML validation accurately.
+
+Current checks: **123 pytest passed**, including 8 real local Auth/PostGIS checks; **8 Vitest passed**; TypeScript, production build and public data validation passed; **30 Playwright passed, 14 deliberate viewport skips**, zero unexpected failures. Successful logs and XML/JSON results supersede earlier counts. Actual refreshed complete release: `20261109T110451Z-89a2b01b15fa`. No demographic, observation, user-study or health-effect evidence was invented; the pilot protocol, blank templates and observation comparator prepare that work. Earlier checkpoints below are historical.
+
+Final planner performance: **100 median (97-100)**, automated accessibility **100**, LCP **0.786 s median (0.785-2.532 s)**, CLS 0 median and initial transfer **217,626 bytes**; all six median budgets pass. A failed 65-median checkpoint and the remaining individual LCP outlier are disclosed in [performance evidence](performance/budget-status.md). Public planning files arrive with HTML and are hash-verified on both server and browser; later refreshes use ordinary verified fetches. Transport checks reject altered embedded values and private/mismatched paths. All 58 ward rows/features, hourly inspection and source-dialog focus restoration remain accessible on demand. Local one-ward samples took 185-1,080 ms; physical-device, native/manual accessibility and INP acceptance remain pending.
+
 ## No-login checkpoint - 9 November 2026 IST
 
 The default Authority page now opens directly into the local preview. No account, Google OAuth configuration or database is required for its draft, simulated independent approval, simulated delivery, CSV export and reset flow. Browser checks at 360 and 1280 pixels confirmed that no login controls appear and no Auth, session or staff-alert API requests occur during this flow. The preview sends no messages and makes no staff database writes. Its approval identities are simulated, not authenticated people.

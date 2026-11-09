@@ -1,0 +1,4 @@
+# These published/derived files are verified by exact byte hashes.
+# Preserve LF payloads on Windows checkouts as well as Linux CI.
+apps/web/public/data/** -text
+data/processed/** -text

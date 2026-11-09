@@ -1,0 +1,7 @@
+{
+  "recordedAt": "2026-11-09T12:14:33.119Z",
+  "htmlSha256": "1325cd82e1d864a15b13cf67bc9a81fa9c68c189532f9677b395adbd7912f569",
+  "scope": "Initial calculations real; final HTTP response deliberately mocked as 503.",
+  "previousComparisonRemoved": true,
+  "errorVisible": true
+}

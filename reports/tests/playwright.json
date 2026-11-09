@@ -252,12 +252,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7088,
+                  "duration": 2917,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:15.396Z",
+                  "startTime": "2026-11-09T12:03:57.432Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -275,12 +275,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6344,
+                  "duration": 2887,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:46.849Z",
+                  "startTime": "2026-11-09T12:04:16.034Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -298,12 +298,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6304,
+                  "duration": 2914,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:03.653Z",
+                  "startTime": "2026-11-09T12:04:24.772Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -321,12 +321,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6353,
+                  "duration": 3053,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:34.145Z",
+                  "startTime": "2026-11-09T12:04:43.349Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -355,12 +355,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2051,
+                  "duration": 832,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:23.038Z",
+                  "startTime": "2026-11-09T12:04:00.460Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -375,7 +375,7 @@
                   "description": "Authority primary path covered at 360 and 1280",
                   "location": {
                     "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                    "line": 58,
+                    "line": 84,
                     "column": 8
                   }
                 }
@@ -388,19 +388,19 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 192,
+                  "duration": 105,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:53.443Z",
+                  "startTime": "2026-11-09T12:04:19.031Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Authority primary path covered at 360 and 1280",
                       "location": {
                         "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                        "line": 58,
+                        "line": 84,
                         "column": 8
                       }
                     }
@@ -421,12 +421,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1916,
+                  "duration": 820,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:10.229Z",
+                  "startTime": "2026-11-09T12:04:27.789Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -441,7 +441,7 @@
                   "description": "Authority primary path covered at 360 and 1280",
                   "location": {
                     "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                    "line": 58,
+                    "line": 84,
                     "column": 8
                   }
                 }
@@ -454,19 +454,19 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 262,
+                  "duration": 118,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:40.747Z",
+                  "startTime": "2026-11-09T12:04:46.507Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Authority primary path covered at 360 and 1280",
                       "location": {
                         "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                        "line": 58,
+                        "line": 84,
                         "column": 8
                       }
                     }
@@ -479,7 +479,7 @@
           ],
           "id": "c31ff144dc4fee3acd0a-8c447f423baaa967f348",
           "file": "app.spec.ts",
-          "line": 55,
+          "line": 81,
           "column": 1
         },
         {
@@ -498,12 +498,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 890,
+                  "duration": 425,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:25.110Z",
+                  "startTime": "2026-11-09T12:04:01.303Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -521,12 +521,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 836,
+                  "duration": 382,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:53.658Z",
+                  "startTime": "2026-11-09T12:04:19.148Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -544,12 +544,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 858,
+                  "duration": 388,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:12.167Z",
+                  "startTime": "2026-11-09T12:04:28.619Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -567,12 +567,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 940,
+                  "duration": 437,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:41.036Z",
+                  "startTime": "2026-11-09T12:04:46.637Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -582,7 +582,7 @@
           ],
           "id": "c31ff144dc4fee3acd0a-ee6788d7b8f503f42305",
           "file": "app.spec.ts",
-          "line": 116,
+          "line": 142,
           "column": 1
         }
       ]
@@ -609,12 +609,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7792,
+                  "duration": 3392,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:36.935Z",
+                  "startTime": "2026-11-09T12:04:11.761Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -642,12 +642,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 289,
+                  "duration": 129,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:01.225Z",
+                  "startTime": "2026-11-09T12:04:23.764Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -675,12 +675,12 @@
                   "workerIndex": 5,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8075,
+                  "duration": 3402,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:23.880Z",
+                  "startTime": "2026-11-09T12:04:39.071Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -708,12 +708,12 @@
                   "workerIndex": 7,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 352,
+                  "duration": 145,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:49.317Z",
+                  "startTime": "2026-11-09T12:04:51.470Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -734,6 +734,157 @@
           "id": "38ffef8ff49487668908-76c5b680ae59c6c011c0",
           "file": "authority-local.spec.ts",
           "line": 7,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "bootstrap.spec.ts",
+      "file": "bootstrap.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "local document embeds the selected snapshot while browser integrity checks remain active",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1928,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:01.749Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Transport integrity at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\bootstrap.spec.ts",
+                    "line": 6,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 104,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:19.552Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Transport integrity at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\bootstrap.spec.ts",
+                        "line": 6,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1945,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:29.029Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Transport integrity at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\bootstrap.spec.ts",
+                    "line": 6,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 116,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:47.095Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Transport integrity at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\bootstrap.spec.ts",
+                        "line": 6,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "c787f5c8b5f566a3f841-8f187506ef05ec61e370",
+          "file": "bootstrap.spec.ts",
+          "line": 3,
           "column": 1
         }
       ]
@@ -760,12 +911,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2382,
+                  "duration": 1787,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:26.043Z",
+                  "startTime": "2026-11-09T12:04:03.698Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -783,12 +934,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2298,
+                  "duration": 1863,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:54.534Z",
+                  "startTime": "2026-11-09T12:04:19.677Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -806,12 +957,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2315,
+                  "duration": 1914,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:13.060Z",
+                  "startTime": "2026-11-09T12:04:30.994Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -829,12 +980,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2559,
+                  "duration": 1891,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:42.024Z",
+                  "startTime": "2026-11-09T12:04:47.232Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -863,12 +1014,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2324,
+                  "duration": 1086,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:28.450Z",
+                  "startTime": "2026-11-09T12:04:05.494Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -886,12 +1037,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2093,
+                  "duration": 1062,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:56.860Z",
+                  "startTime": "2026-11-09T12:04:21.550Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -909,12 +1060,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2329,
+                  "duration": 975,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:15.400Z",
+                  "startTime": "2026-11-09T12:04:32.918Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -932,12 +1083,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2303,
+                  "duration": 1129,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:44.609Z",
+                  "startTime": "2026-11-09T12:04:49.133Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -947,7 +1098,301 @@
           ],
           "id": "f8ab1ecd5facf788fad0-a53009fbd42c867b2f8c",
           "file": "local.spec.ts",
-          "line": 18,
+          "line": 19,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "planning.spec.ts",
+      "file": "planning.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "planner retains ward/date, exports a sourced brief and computes only the requested ward",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1510,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:06.603Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary planning journey at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                    "line": 7,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 89,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:22.634Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary planning journey at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                        "line": 7,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1592,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:33.916Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Primary planning journey at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                    "line": 7,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 112,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:50.283Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Primary planning journey at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                        "line": 7,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "8b0549e55fb6efa6229e-7b25adeff089aa81f2cb",
+          "file": "planning.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "evidence audit and guided historical case expose limits without unavailable feature controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "phone",
+              "projectName": "phone",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 808,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:08.121Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Evidence and case study at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                    "line": 103,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet",
+              "projectName": "tablet",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 89,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:22.732Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Evidence and case study at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                        "line": 103,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 980,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:35.516Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Evidence and case study at 360 and 1280",
+                  "location": {
+                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                    "line": 103,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "wide",
+              "projectName": "wide",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 108,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-09T12:04:50.405Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Evidence and case study at 360 and 1280",
+                      "location": {
+                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
+                        "line": 103,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "8b0549e55fb6efa6229e-2f9f7fdf19630f9188dc",
+          "file": "planning.spec.ts",
+          "line": 100,
           "column": 1
         }
       ]
@@ -974,12 +1419,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2377,
+                  "duration": 1209,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:30.830Z",
+                  "startTime": "2026-11-09T12:04:08.952Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1007,12 +1452,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 201,
+                  "duration": 97,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:59.011Z",
+                  "startTime": "2026-11-09T12:04:22.842Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1040,12 +1485,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2352,
+                  "duration": 1276,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:17.786Z",
+                  "startTime": "2026-11-09T12:04:36.517Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1073,12 +1518,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 228,
+                  "duration": 109,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:46.954Z",
+                  "startTime": "2026-11-09T12:04:50.534Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1117,12 +1562,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1914,
+                  "duration": 860,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:33.229Z",
+                  "startTime": "2026-11-09T12:04:10.170Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1150,12 +1595,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 189,
+                  "duration": 92,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:32:59.239Z",
+                  "startTime": "2026-11-09T12:04:22.948Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1183,12 +1628,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1977,
+                  "duration": 539,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:20.158Z",
+                  "startTime": "2026-11-09T12:04:37.802Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1216,12 +1661,12 @@
                   "workerIndex": 6,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 264,
+                  "duration": 107,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T10:33:47.206Z",
+                  "startTime": "2026-11-09T12:04:50.653Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1249,10 +1694,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-09T10:32:12.437Z",
-    "duration": 97653.14300000001,
-    "expected": 24,
-    "skipped": 8,
+    "startTime": "2026-11-09T12:03:56.441Z",
+    "duration": 55337.984,
+    "expected": 30,
+    "skipped": 14,
     "unexpected": 0,
     "flaky": 0
   }

@@ -1,0 +1,29 @@
+
+> heatguard-ai@0.1.0 test:e2e
+> node scripts/web-tool.mjs e2e --project=phone --reporter=line app.spec.ts planning.spec.ts
+
+
+Running 5 tests using 1 worker
+
+(node:3968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/5] [phone] › tests\e2e\app.spec.ts:3:1 › real static bulletin, ward path, methods, mobile reflow and accessibility
+[2/5] [phone] › tests\e2e\app.spec.ts:81:1 › authority needs no account; local independent approval simulates only
+[3/5] [phone] › tests\e2e\app.spec.ts:142:1 › invalid ward and unconfigured subscription remain honest
+[4/5] [phone] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward
+[5/5] [phone] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls
+  5 passed (15.9s)
+
+> heatguard-ai@0.1.0 test:e2e
+> node scripts/web-tool.mjs e2e --project=desktop --reporter=line planning.spec.ts
+
+
+Running 2 tests using 1 worker
+
+(node:25472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/2] [desktop] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward
+[2/2] [desktop] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls
+  2 passed (6.8s)

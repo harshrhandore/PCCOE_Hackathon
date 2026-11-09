@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-11-09T12:14:33.028Z",
+  "environment": "Local loopback on this Windows computer; running server with initialized calculation libraries. Distinct scenario keys used; small lab sample, not field performance.",
+  "htmlSha256": "1325cd82e1d864a15b13cf67bc9a81fa9c68c189532f9677b395adbd7912f569",
+  "phoneViewport": {
+    "width": 360,
+    "height": 800
+  },
+  "draftButtonTopPx": 593,
+  "reviewButtonTopPx": 544,
+  "measurements": [
+    {
+      "scope": "ward",
+      "temperatureDeltaC": 2.5,
+      "clickToResponseMs": 1080,
+      "status": 200,
+      "baselineRows": 5,
+      "scenarioRows": 5,
+      "snapshotId": "20261109T110451Z-89a2b01b15fa"
+    },
+    {
+      "scope": "ward",
+      "temperatureDeltaC": 3,
+      "clickToResponseMs": 186,
+      "status": 200,
+      "baselineRows": 5,
+      "scenarioRows": 5,
+      "snapshotId": "20261109T110451Z-89a2b01b15fa"
+    },
+    {
+      "scope": "ward",
+      "temperatureDeltaC": 3.5,
+      "clickToResponseMs": 185,
+      "status": 200,
+      "baselineRows": 5,
+      "scenarioRows": 5,
+      "snapshotId": "20261109T110451Z-89a2b01b15fa"
+    },
+    {
+      "scope": "all",
+      "temperatureDeltaC": 4,
+      "clickToResponseMs": 1264,
+      "status": 200,
+      "baselineRows": 290,
+      "scenarioRows": 290,
+      "snapshotId": "20261109T110451Z-89a2b01b15fa"
+    }
+  ]
+}

@@ -1,6 +1,26 @@
 # Local production performance evidence - 9 November 2026 IST
 
-## Current result
+## Planner workflow - current result
+
+The final planner build passes all six measured median budgets. Three mobile/4G lab runs recorded performance **100 median (97-100)**, automated accessibility **100**, LCP **0.786 s median (0.785-2.532 s)**, CLS **0 median** (maximum 0.012) and TBT **62 ms median**. One LCP run was slightly above the individual 2.5-second target; median budgets passed. These are shared-Windows-host browser lab measurements, not physical-device or field guarantees. INP remains unmeasured.
+
+| Run | Performance | Automated accessibility | LCP (s) | CLS | TBT (ms) |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 97 | 100 | 2.532 | 0.012047 | 90.5 |
+| 2 | 100 | 100 | 0.785 | 0.000000 | 62.0 |
+| 3 | 100 | 100 | 0.786 | 0.000000 | 29.5 |
+
+Initial JavaScript: **123,849 transferred bytes**; fonts **48,834 bytes**; total **217,626 bytes**. The forecast budget conservatively counts the entire **34,108-byte HTML document**, which includes forecast, registry, methods and markup. It does not report the embedded forecast as zero transferred bytes.
+
+The local server includes only the three public planning files in a non-executable JSON block, checking their original SHA-256 hashes and escaping markup. The browser rechecks the same original bytes before using them, then runs normal schema/version/ward-join validation. It consumes this initial block once; later refreshes use the ordinary fresh-manifest and checked-fetch path. Prepared replay is selected server-side without substituting live data for invalid episodes. Private paths, mismatched filenames and altered files are excluded. Critical asset hints begin font/style/module downloads while the embedded data arrives. Unicode-ranged font styles prevent inappropriate fallback downloads; preview-language resources, source dialogs and hourly details load on demand.
+
+Map geometry and the ranked list render when viewed or keyboard-focused. The initial selector retains all 58 validated wards; browser checks explicitly load all 58 list rows and SVG features, inspect hourly data and test source-dialog Escape/focus restoration. The loaded view passes serious/critical axe assertions, and a separate initial deferred-state check reported no selected-WCAG-tag violations. Initial automated scores do not certify every interaction or manual accessibility requirement.
+
+The first planner audit failed at **65 median**, LCP **4.091 s median** and **410,278 transferred bytes**; `planner-before-summary.json` and `planner-before-1.json` preserve that checkpoint. Other development runs showed cold-load variance, leading to the first-response data/asset changes. Final `preload-1.json` through `preload-3.json` and summary.json retain every final measurement and budget comparison. The earlier stale build often measured a warning banner as LCP; it is not an equivalent measure of current planning-content readiness. No weather inputs, thresholds, coverage checks or simulation labels were changed to improve a score.
+
+Local interaction sample: one-ward what-if **185-1,080 ms** (three distinct inputs; median **186 ms**), all-ward **1,264 ms** (one input, 290 daily rows). The first sample may include initial calculation/cache setup. This is a small running-server sample, not a guaranteed cold-start or field result. At 360×800, the review action is at **544 px** and the preview draft action at **593 px**, versus the reviewed draft action's previous **4,320 px**. `../planning-interaction-check.json` records raw timings and the matching HTML hash. A separate deliberate-503 transport check confirms failed computation removes the previous comparison instead of presenting it as current.
+
+## Earlier startup-hint result
 
 The latest three runs pass all six **median** budgets. Production localhost, Lighthouse 13.6.0, Playwright Chromium, default mobile/4G simulation, 412x823 viewport and 4x CPU slowdown. Exact settings, individual runs, budget comparisons and build/server hashes are in summary.json; raw reports are preload-1.json, preload-2.json and preload-3.json.
 

@@ -1,0 +1,36 @@
+# Judge-review implementation checkpoint — 9 November 2026
+
+The primary demonstrated task is now: a local heat-action planner chooses a ward and day, inspects the source-bound thermal/rule evidence, and exports a planning brief. Local-only deployment and no-account access remain the scope. This checkpoint records implemented fixes, not a new judging score or proof of operational readiness.
+
+| Review concern | Implemented response | Evidence or limit |
+| --- | --- | --- |
+| Unclear product focus | Three primary sections; ward/day selection and review CTA lead the landing page. | Real browser journey exports a brief and retains ward/date in worker and scenario pages. |
+| Weak originality | Position the contribution as an inspectable local planning workflow alongside existing warning/mapping systems. | Comparative advantage is a hypothesis; the pilot protocol defines a comparison task. |
+| Unsupported AI/human-risk claims | Visible branding is HeatGuard; physics/rule scope, missing population data and absence of trained ML are explicit. | No invented model, prediction accuracy, illness probability or health benefit. |
+| Unavailable features/buttons | Remove vulnerability/refuge layers, default/equal weight toggles and subscription forms; disable priority sorting without data. | Legacy subscription URL explains unavailable delivery and makes no registration request. |
+| Crowded navigation | Move Methods, guided case, approval simulation and service status into Evidence & tools. | Three primary links, no default login or Telegram journey. |
+| Mobile action buried below wards | Bound the ward-selection list and keep draft action beside selection in a sticky toolbar. Add first-screen ward review CTA. | Phone browser test asserts the primary review CTA is within the first 800-pixel viewport. |
+| Confusing time controls | Put hourly inspection with its thermal timeline; replace disconnected playback controls with direct replay-day selection. | Daily map meaning remains explicit; hourly data are available in ward details. |
+| Repeated ward selection | Carry selected ward/date through URL state, brief links, worker selection and scenario scope. | New browser checks cover this continuity and exported content. |
+| Stale/yesterday defaults | Prefer the current IST day within coverage, preserve explicit/replay dates and update freshness/default-day time each minute. Refresh actual weather. | Complete release `20261109T110451Z-89a2b01b15fa`; no thresholds or categories changed to improve appearance. |
+| Apparent fine spatial precision | Show actual shared-cell counts and ward-specific upstream coordinates. | Historical boundaries and representative centroids do not establish street-level exposure. |
+| Uniform classification / unvalidated escalation | Add downloadable per-day base/final level, rule-firing and source-cell audit. | Explains outputs; does not estimate false alarms without observations. |
+| Slow broad scenario calculations | Explicit Compute action, selected-ward default, optional all-ward scope, progress and changed-input states. | Reduces default work; retains full context and scientific calculation rules. |
+| Weak demo narrative | `/presenter` gives a four-step historical case using the existing genuine prepared episode. | Historical reanalysis is labelled simulation, with no forecast-skill claim. |
+| Ambiguous service status | Distinguish actual API readiness, snapshot age and optional unchecked staff database. | Status never manufactures an availability or freshness result. |
+| Missing practical/scientific validation | Add consent-aware user comparison protocol, blank feedback/reference templates and a guarded exact-time observation comparator. | No real participant or local observation results have been collected. |
+| Accessibility/localization | Accessible selector names, keyboard-operable disclosure controls, translation-preview labels and responsive flow. | Native review, manual screen-reader/zoom assessment and physical-phone review remain pending. |
+
+Verification: **123 pytest passed**, including eight actual local Auth/PostGIS checks and seven new observation-tool checks; **8 Vitest passed**; TypeScript and production build passed; **30 Playwright passed, 14 deliberate viewport skips**, zero unexpected failures. Browser coverage includes the complete no-account brief flow, explicit one-ward computation, evidence export, historical case entry, public accessibility/reflow, saved-data availability without external internet, simulated approval and real local staff approval/CAP/cancellation. Synthetic test fixtures are labelled and are not validation observations.
+
+The browser suite initially found that a nested ward selector lacked the exact intended accessible name. Explicit accessible names were added; the targeted journey and final full suite then passed. Failed traces and private runtime files are excluded from Git. Successful machine-readable results and current screenshots are under `reports/tests` and `reports/visual`.
+
+The first planner performance audit failed at 65 median. The final design uses verified first-response public data, critical asset hints, appropriate font subsets/system numeric typography, lazy language/dialog/hourly resources and deferred off-screen panels. Final performance is **100 median (97-100)**, automated accessibility **100**, LCP **0.786-second median (0.785-2.532 s)** and total initial transfer **217,626 bytes**. All six measured median budgets pass; one individual LCP run remains slightly above 2.5 seconds. Initial automated and physical-device measurements are distinct. All 58 rows/features and on-demand detail interactions remain checked. See [performance evidence](performance/budget-status.md).
+
+The local interaction sample records one-ward computation in 185-1,080 ms (three distinct inputs, including an initial setup sample) and all-ward computation in 1,264 ms (one input). The phone review action appears at 544 px and the preview draft action at 593 px. See `planning-interaction-check.json`; these are small running-server lab samples. Native SHA verification rejects a deliberately forged embedded value before falling back to real checked data. Language-preview load/failure checks and scenario failure checks are separately recorded.
+
+Real-world acceptance still needs independently sourced local observations, appropriately evaluated as-issued forecasts, intended-user feedback, licensed/matched demographic data, verified facility ownership/capacity and native/manual accessibility review. The prototype hides unsupported capabilities rather than fabricating those inputs. See [the pilot protocol](../docs/pilot-evaluation.md).
+
+Seven additional targeted public/planning checks passed during final presentation polish; see `planning-smoke.log`. Five server transport/security checks were added, and the affected eight server-web checks passed again after asset hints were added. Final performance and interaction reports reference the same HTML hash.
+
+Git checkout verification: committed forecast/registry/method bytes match their published hashes. `.gitattributes` disables line-ending conversion for immutable public/processed data; simulated Windows checkout filters preserve those same hashes.
