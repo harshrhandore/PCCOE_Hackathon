@@ -40,7 +40,7 @@ def test_local_spa_deep_links_and_private_file_isolation(tmp_path):
     (data/'latest.json').write_text('{"fixture":true}')
     (tmp_path/'.env').write_text('PRIVATE_FIXTURE=never-serve')
     app=FastAPI();mount_local_web(app,web,data);client=TestClient(app)
-    for path in ['/','/ward/fixture-ward','/authority','/scenarios']:
+    for path in ['/','/ward/fixture-ward','/authority','/authority/staff','/scenarios']:
         response=client.get(path);assert response.status_code==200
         assert response.headers['cache-control']=='no-cache'
         assert "default-src 'self'" in response.headers['content-security-policy']

@@ -1,5 +1,7 @@
 # Decisions
 
+Latest user scope, 2026-11-09: only app deployment must be local; external services are allowed. The user then decided login is unnecessary. Default Authority access is therefore a no-account local simulation; real staff APIs remain protected and are available only through the optional `/authority/staff` workspace. Google OAuth work was cancelled before configuration or activation. The dedicated hosted HeatGuard AI project (etnqihgkgqpvurauysai, Mumbai, free-plan quote $0/month) remains unused by the running app; no local data was migrated or deleted.
+
 | id | decision | reason | evidence | tier | review_status |
 |---|---|---|---|---|---|
 | A01 | Pilot only Pune Municipal Corporation wards/prabhags. Discover the actual count from the chosen boundary manifest; never hard-code 41 or another count. | Adopted specification decision | Expanded build prompt A.1 | P0 | adopted |

@@ -1,5 +1,9 @@
 # HeatGuard AI
 
+**No account is required for the normal app.** The Authority page opens directly into a clearly labelled local preview. Drafting, simulated approval, CSV export and simulated delivery work without signing in. This preview sends no messages and performs no staff database writes. Use `npm start` and open http://127.0.0.1:8081/.
+
+The protected staff integration is retained only as an optional advanced workspace at `/authority/staff`; it is not needed for the local prototype. Google login is not enabled. The dedicated hosted **HeatGuard AI** Supabase project was created on the free plan, but the app has not been switched to it and no Google OAuth client was configured.
+
 **Predict heat. Protect people.** Ward-level heat early-warning research prototype for Pune, AVCOE student team, PCCOE International Grand Challenge 2026. No PMC/IMD affiliation or operational national alert connection.
 
 ## Local setup
@@ -66,7 +70,7 @@ npm start
 
 `db:start` starts only database, Auth, gateway and Data API services, applies pending local migrations, checks loopback port bindings, configures a non-superuser application login and mirrors validated public geography/manifests. Database port: 54322; local Auth gateway: 54321; app: 8081. On Linux, install Docker first; npm ci supplies the pinned CLI and db:start uses it directly. Set HEATGUARD_WSL_DISTRO if your existing Windows distro is named differently from Ubuntu.
 
-The bootstrap creates two explicitly labelled **local test staff accounts**, officer and approver, with separate random passwords. Open `data/raw/local/staff-credentials.json` locally to use them on the Authority page. Credentials, signing keys and service configuration stay in ignored files; do not upload them. These accounts do not represent real municipal authorities. An officer submits a draft, then a separate approver signs in to approve that exact revision. CAP download and cancellation work with Telegram disabled.
+The bootstrap creates two explicitly labelled **local test staff accounts**, officer and approver, with separate random passwords. Open `data/raw/local/staff-credentials.json` locally to use them in the optional `/authority/staff` workspace. The default Authority preview needs neither accounts nor the database. Credentials, signing keys and service configuration stay in ignored files; do not upload them. These accounts do not represent real municipal authorities. An officer submits a draft, then a separate approver signs in to approve that exact revision. CAP download and cancellation work with Telegram disabled.
 
 To provision your own account, run `npm run staff:create -- --email your-address@example.org --role officer` and enter a password privately when prompted. Use role approver for a second account. `npm run staff:disable -- --email your-address@example.org` revokes membership. Public signup and anonymous login are disabled.
 

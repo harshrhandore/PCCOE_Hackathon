@@ -48,7 +48,7 @@ def mount_local_web(app,web_directory,data_directory):
     @app.get('/{path:path}',include_in_schema=False)
     def spa(path:str,request:Request):
         # Unknown API paths, source files, .env and missing assets are real 404s.
-        known={'','authority','worker','scenarios','subscribe','methods','status'}
+        known={'','authority','authority/staff','worker','scenarios','subscribe','methods','status'}
         if path not in known and not (path.startswith('ward/') and len(path.split('/'))==2 and '.' not in path):
             raise HTTPException(status_code=404)
         headers={

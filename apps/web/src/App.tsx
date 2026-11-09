@@ -205,7 +205,7 @@ export default function App() {
       </div>
       <main
         id="main"
-        className={`frame density-${location.pathname === "/authority" ? "compact" : prefs.density}`}
+        className={`frame density-${location.pathname.startsWith("/authority") ? "compact" : prefs.density}`}
       >
         {query.isPending ? (
           <Skeleton />
@@ -243,6 +243,18 @@ export default function App() {
                 }
               />
               <Route path="/methods" element={<Methods data={data} />} />
+              <Route
+                path="/authority/staff"
+                element={
+                  <Authority
+                    key="staff"
+                    data={data}
+                    date={state.date}
+                    stale={stale}
+                    requireAuth
+                  />
+                }
+              />
               <Route
                 path="/scenarios"
                 element={<Scenarios data={data} update={update} />}

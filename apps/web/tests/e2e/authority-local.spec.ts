@@ -53,7 +53,7 @@ test("real local staff approve and export an Exercise without Telegram or intern
     ).toBeVisible();
   }
   await page.goto(
-    "/authority?mode=replay&episode=era5-2024-04-26&date=2024-04-26",
+    "/authority/staff?mode=replay&episode=era5-2024-04-26&date=2024-04-26",
   );
   await signIn(officer);
   await page.evaluate(() => window.dispatchEvent(new Event("offline")));

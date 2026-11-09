@@ -1,5 +1,13 @@
 # Local hosting checkpoint - 8 November 2026
 
+## No-login checkpoint - 9 November 2026 IST
+
+The default Authority page now opens directly into the local preview. No account, Google OAuth configuration or database is required for its draft, simulated independent approval, simulated delivery, CSV export and reset flow. Browser checks at 360 and 1280 pixels confirmed that no login controls appear and no Auth, session or staff-alert API requests occur during this flow. The preview sends no messages and makes no staff database writes. Its approval identities are simulated, not authenticated people.
+
+The optional authenticated integration remains at `/authority/staff`, with the existing backend authorization and approval guards. Direct local deep links and real staff browser flows passed there. Google OAuth work was cancelled before activation. A dedicated free-plan hosted Supabase project was created before the scope change, but the running app still uses its existing local configuration; hosted data migration and Google provider setup were not performed.
+
+Current verification: **111 pytest passed, zero skipped**, including the eight opt-in local Auth/PostGIS checks; **24 Playwright passed, 8 deliberate duplicate-viewport skips**, zero unexpected failures or flaky results; TypeScript, production build, **4 Vitest checks**, public data validation and the bounded credential-pattern scan passed. Evidence: `tests/pytest.xml`, `tests/playwright.json`, `pytest.log`, `local-browser-run.log`, `build.log` and updated Authority screenshots. The saved complete live release remains `20261108T104546Z-da2088ccf5d2`; this change does not refresh weather, and stale-data warnings remain active. Earlier checkpoints below are historical.
+
 ## Startup performance checkpoint - 9 November 2026 IST
 
 Current evidence: **111 pytest passed**, including actual local Auth/PostGIS integration; **24 Playwright passed, 8 deliberate duplicate-viewport skips**; production build, TypeScript and 4 Vitest checks passed. The added checks cover refreshed/replay-specific resource hints, private-path rejection and malformed replay URLs. Current successful logs and machine-readable results are retained under reports/.

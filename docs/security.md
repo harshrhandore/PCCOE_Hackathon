@@ -1,5 +1,7 @@
 # Security and operational boundaries
 
+No-login scope, 2026-11-09: the normal `/authority` page is a local simulation with no staff API calls or database writes. Demo identities and approvals establish no real authority. The optional authenticated integration is available separately at `/authority/staff`; its server authorization, membership and independent approval checks remain enforced. Google OAuth is not enabled.
+
 Local checkpoint, 2026-11-08: the actual WSL Supabase/PostGIS stack is configured and migration replay, RLS, real Auth and protected browser flows have passed. Telegram remains optional and disabled. The application uses a non-superuser login inheriting service_role object grants and BYPASSRLS, with only id/user_id/not_after SELECT access to Auth sessions. Administrator credentials are reserved for local provisioning scripts. All published ports are checked for loopback binding.
 
 Tokens allow only five seconds of clock skew. Signature, issuer, audience, required UUID session and active database membership checks remain mandatory; expired or substantially future tokens fail. Sensitive mutations recheck membership and session presence within their transaction. In-flight authorized requests can complete during logout; subsequent requests reject the revoked session. Protected Data API policies also require a current Auth session. Browser password fields clear immediately on submission, including failures. Authentication diagnostics log exception types, never tokens or passwords. Local test passwords were rotated during QA.

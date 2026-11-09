@@ -52,23 +52,28 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
   ).toBeVisible();
   expect(errors).toEqual([]);
 });
-test("authority is gated; explicit local independent approval simulates only", async ({
+test("authority needs no account; local independent approval simulates only", async ({
   page,
 }, testInfo) => {
   test.skip(
     testInfo.project.name === "tablet" || testInfo.project.name === "wide",
     "Authority primary path covered at 360 and 1280",
   );
+  const staffRequests: string[] = [];
+  page.on("request", (request) => {
+    if (
+      /\/api\/v1\/(auth|session|alerts)(\/|$)/.test(
+        new URL(request.url()).pathname,
+      )
+    )
+      staffRequests.push(request.url());
+  });
   await page.goto("/authority");
+  await expect(page.getByText("LOCAL DEMO", { exact: true })).toBeVisible();
+  await expect(page.locator('input[type="password"]')).toHaveCount(0);
   await expect(
     page.getByRole("button", { name: "Sign in", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Local demo — no messages sent.",
-      exact: true,
-    })
-    .click();
+  ).toHaveCount(0);
   if (testInfo.project.name === "phone") {
     await page.locator(".authority-mobile-list summary").first().click();
     await page
@@ -96,6 +101,17 @@ test("authority is gated; explicit local independent approval simulates only", a
     path: `../../reports/visual/authority-${testInfo.project.name}.png`,
     fullPage: true,
   });
+  await page
+    .getByRole("button", { name: "Reset local preview", exact: true })
+    .click();
+  await expect(page.locator('input[type="password"]')).toHaveCount(0);
+  await expect(
+    page.getByRole("button", {
+      name: "Draft local Exercise preview",
+      exact: true,
+    }),
+  ).toBeDisabled();
+  expect(staffRequests).toEqual([]);
 });
 test("invalid ward and unconfigured subscription remain honest", async ({
   page,

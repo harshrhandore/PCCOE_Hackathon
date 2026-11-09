@@ -139,7 +139,7 @@ test("server authority UI binds approval, prevents self-approval and stops unkno
       page.getByRole("heading", { name: "Authorized alert workspace" }),
     ).toBeVisible();
   }
-  await page.goto("/authority");
+  await page.goto("/authority/staff");
   await signIn("officer");
   if (info.project.name === "phone") {
     await page.locator(".authority-mobile-list summary").first().click();

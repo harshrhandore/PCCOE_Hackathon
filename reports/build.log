@@ -28,21 +28,37 @@ dist/assets/noto-sans-devanagari-devanagari-400-normal-CdOJmQ4E.woff       68.46
 dist/assets/noto-serif-devanagari-devanagari-400-normal-DMT6Ev8A.woff      68.96 kB
 dist/assets/index-DVgb5XvS.css                                             38.33 kB │ gzip:   8.71 kB
 dist/assets/maplibre-gl-qvkd0SPb.css                                       71.33 kB │ gzip:  10.25 kB
-dist/assets/WardDetail-C8SkWqFI.js                                          0.70 kB │ gzip:   0.44 kB
+dist/assets/WardDetail-CmkQSauA.js                                          0.70 kB │ gzip:   0.44 kB
 dist/assets/Status-B0-2h-PP.js                                              2.89 kB │ gzip:   1.13 kB
 dist/assets/Subscribe-BYxCKp47.js                                           4.17 kB │ gzip:   1.78 kB
-dist/assets/WardMap-DdKgOOpw.js                                             4.60 kB │ gzip:   2.17 kB
-dist/assets/Worker-Ckax9hY9.js                                              5.71 kB │ gzip:   2.28 kB
+dist/assets/WardMap-DejjafNm.js                                             4.60 kB │ gzip:   2.17 kB
+dist/assets/Worker-DZjvxPIg.js                                              5.71 kB │ gzip:   2.28 kB
 dist/assets/jsx-runtime-BIUEfZIL.js                                         7.65 kB │ gzip:   2.94 kB
 dist/assets/Methods-DKvJgAyO.js                                             9.27 kB │ gzip:   3.72 kB
 dist/assets/Scenarios-Ny3H0QRy.js                                           9.30 kB │ gzip:   3.44 kB
-dist/assets/Authority-CLirVmSj.js                                          21.38 kB │ gzip:   6.83 kB
+dist/assets/Authority-aAxBydOF.js                                          21.48 kB │ gzip:   6.88 kB
 dist/assets/client-CD_Wb7Sk.js                                             25.87 kB │ gzip:   8.90 kB
 dist/assets/d3-geo-DBw7Fh_e.js                                             34.28 kB │ gzip:  12.50 kB
 dist/assets/useTranslation-BvUY1xT2.js                                     52.87 kB │ gzip:  17.33 kB
-dist/assets/index-Dy61VoYe.js                                             135.94 kB │ gzip:  37.03 kB
+dist/assets/index-DrDGC2vy.js                                             136.20 kB │ gzip:  37.08 kB
 dist/assets/Shared-BdUSwBTZ.js                                            219.51 kB │ gzip:  72.28 kB
 dist/assets/HourlyChart-Dz4OnGY3.js                                       241.53 kB │ gzip:  80.22 kB
 dist/assets/maplibre-gl-DR8VtiS2.js                                     1,062.90 kB │ gzip: 288.21 kB
 
-✓ built in 1.39s
+✓ built in 3.42s
+node.exe : [33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 2.8s of this 3.4s build (84%).
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\Lenovo\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([33m[PLUGIN_TI...4s build (84%).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits
+is included):
+  - plugin vite:prepare-out-dir renderStart (52%, 1.8s, 1 call)
+Additional callback time came from the callbacks below and from callbacks under 1s.
+2 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other
+calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin vite:css transform (9 calls)
+  - plugin @tailwindcss/vite:generate:build transform (9 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.

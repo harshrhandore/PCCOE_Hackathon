@@ -20,13 +20,15 @@ export default function Authority({
   data,
   date,
   stale,
+  requireAuth = false,
 }: {
   data: Dataset;
   date: string;
   stale: boolean;
+  requireAuth?: boolean;
 }) {
   const { t } = useTranslation();
-  const [demo, setDemo] = useState(false);
+  const [demo, setDemo] = useState(!requireAuth);
   const [token, setToken] = useState("");
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
@@ -277,12 +279,17 @@ export default function Authority({
                   setError(t("authority.server.logoutFailure"));
                 }
               }
-              setDemo(false);
+              setDemo(!requireAuth);
               clearSession();
               setAlert(null);
+              setSelected(new Set());
+              setStep(0);
+              setActor("officer");
+              setGuide(null);
+              if (!requireAuth) setError("");
             }}
           >
-            {t("authority.signOut")}
+            {requireAuth ? t("authority.signOut") : t("authority.resetLocal")}
           </button>
         </div>
       </PageHeading>
