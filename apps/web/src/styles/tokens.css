@@ -1,18 +1,18 @@
 @import "tailwindcss";
 :root {
   color-scheme: light;
-  --paper-0: #f3f1ea;
-  --paper-1: #fbfaf6;
-  --paper-2: #e9e6db;
-  --rule: #d3cfc1;
-  --rule-strong: #a9a593;
-  --ink-0: #16201e;
-  --ink-1: #3c4642;
-  --ink-2: #5e6762;
+  --paper-0: #f5f7f9;
+  --paper-1: #ffffff;
+  --paper-2: #edf1f4;
+  --rule: #dce2e7;
+  --rule-strong: #b9c4cc;
+  --ink-0: #172b36;
+  --ink-1: #344b58;
+  --ink-2: #536773;
   --ink-3: #8b918a;
-  --verdigris-100: #d4e6e1;
-  --verdigris-600: #1e6b62;
-  --verdigris-700: #165249;
+  --verdigris-100: #e5eef5;
+  --verdigris-600: #245f86;
+  --verdigris-700: #194c70;
   --risk-0: #cfe0cc;
   --risk-1: #ebc65b;
   --risk-2: #e08a2e;
@@ -29,13 +29,13 @@
   --vulnerability-3: #5e7390;
   --vulnerability-4: #2e4262;
   --map-water: #cfdcda;
-  --map-land: #edebe2;
+  --map-land: #eef2f4;
   --control-border: var(--ink-2);
   --link: var(--verdigris-600);
   --selected-bg: var(--verdigris-100);
   --error-text: var(--ink-0);
   --disabled-text: var(--ink-3);
-  --font-headline: "Newsreader", "Noto Serif Devanagari", serif;
+  --font-headline: var(--font-body);
   --font-body:
     "Atkinson Hyperlegible Next", "Atkinson Hyperlegible",
     "Noto Sans Devanagari", sans-serif;
@@ -50,10 +50,10 @@
   --leading-lg: 26px;
   --text-h4: 22px;
   --leading-h4: 28px;
-  --text-h3: 32px;
-  --leading-h3: 36px;
-  --text-h2: 48px;
-  --leading-h2: 50px;
+  --text-h3: 24px;
+  --leading-h3: 32px;
+  --text-h2: 32px;
+  --leading-h2: 40px;
   --text-risk: 88px;
   --leading-risk: 84px;
   --label-tracking: 0.06em;
@@ -70,9 +70,9 @@
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
-  --radius-surface: 2px;
-  --radius-control: 2px;
-  --radius-button: 3px;
+  --radius-surface: 4px;
+  --radius-control: 5px;
+  --radius-button: 5px;
   --border-thin: 1px;
   --border-focus: 2px;
   --focus-offset: 2px;
@@ -105,7 +105,7 @@
 }
 [lang="hi"],
 [lang="mr"] {
-  --font-headline: "Noto Serif Devanagari", serif;
+  --font-headline: "Noto Sans Devanagari", sans-serif;
   --font-body: "Noto Sans Devanagari", sans-serif;
 }
 :focus-visible {

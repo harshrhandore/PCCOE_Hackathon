@@ -1,0 +1,558 @@
+/* Planning workspace: compact context, one selected ward, evidence on demand. */
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.eyebrow {
+  letter-spacing: 0.035em;
+}
+.header-inner {
+  min-height: 76px;
+  padding-block: 12px;
+}
+.brand strong {
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+}
+.brand-symbol {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--ink-0);
+  color: white;
+  border-radius: 7px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.brand-symbol > span {
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--risk-2);
+  border: 2px solid white;
+}
+.global-header {
+  border-color: var(--rule);
+}
+.global-nav {
+  border-top: 1px solid var(--rule);
+}
+.global-nav > a {
+  font-weight: 600;
+}
+.global-footer {
+  margin-top: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-color: var(--rule);
+}
+.global-footer > div > strong {
+  font-family: var(--font-body);
+  font-size: 20px;
+}
+.global-footer p {
+  font-size: 14px;
+}
+.page-heading {
+  padding-block: 24px;
+  margin-bottom: 0;
+  min-height: 0;
+}
+.workspace-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0 20px;
+}
+.workspace-heading h1 {
+  font-size: 28px;
+  line-height: 36px;
+}
+.workspace-location {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.workspace-controls {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(450px, 2fr);
+  align-items: end;
+  gap: 32px;
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 16px;
+  border-radius: 6px;
+}
+.workspace-controls .date-tabs {
+  margin: 0;
+  border: 0;
+  gap: 4px;
+}
+.workspace-controls .date-tabs button {
+  border-radius: 4px;
+  min-height: 44px;
+  padding: 8px;
+}
+.workspace-controls .date-tabs button[aria-pressed="true"] {
+  background: var(--selected-bg);
+  color: var(--verdigris-700);
+  box-shadow: inset 0 -2px var(--verdigris-700);
+}
+.ward-picker select {
+  margin-top: 4px;
+}
+.city-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  font-size: 14px;
+}
+.city-summary > p {
+  margin: 8px 0;
+}
+.city-summary > details {
+  position: relative;
+  margin: 0;
+}
+.city-summary summary {
+  color: var(--link);
+  font-size: 13px;
+}
+.city-summary .outlook-strip {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  z-index: 15;
+  width: 580px;
+  max-width: 85vw;
+  box-shadow: var(--shadow-overlay);
+  margin: 0;
+}
+.workspace-jumps {
+  display: none;
+}
+.overview-grid {
+  grid-template-columns: 270px minmax(0, 1fr) 330px;
+  gap: 16px;
+}
+.ward-ranking {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.ranking-heading {
+  padding: 16px;
+}
+.ranking-heading h2 {
+  font-size: 18px;
+  line-height: 24px;
+}
+.search-field {
+  font-size: 13px;
+}
+.sort-field {
+  display: block;
+}
+.sort-field select {
+  width: 100%;
+  max-width: none;
+  margin-top: 4px;
+}
+.ward-list {
+  max-height: 500px;
+}
+.ward-row {
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  min-height: 70px;
+}
+.ward-row.selected {
+  color: var(--ink-0);
+}
+.ward-level .risk-chip {
+  font-size: 0;
+  width: 22px;
+  height: 22px;
+  padding: 3px;
+  overflow: hidden;
+}
+.ward-level .risk-chip::before {
+  width: 10px;
+  height: 12px;
+}
+.ward-level .risk-chip.level-0::before,
+.ward-level .risk-chip.level-1::before,
+.ward-level .risk-chip.level-unknown::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+  border-radius: 50%;
+}
+.map-panel {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.map-topbar .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.map-stage {
+  height: auto;
+  min-height: 0;
+}
+.map-stage > svg {
+  width: 100%;
+  height: auto;
+  max-height: 590px;
+  display: block;
+}
+.map-annotation {
+  padding-top: 12px;
+}
+.map-annotation .eyebrow {
+  display: none;
+}
+.map-annotation p {
+  font-size: 13px;
+  line-height: 20px;
+  margin: 0;
+}
+.legend {
+  padding-block: 12px;
+}
+.legend .eyebrow {
+  display: none;
+}
+.legend-levels {
+  gap: 4px;
+}
+.legend .risk-chip {
+  font-size: 11px;
+  padding: 3px 5px;
+}
+.selected-ward-panel .ward-context {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 20px;
+  max-height: none;
+  overflow: visible;
+}
+.ward-context h2 {
+  font-size: 23px;
+  line-height: 29px;
+}
+.ward-context header {
+  padding-bottom: 12px;
+}
+.ward-context header .eyebrow {
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink-2);
+}
+.ward-context .metric-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.ward-context .metric-grid > div {
+  border: 0;
+  padding: 16px 0 8px;
+}
+.ward-context .weather-values {
+  gap: 12px;
+  padding-bottom: 0;
+}
+.ward-context .weather-values p {
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+.ward-context .weather-values strong {
+  font-size: 26px;
+  line-height: 36px;
+  letter-spacing: -0.035em;
+  color: var(--ink-0);
+}
+.ward-reading {
+  font-size: 14px;
+  line-height: 22px;
+}
+.ward-context > details {
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.ward-context > details > summary {
+  font-size: 14px;
+  padding-block: 14px;
+}
+.selected-ward-panel .wide {
+  width: 100%;
+  background: var(--verdigris-700);
+  color: white;
+  border-color: var(--verdigris-700);
+  margin-bottom: 16px;
+}
+.technical-evidence .note {
+  font-size: 13px;
+}
+.ward-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+.ward-detail-page > .ward-context {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 24px;
+  max-height: none;
+  overflow: visible;
+}
+.ward-detail-page .metric-grid,
+.ward-detail-page .weather-values,
+.ward-detail-page .ward-reading {
+  grid-column: 1;
+}
+.ward-detail-page .brief-actions {
+  grid-column: 2;
+  grid-row: 1 / span 5;
+  padding-top: 0;
+  border-top: 0;
+}
+.ward-detail-page .brief-actions h3 {
+  margin-bottom: 16px;
+}
+.ward-detail-page .brief-actions > div[lang] {
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+}
+.ward-detail-page .brief-actions > div[lang] p {
+  margin: 0;
+}
+.ward-detail-page .brief-actions .button-row {
+  margin-top: 20px;
+}
+.ward-detail-page .brief-actions .button-row > * {
+  width: 100%;
+}
+.ward-detail-page .technical-evidence {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+@media (max-width: 1250px) and (min-width: 901px) {
+  .overview-grid {
+    grid-template-columns: 235px minmax(0, 1fr) 300px;
+    gap: 12px;
+  }
+}
+@media (max-width: 900px) {
+  .overview-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .overview-grid > .ward-ranking {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .overview-grid > .map-column {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .overview-grid > .selected-ward-panel {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .workspace-controls {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .ward-detail-page > .ward-context {
+    gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .frame {
+    padding-inline: 16px;
+  }
+  .header-inner {
+    padding: 12px 16px;
+    min-height: 68px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    gap: 10px;
+  }
+  .brand strong {
+    font-size: 22px;
+  }
+  .brand small {
+    font-size: 11px;
+  }
+  .brand-symbol {
+    width: 32px;
+    height: 32px;
+  }
+  .header-controls {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .language-note {
+    font-size: 11px;
+  }
+  .language-switch button {
+    min-height: 36px;
+    padding: 4px 10px;
+  }
+  .menu-button {
+    min-height: 36px;
+  }
+  .workspace-heading {
+    padding: 20px 0 16px;
+    display: block;
+  }
+  .workspace-heading h1 {
+    font-size: 25px;
+    line-height: 32px;
+  }
+  .workspace-heading .source-chip {
+    min-height: 32px;
+    padding: 4px 0;
+    font-size: 12px;
+  }
+  .workspace-location {
+    font-size: 12px;
+  }
+  .workspace-controls {
+    padding: 12px;
+  }
+  .workspace-controls .date-tabs {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    overflow: visible;
+    gap: 2px;
+  }
+  .workspace-controls .date-tabs button {
+    min-width: 0;
+    padding: 6px 2px;
+    font-size: 12px;
+    line-height: 18px;
+    white-space: normal;
+  }
+  .city-summary {
+    display: block;
+    padding-block: 12px;
+  }
+  .city-summary > p {
+    margin: 0;
+  }
+  .city-summary summary {
+    min-height: 36px;
+    padding-block: 8px;
+  }
+  .city-summary .outlook-strip {
+    left: 0;
+    right: auto;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    min-width: 300px;
+    top: 36px;
+  }
+  .workspace-jumps {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .workspace-jumps a {
+    padding-block: 12px;
+  }
+  .overview-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .overview-grid > .selected-ward-panel {
+    order: 0;
+    width: 100%;
+  }
+  .overview-grid > .map-column {
+    order: 1;
+    width: 100%;
+  }
+  .overview-grid > .ward-ranking {
+    order: 2;
+    width: 100%;
+  }
+  .selected-ward-panel .ward-context {
+    padding: 16px;
+  }
+  .ward-context h2 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  .map-stage,
+  .map-stage > svg {
+    height: auto;
+    min-height: 0;
+  }
+  .ward-detail-page > .ward-context {
+    display: block;
+    padding: 16px;
+  }
+  .ward-detail-page .brief-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+  .global-footer {
+    display: block;
+  }
+  .footer-sources {
+    text-align: left;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .workspace-heading {
+    padding-block: 16px 12px;
+  }
+  .workspace-heading .source-chip {
+    margin: 0;
+  }
+  .workspace-location {
+    line-height: 18px;
+  }
+  .selected-ward-panel .ward-context header > p:last-child {
+    margin-top: 8px;
+  }
+  .selected-ward-panel .ward-context .wide {
+    margin-block: 12px;
+  }
+  .selected-ward-panel .ward-context header {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.ward-detail-page .screening-limit {
+  grid-column: 1;
+  margin-block: 0 8px;
+}
+.ward-detail-page .brief-actions {
+  grid-row: 1 / span 6;
+}

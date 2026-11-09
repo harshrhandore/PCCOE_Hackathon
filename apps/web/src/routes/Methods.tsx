@@ -213,8 +213,8 @@ export default function Methods({ data }: { data: Dataset }) {
               retains the source attribution and share-alike notice.
             </p>
             <p>
-              Fonts: Newsreader, Atkinson Hyperlegible Next, Noto Sans/Serif
-              Devanagari, SIL OFL; system monospace for numeric tables. React MIT; MapLibre
+              Fonts: Atkinson Hyperlegible Next and Noto Sans Devanagari, SIL
+              OFL; system monospace for numeric tables. React MIT; MapLibre
               BSD-3-Clause; thermofeel Apache-2.0; pythermalcomfort MIT. Full
               dependency inventory and redistribution notices are in the
               repository.

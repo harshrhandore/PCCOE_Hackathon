@@ -15,7 +15,7 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
     page.getByRole("heading", { name: "Ward heat outlook", exact: true }),
   ).toBeVisible({ timeout: 30000 });
   await expect(
-    page.getByRole("heading", { name: "Ward watch", exact: true }),
+    page.getByRole("heading", { name: "All wards", exact: true }),
   ).toBeVisible();
   await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
@@ -27,6 +27,9 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
   await expect(
     page.getByRole("button", { name: "Cooling refuges", exact: true }),
   ).toHaveCount(0);
+  await page
+    .getByText("Why this level? Methods & limits", { exact: true })
+    .click();
   await page.getByText("Why this level", { exact: true }).click();
   await expect(page.getByText("UTCI_BASE", { exact: true })).toBeVisible();
   expect(hourlyRequests).toEqual([]);
@@ -47,7 +50,7 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
     path: `../../reports/visual/overview-${testInfo.project.name}.png`,
     fullPage: true,
   });
-  const source = page.locator(".bulletin-sentence .source-chip");
+  const source = page.locator(".workspace-heading .source-chip");
   await source.click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
@@ -62,7 +65,7 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
   expect(serious).toEqual([]);
   await page
     .locator(".ward-context")
-    .getByRole("link", { name: "Full ward bulletin →" })
+    .getByRole("link", { name: "Review ward & actions →" })
     .click();
   await expect(page).toHaveURL(/\/ward\/pune-2022-/);
   await page.reload();
@@ -158,4 +161,34 @@ test("invalid ward and unconfigured subscription remain honest", async ({
   await expect(
     page.getByRole("button", { name: "Continue to Telegram", exact: true }),
   ).toHaveCount(0);
+});
+
+test("ward detail keeps evidence optional and reflows with accessible actions", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("link", { name: "Review ward & actions \u2192", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Download planning brief", exact: true }),
+  ).toBeEnabled();
+  await expect(
+    page.getByRole("slider", { name: "Hourly UTCI timeline", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".technical-evidence")).not.toHaveAttribute("open");
+  await expect(page.getByText("UTCI_BASE", { exact: true })).not.toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+  ).toBe(false);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .analyze();
+  expect(
+    audit.violations.filter((v) =>
+      ["critical", "serious"].includes(v.impact || ""),
+    ),
+  ).toEqual([]);
 });

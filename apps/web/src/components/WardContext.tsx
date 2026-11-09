@@ -62,38 +62,62 @@ export default function WardContext({
       {!full && (
         <header>
           <p className="eyebrow">
-            PRABHAG {ward.source_ward_id} · ELECTORAL / 2022
+            Selected ward · Prabhag {ward.source_ward_id}
           </p>
           <h2>{ward.name_en}</h2>
-          <p>{row?.date} · daily heat-stress screening</p>
+          <p>{row?.date} · IST</p>
         </header>
       )}
       {row ? (
         <>
+          {!full && (
+            <RouteLink
+              className="button wide"
+              to={`/ward/${ward.id}`}
+              params={{ ward: ward.id, date: row.date }}
+            >
+              Review ward & actions →
+            </RouteLink>
+          )}
           <Metrics row={row} />
+          {row.risk_basis === "hazard_only" && (
+            <p className="screening-limit provenance-text">
+              Weather-based screening. Population risk is not assessed.
+            </p>
+          )}
           <div className="weather-values">
             <p>
               <strong>{number(row.peak_utci)} °C</strong>
               <br />
-              Peak UTCI · {timeLabel(row.peak_utci_time)} IST
+              Thermal stress · UTCI
             </p>
             <p>
               <strong>{number(row.peak_wbgt)} °C</strong>
               <br />
-              Outdoor WBGT estimate
+              Work heat exposure · WBGT
             </p>
           </div>
-          <Rules data={data} row={row} />
-          {row.risk_basis === "hazard_only" && (
-            <p className="note">
-              Weather hazard only. Population vulnerability and allocation
-              priority are unavailable; this level is not a probability of
-              illness.
-            </p>
-          )}
-          {row.modifier_status === "unknown" && (
-            <p className="note">{t("detail.incomplete")}</p>
-          )}
+          <p className="ward-reading">
+            Peak thermal stress at{" "}
+            <strong>{timeLabel(row.peak_utci_time)} IST</strong>. Review the
+            hourly estimates before scheduling outdoor activities.
+          </p>
+          <details
+            open={hourlyOpen}
+            onToggle={(event) => setHourlyOpen(event.currentTarget.open)}
+          >
+            <summary>Hour-by-hour thermal estimates</summary>
+            {hourlyOpen &&
+              (hourly.data ? (
+                <Suspense fallback={<p>Preparing hourly timeline…</p>}>
+                  <HeatRibbon data={data} hourly={hourly.data} />
+                </Suspense>
+              ) : (
+                <p>
+                  {t(hourly.isPending ? "state.fetching" : "state.wardFailed")}
+                </p>
+              ))}
+          </details>
           {full && (
             <section className="brief-actions" aria-label="Planning brief">
               <h3>Actions for local review</h3>
@@ -169,70 +193,63 @@ export default function WardContext({
               </div>
             </section>
           )}
-          {!full && (
-            <RouteLink
-              className="button wide"
-              to={`/ward/${ward.id}`}
-              params={{ ward: ward.id, date: row.date }}
-            >
-              Full ward bulletin →
-            </RouteLink>
-          )}
-          <details className="spatial-evidence">
-            <summary>Spatial coverage & limits</summary>
-            <p>
-              {peers} ward{peers === 1 ? "" : "s"} share{peers === 1 ? "s" : ""}{" "}
-              this upstream weather cell: {row.source_grid.latitude},{" "}
-              {row.source_grid.longitude}. Sampling representative ward
-              centroids does not measure street-level or individual exposure.
-            </p>
-            <p>
-              Historical 2022 electoral boundaries. Radiation and derived
-              indices are approximate. No team-trained ML model or validated
-              health benefit is claimed.
-            </p>
-            <SourceChip data={data} field={row} />
-            <RouteLink to="/methods">Methods, evidence & validation</RouteLink>
-          </details>
-          <details className="night-section">
-            <summary>Overnight relief & official-warning distinction</summary>
-            <p>
-              <strong>{number(row.night_min_t)} °C</strong> sampled night
-              minimum; threshold {number(row.night_threshold)} °C · 1991–2020
-              90th percentile.
-            </p>
-            <p className="provenance-text">
-              {row.night_period?.start.slice(0, 16).replace("T", " ")} →{" "}
-              {row.night_period?.end.slice(0, 16).replace("T", " ")} IST
-            </p>
-            <p>
-              {t(
-                row.imd_flag === "no"
-                  ? "imd.no"
-                  : row.imd_flag === "heat_wave"
-                    ? "imd.heat"
-                    : row.imd_flag === "severe_heat_wave"
-                      ? "imd.severe"
-                      : "imd.unknown",
-              )}
-            </p>
-            <p>{t("detail.imdNote")}</p>
-          </details>
-          <details
-            open={hourlyOpen}
-            onToggle={(event) => setHourlyOpen(event.currentTarget.open)}
-          >
-            <summary>Hour-by-hour thermal estimates</summary>
-            {hourlyOpen &&
-              (hourly.data ? (
-                <Suspense fallback={<p>Preparing hourly timeline…</p>}>
-                  <HeatRibbon data={data} hourly={hourly.data} />
-                </Suspense>
-              ) : (
-                <p>
-                  {t(hourly.isPending ? "state.fetching" : "state.wardFailed")}
-                </p>
-              ))}
+
+          <details className="technical-evidence">
+            <summary>Why this level? Methods &amp; limits</summary>
+            {row.risk_basis === "hazard_only" && (
+              <p className="note">
+                Weather hazard only. Population vulnerability and allocation
+                priority are unavailable; this level is not a probability of
+                illness.
+              </p>
+            )}
+            {row.modifier_status === "unknown" && (
+              <p className="note">{t("detail.incomplete")}</p>
+            )}
+            <Rules data={data} row={row} />
+            <details className="spatial-evidence">
+              <summary>Spatial coverage & limits</summary>
+              <p>
+                {peers} ward{peers === 1 ? "" : "s"} share
+                {peers === 1 ? "s" : ""} this upstream weather cell:{" "}
+                {row.source_grid.latitude}, {row.source_grid.longitude}.
+                Sampling representative ward centroids does not measure
+                street-level or individual exposure.
+              </p>
+              <p>
+                Historical 2022 electoral boundaries. Radiation and derived
+                indices are approximate. No team-trained ML model or validated
+                health benefit is claimed.
+              </p>
+              <SourceChip data={data} field={row} />
+              <RouteLink to="/methods">
+                Methods, evidence & validation
+              </RouteLink>
+            </details>
+            <details className="night-section">
+              <summary>Overnight relief & official-warning distinction</summary>
+              <p>
+                <strong>{number(row.night_min_t)} °C</strong> sampled night
+                minimum; threshold {number(row.night_threshold)} °C · 1991–2020
+                90th percentile.
+              </p>
+              <p className="provenance-text">
+                {row.night_period?.start.slice(0, 16).replace("T", " ")} →{" "}
+                {row.night_period?.end.slice(0, 16).replace("T", " ")} IST
+              </p>
+              <p>
+                {t(
+                  row.imd_flag === "no"
+                    ? "imd.no"
+                    : row.imd_flag === "heat_wave"
+                      ? "imd.heat"
+                      : row.imd_flag === "severe_heat_wave"
+                        ? "imd.severe"
+                        : "imd.unknown",
+                )}
+              </p>
+              <p>{t("detail.imdNote")}</p>
+            </details>
           </details>
         </>
       ) : (

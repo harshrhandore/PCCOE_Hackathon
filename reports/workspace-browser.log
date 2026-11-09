@@ -1,0 +1,38 @@
+
+Running 24 tests using 1 worker
+
+(node:29624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [phone] › tests\e2e\app.spec.ts:3:1 › real static bulletin, ward path, methods, mobile reflow and accessibility (6.2s)
+  ok  2 [phone] › tests\e2e\app.spec.ts:84:1 › authority needs no account; local independent approval simulates only (1.7s)
+  ok  3 [phone] › tests\e2e\app.spec.ts:145:1 › invalid ward and unconfigured subscription remain honest (821ms)
+  ok  4 [phone] › tests\e2e\app.spec.ts:166:1 › ward detail keeps evidence optional and reflows with accessible actions (2.3s)
+  ok  5 [phone] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward (2.9s)
+  ok  6 [phone] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls (1.7s)
+(node:26952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [tablet] › tests\e2e\app.spec.ts:3:1 › real static bulletin, ward path, methods, mobile reflow and accessibility (6.4s)
+  -   8 [tablet] › tests\e2e\app.spec.ts:84:1 › authority needs no account; local independent approval simulates only
+  ok  9 [tablet] › tests\e2e\app.spec.ts:145:1 › invalid ward and unconfigured subscription remain honest (877ms)
+  ok 10 [tablet] › tests\e2e\app.spec.ts:166:1 › ward detail keeps evidence optional and reflows with accessible actions (2.7s)
+  -  11 [tablet] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward
+  -  12 [tablet] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls
+(node:26840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 13 [desktop] › tests\e2e\app.spec.ts:3:1 › real static bulletin, ward path, methods, mobile reflow and accessibility (7.0s)
+  ok 14 [desktop] › tests\e2e\app.spec.ts:84:1 › authority needs no account; local independent approval simulates only (2.0s)
+  ok 15 [desktop] › tests\e2e\app.spec.ts:145:1 › invalid ward and unconfigured subscription remain honest (845ms)
+  ok 16 [desktop] › tests\e2e\app.spec.ts:166:1 › ward detail keeps evidence optional and reflows with accessible actions (2.4s)
+  ok 17 [desktop] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward (3.2s)
+  ok 18 [desktop] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls (1.9s)
+(node:14744) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 19 [wide] › tests\e2e\app.spec.ts:3:1 › real static bulletin, ward path, methods, mobile reflow and accessibility (6.4s)
+  -  20 [wide] › tests\e2e\app.spec.ts:84:1 › authority needs no account; local independent approval simulates only
+  ok 21 [wide] › tests\e2e\app.spec.ts:145:1 › invalid ward and unconfigured subscription remain honest (960ms)
+  ok 22 [wide] › tests\e2e\app.spec.ts:166:1 › ward detail keeps evidence optional and reflows with accessible actions (2.6s)
+  -  23 [wide] › tests\e2e\planning.spec.ts:4:1 › planner retains ward/date, exports a sourced brief and computes only the requested ward
+  -  24 [wide] › tests\e2e\planning.spec.ts:100:1 › evidence audit and guided historical case expose limits without unavailable feature controls
+
+  6 skipped
+  18 passed (1.0m)

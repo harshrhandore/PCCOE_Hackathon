@@ -125,16 +125,14 @@ export default function App() {
       <header className="global-header">
         <div className="header-inner">
           <RouteLink to="/" className="brand">
-            <img src="/icons/logo-mark.svg" width="38" height="42" alt="" />
+            <span className="brand-symbol" aria-hidden="true">
+              H<span />
+            </span>
             <span>
               <strong>HeatGuard</strong>
               <small>Heat-stress planning for Pune.</small>
             </span>
           </RouteLink>
-          <div className="header-edition">
-            <span className="eyebrow">LOCAL HEAT-ACTION PLANNING</span>
-            <span>Physics + transparent rules · research prototype</span>
-          </div>
           <div className="header-controls">
             <div
               role="group"
@@ -194,7 +192,7 @@ export default function App() {
               <RouteLink to="/status">Data & service status</RouteLink>
             </div>
           </details>
-          <span className="nav-edition">PCCOE GRAND CHALLENGE 2026</span>
+          <span className="nav-edition">Research prototype</span>
         </nav>
       </header>
       <div className="status-region" role="status" aria-live="polite">

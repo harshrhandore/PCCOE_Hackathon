@@ -1,0 +1,69 @@
+
+> heatguard-ai@0.1.0 build
+> npm run build --workspace apps/web
+
+
+> @heatguard/web@0.1.0 build
+> tsc -b && vite build
+
+vite v8.3.6 building client environment for production...
+transforming...
+✓ 220 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                             1.82 kB │ gzip:   0.72 kB
+dist/assets/noto-sans-devanagari-latin-ext-400-normal-BnQrAETZ.woff2        6.39 kB
+dist/assets/noto-sans-devanagari-latin-ext-400-normal-Bs32KOJx.woff         8.31 kB
+dist/assets/noto-sans-devanagari-latin-400-normal-BuiDGFlU.woff2           10.51 kB
+dist/assets/atkinson-hyperlegible-next-latin-400-normal-FfmJh7DR.woff2     12.09 kB
+dist/assets/atkinson-hyperlegible-next-latin-600-normal-BBuhw47K.woff2     12.67 kB
+dist/assets/noto-sans-devanagari-latin-400-normal-Bl6wi1XD.woff            13.43 kB
+dist/assets/atkinson-hyperlegible-next-latin-400-normal-DPp7N0cD.woff      14.94 kB
+dist/assets/atkinson-hyperlegible-next-latin-600-normal-BhgCag5w.woff      15.61 kB
+dist/assets/noto-sans-devanagari-devanagari-400-normal-BlDd6KY1.woff2      50.41 kB
+dist/assets/noto-sans-devanagari-devanagari-400-normal-CdOJmQ4E.woff       68.46 kB
+dist/assets/index-DgFK20Op.css                                             49.26 kB │ gzip:  10.82 kB
+dist/assets/maplibre-gl-qvkd0SPb.css                                       71.33 kB │ gzip:  10.25 kB
+dist/assets/WardDetail-CwYqlWxk.js                                          0.76 kB │ gzip:   0.48 kB
+dist/assets/Subscribe-CKisk_98.js                                           0.82 kB │ gzip:   0.50 kB
+dist/assets/preload-helper-7y9sWmk5.js                                      1.61 kB │ gzip:   0.82 kB
+dist/assets/planning-yXoD1QXy.js                                            2.31 kB │ gzip:   1.34 kB
+dist/assets/Presenter-BtHXAtPR.js                                           2.86 kB │ gzip:   1.32 kB
+dist/assets/Status-C77ZRZJl.js                                              3.11 kB │ gzip:   1.22 kB
+dist/assets/HeatRibbon-B5RwxfJu.js                                          3.25 kB │ gzip:   1.53 kB
+dist/assets/client-ROaW9hXN.js                                              3.49 kB │ gzip:   1.66 kB
+dist/assets/WardMap-CKG_b7VB.js                                             4.61 kB │ gzip:   2.18 kB
+dist/assets/Shared-De4m0aAk.js                                              5.31 kB │ gzip:   1.92 kB
+dist/assets/Worker-CgBmOLWV.js                                              5.88 kB │ gzip:   2.35 kB
+dist/assets/jsx-runtime-BIUEfZIL.js                                         7.65 kB │ gzip:   2.94 kB
+dist/assets/Scenarios-BIbguaVa.js                                           9.58 kB │ gzip:   3.47 kB
+dist/assets/Methods-G_-EU6jK.js                                            13.44 kB │ gzip:   5.06 kB
+dist/assets/Authority-CFovLN_U.js                                          21.89 kB │ gzip:   7.07 kB
+dist/assets/useQuery-BsvmDqzF.js                                           22.92 kB │ gzip:   7.62 kB
+dist/assets/mr-DIXXotIU.js                                                 23.31 kB │ gzip:   6.49 kB
+dist/assets/hi-C31XW0-0.js                                                 23.40 kB │ gzip:   6.49 kB
+dist/assets/d3-geo-DBw7Fh_e.js                                             34.28 kB │ gzip:  12.50 kB
+dist/assets/SourceDialog-PiNgFJcc.js                                       40.10 kB │ gzip:  13.53 kB
+dist/assets/state-BLy7F87f.js                                              42.62 kB │ gzip:  15.53 kB
+dist/assets/useTranslation-BvUY1xT2.js                                     52.87 kB │ gzip:  17.33 kB
+dist/assets/index-DhMjr5jv.js                                             221.46 kB │ gzip:  70.95 kB
+dist/assets/HourlyChart-Dz4OnGY3.js                                       241.53 kB │ gzip:  80.22 kB
+dist/assets/maplibre-gl-DR8VtiS2.js                                     1,062.90 kB │ gzip: 288.21 kB
+
+✓ built in 4.02s
+node.exe : [PLUGIN_TIMINGS] JavaScript callbacks ran for 3.3s of this 4.0s build (83%).
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\Lenovo\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([PLUGIN_TI...0s build (83%).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits 
+is included):
+  - plugin vite:prepare-out-dir renderStart (54%, 2.2s, 1 call)
+Additional callback time came from the callbacks below and from callbacks under 1s.
+2 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other 
+calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin vite:css transform (6 calls)
+  - plugin @tailwindcss/vite:generate:build transform (6 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
