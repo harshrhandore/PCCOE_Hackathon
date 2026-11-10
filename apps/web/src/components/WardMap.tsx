@@ -19,6 +19,7 @@ export default function WardMap({
 }) {
   const { t } = useTranslation();
   const geometry = useGeometry(data);
+  const [zoom, setZoom] = useState(1);
   const [basemap, setBasemap] = useState(false);
   const [mapError, setMapError] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -92,13 +93,27 @@ export default function WardMap({
         <span className="eyebrow">PUNE MUNICIPAL CORPORATION</span>
         <span>2022 BOUNDARIES</span>
       </div>
-      <div className="map-stage">
+      <div className="map-zoom" role="group" aria-label="Map zoom">
+        <button onClick={() => setZoom((z) => Math.min(3, z + 0.5))}>
+          Zoom in
+        </button>
+        <button onClick={() => setZoom((z) => Math.max(1, z - 0.5))}>
+          Zoom out
+        </button>
+        <button onClick={() => setZoom(1)}>Reset</button>
+      </div>
+      <div className="map-stage" style={{ overflow: "auto" }}>
         {geometry.isPending ? (
           <div className="skeleton map" />
         ) : geometry.isError ? (
           <p>{t("state.tileFallback")}</p>
         ) : (
           <svg
+            style={{
+              width: `${zoom * 100}%`,
+              maxWidth: "none",
+              maxHeight: "none",
+            }}
             viewBox="0 0 600 610"
             aria-label="Historical Pune electoral ward polygons"
             role="img"

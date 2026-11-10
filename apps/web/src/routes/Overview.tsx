@@ -1,7 +1,7 @@
 import { lazy, Suspense, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Dataset } from "../data/types";
-import { RiskChip, Legend, DateTabs, SourceChip } from "../components/Shared";
+import { Legend, DateTabs, SourceChip } from "../components/Shared";
 import WardContext from "../components/WardContext";
 import DeferredContent from "../components/DeferredContent";
 import { number, usePreferences } from "../lib/state";
@@ -25,6 +25,7 @@ export default function Overview({
   update: (v: Record<string, string>) => void;
 }) {
   const { t } = useTranslation();
+  const [view, setView] = useState("ward");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("risk");
   const prefs = usePreferences();
@@ -44,6 +45,7 @@ export default function Overview({
     data.registry.wards.find((w) => w.id === prefs.ward) ||
     data.registry.wards[0];
   const select = (ward: string) => {
+    setView("ward");
     prefs.set("ward", ward);
     update({ ward });
   };
@@ -158,11 +160,21 @@ export default function Overview({
         </p>
       )}
       <nav className="workspace-jumps" aria-label="Workspace sections">
-        <a href="#selected-ward">Selected ward</a>
-        <a href="#city-map">City map</a>
-        <a href="#ward-list">All wards</a>
+        {[
+          ["ward", "Selected ward"],
+          ["map", "City map"],
+          ["list", "All wards"],
+        ].map(([key, label]) => (
+          <button
+            key={key}
+            aria-pressed={view === key}
+            onClick={() => setView(key)}
+          >
+            {label}
+          </button>
+        ))}
       </nav>
-      <div className="overview-grid">
+      <div className={`overview-grid view-${view}`}>
         <section
           className="ward-ranking"
           id="ward-list"
@@ -220,8 +232,21 @@ export default function Overview({
                             <strong>{w.name_en}</strong>
                             <small>Peak UTCI {number(row?.peak_utci)} °C</small>
                           </span>
-                          <span className="ward-level">
-                            <RiskChip level={row?.risk_level ?? null} />
+                          <span
+                            className={`ward-number level-${row?.risk_level ?? "unknown"}`}
+                            role="img"
+                            aria-label={
+                              row?.risk_level == null
+                                ? "Level unavailable"
+                                : t(`level.${row.risk_level}`)
+                            }
+                            title={
+                              row?.risk_level == null
+                                ? "Level unavailable"
+                                : t(`level.${row.risk_level}`)
+                            }
+                          >
+                            {row?.risk_level ?? "?"}
                           </span>
                         </button>
                       );

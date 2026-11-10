@@ -70,14 +70,22 @@ export default function WardContext({
       )}
       {row ? (
         <>
-          {!full && (
-            <RouteLink
-              className="button wide"
-              to={`/ward/${ward.id}`}
-              params={{ ward: ward.id, date: row.date }}
-            >
-              Review ward & actions →
-            </RouteLink>
+          {full && (
+            <section className="print-provenance">
+              <p>
+                HeatGuard planning brief: {ward.name_en} / {row.date} IST
+              </p>
+              <p>
+                Saved estimates published {data.manifest.meta.issued_at}.
+                Snapshot: {data.manifest.snapshot_id}.
+              </p>
+              <p>
+                Open-Meteo weather; DataMeet historical 2022 electoral
+                boundaries. Research screening, not an official warning.
+                Population risk and health benefits are not validated. Confirm
+                current conditions and responsible-owner capacity before acting.
+              </p>
+            </section>
           )}
           <Metrics row={row} />
           {row.risk_basis === "hazard_only" && (
@@ -97,11 +105,33 @@ export default function WardContext({
               Work heat exposure · WBGT
             </p>
           </div>
+          <p className="rule-explanation">
+            {row.hazard_rule_fired
+              .filter((r) => r.status === "fired" && r.id !== "UTCI_BASE")
+              .map((r) =>
+                r.id.startsWith("PERSISTENCE")
+                  ? "Persistent elevated heat raises the daily screening level. "
+                  : r.id.startsWith("NIGHT")
+                    ? "Limited overnight cooling raises the daily screening level. "
+                    : "An additional screening rule applies. ",
+              )
+              .join("") ||
+              "The daily screening level follows the peak thermal-stress category."}
+          </p>
           <p className="ward-reading">
             Peak thermal stress at{" "}
             <strong>{timeLabel(row.peak_utci_time)} IST</strong>. Review the
             hourly estimates before scheduling outdoor activities.
           </p>
+          {!full && (
+            <RouteLink
+              className="button wide"
+              to={`/ward/${ward.id}`}
+              params={{ ward: ward.id, date: row.date }}
+            >
+              Review ward & actions →
+            </RouteLink>
+          )}
           <details
             open={hourlyOpen}
             onToggle={(event) => setHourlyOpen(event.currentTarget.open)}
@@ -183,6 +213,7 @@ export default function WardContext({
                 >
                   Download planning brief
                 </button>
+                <button onClick={() => window.print()}>Print / save PDF</button>
                 <RouteLink
                   className="button"
                   to="/worker"

@@ -14,9 +14,13 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
   await expect(
     page.getByRole("heading", { name: "Ward heat outlook", exact: true }),
   ).toBeVisible({ timeout: 30000 });
+  if (testInfo.project.name === "phone")
+    await page.getByRole("button", { name: "All wards", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "All wards", exact: true }),
   ).toBeVisible();
+  if (testInfo.project.name === "phone")
+    await page.getByRole("button", { name: "All wards", exact: true }).click();
   await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row").first()).toBeVisible();
   await page.locator(".ward-row").nth(1).click();
@@ -44,6 +48,8 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
     () => document.documentElement.scrollWidth > innerWidth,
   );
   expect(overflow).toBe(false);
+  if (testInfo.project.name === "phone")
+    await page.getByRole("button", { name: "City map", exact: true }).click();
   await page.locator(".map-column").scrollIntoViewIfNeeded();
   await expect(page.locator(".map-ward")).toHaveCount(58);
   await page.screenshot({
@@ -63,6 +69,10 @@ test("real static bulletin, ward path, methods, mobile reflow and accessibility"
     ["critical", "serious"].includes(v.impact || ""),
   );
   expect(serious).toEqual([]);
+  if (testInfo.project.name === "phone")
+    await page
+      .getByRole("button", { name: "Selected ward", exact: true })
+      .click();
   await page
     .locator(".ward-context")
     .getByRole("link", { name: "Review ward & actions →" })

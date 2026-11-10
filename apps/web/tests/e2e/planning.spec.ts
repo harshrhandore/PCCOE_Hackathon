@@ -132,6 +132,8 @@ test("evidence audit and guided historical case expose limits without unavailabl
     .click();
   await expect(page).toHaveURL(/mode=replay/);
   await expect(page.locator(".simulation-banner")).toContainText("Replay");
+  if (info.project.name === "phone")
+    await page.getByRole("button", { name: "All wards", exact: true }).click();
   await page.locator("#ward-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".ward-row")).toHaveCount(58);
 });

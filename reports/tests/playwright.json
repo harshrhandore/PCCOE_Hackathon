@@ -7,9 +7,7 @@
       "app.spec.ts",
       "planning.spec.ts",
       "--project=phone",
-      "--project=desktop",
-      "--project=tablet",
-      "--project=wide"
+      "--project=desktop"
     ],
     "configFile": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\playwright.config.ts",
     "rootDir": "C:/Users/Lenovo/Desktop/PCCOE_Hackathon/apps/web/tests/e2e",
@@ -131,35 +129,6 @@
         "metadata": {
           "actualWorkers": 1
         },
-        "name": "tablet",
-        "testDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
-        "snapshotDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
-        "testIgnore": [],
-        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
-        "timeout": 120000,
-        "use": {
-          "baseURL": "http://127.0.0.1:8081",
-          "headless": true,
-          "trace": "retain-on-failure",
-          "screenshot": "only-on-failure",
-          "viewport": {
-            "width": 768,
-            "height": 1024
-          }
-        },
-        "dependencies": [],
-        "ignoreSnapshots": false,
-        "__projectId": "tablet"
-      },
-      {
-        "grep": {},
-        "grepInvert": null,
-        "outputDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 1
-        },
         "name": "desktop",
         "testDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
         "snapshotDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
@@ -179,35 +148,6 @@
         "dependencies": [],
         "ignoreSnapshots": false,
         "__projectId": "desktop"
-      },
-      {
-        "grep": {},
-        "grepInvert": null,
-        "outputDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 1
-        },
-        "name": "wide",
-        "testDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
-        "snapshotDir": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e",
-        "testIgnore": [],
-        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
-        "timeout": 120000,
-        "use": {
-          "baseURL": "http://127.0.0.1:8081",
-          "headless": true,
-          "trace": "retain-on-failure",
-          "screenshot": "only-on-failure",
-          "viewport": {
-            "width": 1920,
-            "height": 1080
-          }
-        },
-        "dependencies": [],
-        "ignoreSnapshots": false,
-        "__projectId": "wide"
       }
     ],
     "quiet": false,
@@ -258,35 +198,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6173,
+                  "duration": 4560,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:38.246Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 6395,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:14:55.806Z",
+                  "startTime": "2026-11-10T04:53:58.905Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -301,38 +218,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7002,
+                  "duration": 5956,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:08.308Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 6399,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:27.508Z",
+                  "startTime": "2026-11-10T04:54:14.086Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -361,60 +255,17 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1713,
+                  "duration": 1465,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:44.706Z",
+                  "startTime": "2026-11-10T04:54:03.746Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Authority primary path covered at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                    "line": 87,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 231,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:02.477Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Authority primary path covered at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                        "line": 87,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             },
             {
               "timeout": 120000,
@@ -424,68 +275,25 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2006,
+                  "duration": 1711,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:15.577Z",
+                  "startTime": "2026-11-10T04:54:20.307Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Authority primary path covered at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                    "line": 87,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 278,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:34.189Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Authority primary path covered at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\app.spec.ts",
-                        "line": 87,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             }
           ],
           "id": "c31ff144dc4fee3acd0a-8c447f423baaa967f348",
           "file": "app.spec.ts",
-          "line": 84,
+          "line": 94,
           "column": 1
         },
         {
@@ -504,35 +312,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 821,
+                  "duration": 717,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:46.459Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 877,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:02.731Z",
+                  "startTime": "2026-11-10T04:54:05.241Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -547,38 +332,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 845,
+                  "duration": 840,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:17.620Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 960,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:34.502Z",
+                  "startTime": "2026-11-10T04:54:22.041Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -588,7 +350,7 @@
           ],
           "id": "c31ff144dc4fee3acd0a-ee6788d7b8f503f42305",
           "file": "app.spec.ts",
-          "line": 145,
+          "line": 155,
           "column": 1
         },
         {
@@ -607,35 +369,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2329,
+                  "duration": 2358,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:47.310Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 2724,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:03.632Z",
+                  "startTime": "2026-11-10T04:54:05.990Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -650,38 +389,15 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2391,
+                  "duration": 3417,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:18.505Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 2623,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:35.486Z",
+                  "startTime": "2026-11-10T04:54:22.904Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -691,7 +407,7 @@
           ],
           "id": "c31ff144dc4fee3acd0a-37245a7d1c344b3eead2",
           "file": "app.spec.ts",
-          "line": 166,
+          "line": 176,
           "column": 1
         }
       ]
@@ -718,60 +434,17 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2895,
+                  "duration": 2641,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:49.697Z",
+                  "startTime": "2026-11-10T04:54:08.393Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Primary planning journey at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                    "line": 7,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 208,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:06.414Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Primary planning journey at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                        "line": 7,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             },
             {
               "timeout": 120000,
@@ -781,63 +454,20 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3178,
+                  "duration": 3446,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:20.956Z",
+                  "startTime": "2026-11-10T04:54:26.379Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Primary planning journey at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                    "line": 7,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 214,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:38.167Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Primary planning journey at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                        "line": 7,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             }
           ],
           "id": "8b0549e55fb6efa6229e-7b25adeff089aa81f2cb",
@@ -861,60 +491,17 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1719,
+                  "duration": 1617,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:14:52.616Z",
+                  "startTime": "2026-11-10T04:54:11.053Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Evidence and case study at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                    "line": 103,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "tablet",
-              "projectName": "tablet",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 192,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:06.647Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Evidence and case study at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                        "line": 103,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             },
             {
               "timeout": 120000,
@@ -924,63 +511,20 @@
               "projectName": "desktop",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1883,
+                  "duration": 1958,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-09T18:15:24.159Z",
+                  "startTime": "2026-11-10T04:54:29.846Z",
                   "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            },
-            {
-              "timeout": 120000,
-              "annotations": [
-                {
-                  "type": "skip",
-                  "description": "Evidence and case study at 360 and 1280",
-                  "location": {
-                    "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                    "line": 103,
-                    "column": 8
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "wide",
-              "projectName": "wide",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 256,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-09T18:15:38.405Z",
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Evidence and case study at 360 and 1280",
-                      "location": {
-                        "file": "C:\\Users\\Lenovo\\Desktop\\PCCOE_Hackathon\\apps\\web\\tests\\e2e\\planning.spec.ts",
-                        "line": 103,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
             }
           ],
           "id": "8b0549e55fb6efa6229e-2f9f7fdf19630f9188dc",
@@ -993,10 +537,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-09T18:14:36.456Z",
-    "duration": 62417.15700000001,
-    "expected": 18,
-    "skipped": 6,
+    "startTime": "2026-11-10T04:53:57.420Z",
+    "duration": 34603.138999999996,
+    "expected": 12,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }

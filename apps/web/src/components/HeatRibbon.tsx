@@ -53,7 +53,75 @@ export default function HeatRibbon({
         );
   return (
     <section className="heat-ribbon">
-      <h3>Five days, hour by hour</h3>
+      <h3>{selectedDate} thermal stress</h3>
+      <svg
+        viewBox="0 0 480 170"
+        role="group"
+        aria-label="Selected-day UTCI curve; inspect exact samples with the slider or data table"
+      >
+        {[0, 6, 12, 18, 23].map((h) => (
+          <text key={h} x={30 + h * 18} y={163} fontSize="11">
+            {h}:00
+          </text>
+        ))}
+        {cells
+          .filter((c) => c.date === selectedDate)
+          .map((c, i, day) => {
+            const values = day
+              .map((d) => d.value)
+              .filter((v): v is number => v !== null);
+            const low = Math.min(...values) - 2,
+              span = Math.max(4, Math.max(...values) - low + 2);
+            const y = (v: number) => 140 - ((v - low) / span) * 120;
+            const prev = day[i - 1];
+            return c.value === null ? null : (
+              <g
+                key={c.hour}
+                role="button"
+                tabIndex={0}
+                aria-label={`${c.hour}:00 IST bin: ${number(c.value)} degrees UTCI`}
+                onClick={() => setIndex(days.indexOf(c.date) * 24 + c.hour)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setIndex(days.indexOf(c.date) * 24 + c.hour);
+                  }
+                }}
+              >
+                {prev?.value != null && (
+                  <line
+                    x1={30 + (i - 1) * 18}
+                    x2={30 + i * 18}
+                    y1={y(prev.value)}
+                    y2={y(c.value)}
+                    stroke="var(--link)"
+                    strokeWidth="2"
+                  />
+                )}
+                <circle
+                  cx={30 + i * 18}
+                  cy={y(c.value)}
+                  r="3"
+                  fill="var(--link)"
+                >
+                  <title>
+                    {c.hour}:00 IST: {number(c.value)} degrees UTCI
+                  </title>
+                </circle>
+                {c.value === Math.max(...values) && (
+                  <text
+                    x={Math.min(390, 30 + i * 18)}
+                    y={y(c.value) - 10}
+                    fontSize="12"
+                  >
+                    Peak {number(c.value)} C
+                  </text>
+                )}
+              </g>
+            );
+          })}
+      </svg>
+      <h3>Five-day comparison</h3>
       <p className="provenance-text">
         Hourly UTCI · °C · actual source samples, IST
       </p>
